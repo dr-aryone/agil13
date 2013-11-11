@@ -1,5 +1,6 @@
 package kth.game.othello;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,17 +14,19 @@ class ClassicOthello implements Othello {
 
 	private final Map<String, Player> playerLookupMap = new HashMap<>();
 	private final Map<String, Node> nodeLookupMap = new HashMap<>();
-
 	private final Board board;
 
-	public ClassicOthello(Board board) {
+	private Player currentPlayer;
+
+	public ClassicOthello(Board board, Player playerOne, Player playerTwo) {
 		this.board = board;
+		playerLookupMap.put(playerOne.getId(), playerOne);
+		playerLookupMap.put(playerTwo.getId(), playerTwo);
 	}
 
 	@Override
 	public Board getBoard() {
-		// TODO Auto-generated method stub
-		return null;
+		return board;
 	}
 
 	@Override
@@ -34,14 +37,12 @@ class ClassicOthello implements Othello {
 
 	@Override
 	public Player getPlayerInTurn() {
-		// TODO Auto-generated method stub
-		return null;
+		return currentPlayer;
 	}
 
 	@Override
 	public List<Player> getPlayers() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<>(playerLookupMap.values());
 	}
 
 	@Override
@@ -81,7 +82,7 @@ class ClassicOthello implements Othello {
 
 	@Override
 	public void start(String playerId) {
-		// TODO Auto-generated method stub
+		currentPlayer = playerLookupMap.get(playerId);
 
 	}
 
