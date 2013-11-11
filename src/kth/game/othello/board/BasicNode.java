@@ -1,11 +1,11 @@
 package kth.game.othello.board;
 
-class BasicNode implements Node {
+public class BasicNode implements Node, Comparable<Node> {
 
 	private final String id, occupantPlayerId;
 	private final int xCoordinate, yCoordinate;
 
-	BasicNode(int xCoordinate, int yCoordinate, String id, String occupantPlayerId) {
+	public BasicNode(int xCoordinate, int yCoordinate, String id, String occupantPlayerId) {
 		this.xCoordinate = xCoordinate;
 		this.yCoordinate = yCoordinate;
 		this.id = id;
@@ -35,5 +35,21 @@ class BasicNode implements Node {
 	@Override
 	public boolean isMarked() {
 		return getOccupantPlayerId() == null;
+	}
+
+	@Override
+	public int compareTo(Node arg) {
+		if (getXCoordinate() > arg.getXCoordinate()) {
+			return 1;
+		} else if (getXCoordinate() < arg.getXCoordinate()) {
+			return -1;
+		}
+		if (getYCoordinate() > arg.getYCoordinate()) {
+			return 1;
+		} else if (getYCoordinate() < arg.getYCoordinate()) {
+			return -1;
+		}
+
+		return 0;
 	}
 }
