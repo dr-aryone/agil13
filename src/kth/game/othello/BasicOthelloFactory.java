@@ -16,7 +16,7 @@ class BasicOthelloFactory implements OthelloFactory {
 	public Othello createComputerGameOnClassicalBoard() {
 		Player whitePlayer = new ComputerPlayer("0", "WHITE");
 		Player blackPlayer = new ComputerPlayer("1", "BLACK");
-		return new ClassicOthello(generateBoard());
+		return new ClassicOthello(generateBoard(), whitePlayer, blackPlayer);
 	}
 
 	@Override
