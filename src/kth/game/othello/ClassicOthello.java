@@ -1,12 +1,24 @@
 package kth.game.othello;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 
 class ClassicOthello implements Othello {
+
+	private final Map<String, Player> playerLookupMap = new HashMap<>();
+	private final Map<String, Node> nodeLookupMap = new HashMap<>();
+
+	private final Board board;
+
+	public ClassicOthello(Board board) {
+		this.board = board;
+	}
 
 	@Override
 	public Board getBoard() {
@@ -64,8 +76,7 @@ class ClassicOthello implements Othello {
 
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
-
+		start(randomPlayer().getId());
 	}
 
 	@Override
@@ -74,4 +85,9 @@ class ClassicOthello implements Othello {
 
 	}
 
+	private Player randomPlayer() {
+		Random r = new Random();
+		Player[] players = playerLookupMap.values().toArray(new Player[0]);
+		return players[r.nextInt(players.length)];
+	}
 }
