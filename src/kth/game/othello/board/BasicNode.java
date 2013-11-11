@@ -1,35 +1,39 @@
 package kth.game.othello.board;
 
-public class BasicNode implements Node {
+class BasicNode implements Node {
+
+	private final String id, occupantPlayerId;
+	private final int xCoordinate, yCoordinate;
+
+	BasicNode(int xCoordinate, int yCoordinate, String id, String occupantPlayerId) {
+		this.xCoordinate = xCoordinate;
+		this.yCoordinate = yCoordinate;
+		this.id = id;
+		this.occupantPlayerId = occupantPlayerId;
+	}
 
 	@Override
 	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return id;
 	}
 
 	@Override
 	public String getOccupantPlayerId() {
-		// TODO Auto-generated method stub
-		return null;
+		return occupantPlayerId;
 	}
 
 	@Override
 	public int getXCoordinate() {
-		// TODO Auto-generated method stub
-		return 0;
+		return xCoordinate;
 	}
 
 	@Override
 	public int getYCoordinate() {
-		// TODO Auto-generated method stub
-		return 0;
+		return yCoordinate;
 	}
 
 	@Override
 	public boolean isMarked() {
-		// TODO Auto-generated method stub
-		return false;
+		return getOccupantPlayerId() == null;
 	}
-
 }
