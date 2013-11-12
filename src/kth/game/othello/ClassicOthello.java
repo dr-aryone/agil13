@@ -114,7 +114,11 @@ class ClassicOthello implements Othello {
 
 	@Override
 	public boolean isActive() {
-		// TODO Auto-generated method stub
+		for (Node node : board.getNodes()) {
+			if (!node.isMarked()) {
+				return true;
+			}
+		}
 		return false;
 	}
 
