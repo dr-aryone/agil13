@@ -1,8 +1,8 @@
 package kth.game.othello.player;
 
-class HumanPlayer extends AbstractPlayer {
+public class HumanPlayer extends AbstractPlayer {
 
-	HumanPlayer(String id, String name) {
+	public HumanPlayer(String id, String name) {
 		super(id, name, Player.Type.HUMAN);
 	}
 
