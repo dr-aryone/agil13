@@ -1,6 +1,7 @@
 package kth.game.othello;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -32,8 +33,64 @@ class ClassicOthello implements Othello {
 
 	@Override
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
-		// TODO Auto-generated method stub
+		List<Node> nodesToSwap = new ArrayList<>();
+		for (Direction direction : Direction.values())
+			nodesToSwap.addAll(getNodesToSwapInOneDirection(playerId, nodeId, direction));
+		return nodesToSwap;
+	}
+
+	private List<Node> getNodesToSwapInOneDirection(String playerId, String nodeId, Direction direction) {
+		List<Node> nodesToSwap = new ArrayList<>();
+
+		Node startNode = nodeLookupMap.get(nodeId);
+		Node current = step(startNode, direction);
+
+		while (current != null && current.isMarked()) {
+			if (current.getOccupantPlayerId().equals(playerId))
+				return nodesToSwap;
+			nodesToSwap.add(current);
+			current = step(current, direction);
+		}
+
+		return Collections.emptyList();
+
+	}
+
+	private Node step(Node node, Direction direction) {
+		return findNode(node.getXCoordinate() + direction.getXDirection(),
+				node.getYCoordinate() + direction.getYDirection());
+	}
+
+	private Node findNode(int x, int y) {
+		return findNode(board, x, y);
+	}
+
+	static Node findNode(Board board, int x, int y) {
+		for (Node node : board.getNodes()) {
+			if (node.getXCoordinate() == x && node.getYCoordinate() == y)
+				return node;
+		}
 		return null;
+	}
+
+	private enum Direction {
+		NORTH_WEST(-1, -1), NORTH(0, -1), NORTH_EAST(1, -1), WEST(-1, 0), EAST(1, 0), SOUTH_WEST(-1, 1), SOUTH(0, 1), SOUTH_EAST(
+				1, 1);
+		private final int xDirection, yDirection;
+
+		Direction(int xDirection, int yDirection) {
+			this.xDirection = xDirection;
+			this.yDirection = yDirection;
+		}
+
+		public int getYDirection() {
+			return yDirection;
+		}
+
+		public int getXDirection() {
+			return xDirection;
+		}
+
 	}
 
 	@Override
