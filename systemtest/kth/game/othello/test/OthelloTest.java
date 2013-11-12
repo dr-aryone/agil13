@@ -61,10 +61,9 @@ public class OthelloTest extends TestCase {
 			}
 		}
 
-		List<Node> moves = othello.move(othello.getPlayerInTurn().getId(), nodeToPlace.getId());
+		List<Node> moves = othello.getNodesToSwap(othello.getPlayerInTurn().getId(), nodeToPlace.getId());
 
-		assertEquals(moves.size(), 2);
-		assertTrue(moves.contains(nodeToPlace));
+		assertEquals(moves.size(), 1);
 		assertTrue(moves.contains(swapNode));
 	}
 }
