@@ -104,7 +104,11 @@ class ClassicOthello implements Othello {
 
 	@Override
 	public boolean hasValidMove(String playerId) {
-		// TODO Auto-generated method stub
+		for (Node node : board.getNodes()) {
+			if (!node.isMarked() && !getNodesToSwap(playerId, node.getId()).isEmpty()) {
+				return true;
+			}
+		}
 		return false;
 	}
 
