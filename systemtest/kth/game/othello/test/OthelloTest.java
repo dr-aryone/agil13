@@ -41,5 +41,9 @@ public class OthelloTest extends TestCase {
 		assertTrue(nodes.get(3 * 8 + 4).isMarked());
 		assertTrue(nodes.get(4 * 8 + 3).isMarked());
 		assertTrue(nodes.get(4 * 8 + 4).isMarked());
+		assertFalse(nodes.get(5 * 8 + 3).isMarked());
+		assertFalse(nodes.get(3 * 8 + 7).isMarked());
+		assertFalse(nodes.get(1 * 8 + 3).isMarked());
+		assertFalse(nodes.get(2 * 8 + 4).isMarked());
 	}
 }
