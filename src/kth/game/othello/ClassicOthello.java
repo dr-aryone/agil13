@@ -105,7 +105,7 @@ class ClassicOthello implements Othello {
 	@Override
 	public boolean hasValidMove(String playerId) {
 		for (Node node : board.getNodes()) {
-			if (!node.isMarked() && !getNodesToSwap(playerId, node.getId()).isEmpty()) {
+			if (!node.isMarked() && isMoveValid(playerId, node.getId())) {
 				return true;
 			}
 		}
@@ -124,14 +124,27 @@ class ClassicOthello implements Othello {
 
 	@Override
 	public boolean isMoveValid(String playerId, String nodeId) {
-		// TODO Auto-generated method stub
-		return false;
+		return !getNodesToSwap(playerId, nodeId).isEmpty();
 	}
 
 	@Override
 	public List<Node> move() {
-		// TODO Auto-generated method stub
-		return null;
+		if (currentPlayer.getType() != Player.Type.COMPUTER) {
+			throw new IllegalStateException("Current player is not a computer");
+		}
+		return findBestMoveForCurrentPlayer();
+	}
+
+	private List<Node> findBestMoveForCurrentPlayer() {
+		List<Node> bestMove = Collections.emptyList();
+		for (Node node : board.getNodes()) {
+			List<Node> currentMove = getNodesToSwap(currentPlayer.getId(), node.getId());
+			currentMove.add(node);
+			if (currentMove.size() > bestMove.size()) {
+				bestMove = currentMove;
+			}
+		}
+		return bestMove;
 	}
 
 	@Override
