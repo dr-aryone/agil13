@@ -14,6 +14,8 @@ import kth.game.othello.player.Player;
 public class BasicOthelloFactory implements OthelloFactory {
 
 	private static final int OTHELLO_BOARD_SIDE_LENGTH = 8;
+	private static final int MIDDLE_UPPER_LEFT_X = 3;
+	private static final int MIDDLE_UPPER_LEFT_Y = MIDDLE_UPPER_LEFT_X;
 
 	@Override
 	public Othello createComputerGameOnClassicalBoard() {
@@ -38,12 +40,16 @@ public class BasicOthelloFactory implements OthelloFactory {
 
 	private Othello createOthello(Player playerOne, Player playerTwo) {
 		Board board = generateBoard();
-		addInitialBricksToBoard(board);
-		return new ClassicOthello(board, playerOne, playerTwo);
+		ClassicOthello othello = new ClassicOthello(board, playerOne, playerTwo);
+		addInitialBricksToBoard(othello, playerOne, playerTwo);
+		return othello;
 	}
 
-	private static void addInitialBricksToBoard(Board board) {
-		// TODO
+	private static void addInitialBricksToBoard(ClassicOthello othello, Player playerOne, Player playerTwo) {
+		othello.occupyNodeByPlayer(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y, playerOne);
+		othello.occupyNodeByPlayer(MIDDLE_UPPER_LEFT_X + 1, MIDDLE_UPPER_LEFT_Y, playerTwo);
+		othello.occupyNodeByPlayer(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y + 1, playerTwo);
+		othello.occupyNodeByPlayer(MIDDLE_UPPER_LEFT_X + 1, MIDDLE_UPPER_LEFT_Y + 1, playerOne);
 	}
 
 	private static Board generateBoard() {

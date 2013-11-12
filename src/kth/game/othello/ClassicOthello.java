@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import kth.game.othello.board.BasicBoard;
+import kth.game.othello.board.BasicNode;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
@@ -16,8 +18,8 @@ class ClassicOthello implements Othello {
 
 	private final Map<String, Player> playerLookupMap = new LinkedHashMap<>();
 	private final Map<String, Node> nodeLookupMap = new HashMap<>();
-	private final Board board;
 
+	private Board board;
 	private Player currentPlayer;
 
 	public ClassicOthello(Board board, Player playerOne, Player playerTwo) {
@@ -62,6 +64,17 @@ class ClassicOthello implements Othello {
 
 	private Node findNode(int x, int y) {
 		return findNode(board, x, y);
+	}
+
+	void occupyNodeByPlayer(int x, int y, Player player) {
+		occupyNodeByPlayer(findNode(x, y), player);
+	}
+
+	private void occupyNodeByPlayer(Node node, Player player) {
+		Node occupiedNode = new BasicNode(node.getXCoordinate(), node.getYCoordinate(), node.getId(), player.getId());
+		List<Node> nodes = board.getNodes();
+		nodes.set(node.getXCoordinate() * 8 + node.getYCoordinate(), occupiedNode);
+		board = new BasicBoard(nodes);
 	}
 
 	static Node findNode(Board board, int x, int y) {
