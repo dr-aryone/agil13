@@ -1,6 +1,9 @@
 package kth.game.othello.test;
 
 import junit.framework.Assert;
+import kth.game.othello.BasicOthelloFactory;
+import kth.game.othello.Othello;
+import kth.game.othello.OthelloFactory;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
@@ -8,6 +11,7 @@ import kth.game.othello.player.Player.Type;
 import org.junit.Test;
 
 public class OthelloLab1IT {
+	
 	/*
 
 	private Object getNumberOfOccupiedNodes(Othello othello) {
@@ -21,7 +25,7 @@ public class OthelloLab1IT {
 	}
 
 	private OthelloFactory getOthelloFactory() {
-		return null;
+		return new BasicOthelloFactory();
 	}
 
 	private void makeAHumanMove(Othello othello, Player human) {
