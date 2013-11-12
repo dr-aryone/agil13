@@ -43,13 +43,12 @@ class ClassicOthello implements Othello {
 		List<Node> nodesToSwap = new ArrayList<>();
 
 		Node startNode = nodeLookupMap.get(nodeId);
-		Node current = step(startNode, direction);
 
-		while (current != null && current.isMarked()) {
+		for (Node current = step(startNode, direction); current != null && current.isMarked(); current = step(current,
+				direction)) {
 			if (current.getOccupantPlayerId().equals(playerId))
 				return nodesToSwap;
 			nodesToSwap.add(current);
-			current = step(current, direction);
 		}
 
 		return Collections.emptyList();
