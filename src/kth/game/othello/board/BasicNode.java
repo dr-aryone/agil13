@@ -1,6 +1,6 @@
 package kth.game.othello.board;
 
-public class BasicNode implements Node, Comparable<Node> {
+public class BasicNode implements Node {
 
 	private final String id, occupantPlayerId;
 	private final int xCoordinate, yCoordinate;
@@ -38,18 +38,23 @@ public class BasicNode implements Node, Comparable<Node> {
 	}
 
 	@Override
-	public int compareTo(Node arg) {
-		if (getXCoordinate() > arg.getXCoordinate()) {
-			return 1;
-		} else if (getXCoordinate() < arg.getXCoordinate()) {
-			return -1;
-		}
-		if (getYCoordinate() > arg.getYCoordinate()) {
-			return 1;
-		} else if (getYCoordinate() < arg.getYCoordinate()) {
-			return -1;
-		}
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof BasicNode))
+			return false;
+		BasicNode b = (BasicNode) obj;
+		return getId().equals(b.getId()) && getOccupantPlayerId().equals(b.getOccupantPlayerId())
+				&& getXCoordinate() == b.getXCoordinate() && getYCoordinate() == b.getYCoordinate();
+	}
 
-		return 0;
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = result * 31 + getId().hashCode();
+		result = result * 31 + getOccupantPlayerId().hashCode();
+		result = result * 31 + getXCoordinate();
+		result = result * 31 + getYCoordinate();
+		return result;
 	}
 }
