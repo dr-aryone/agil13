@@ -14,7 +14,7 @@ import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 
-class ClassicOthello implements Othello {
+class BasicOthello implements Othello {
 
 	private final Map<String, Player> playerLookupMap = new LinkedHashMap<>();
 	private final Map<String, Node> nodeLookupMap = new HashMap<>();
@@ -22,7 +22,7 @@ class ClassicOthello implements Othello {
 	private Board board;
 	private Player currentPlayer;
 
-	public ClassicOthello(Board board, Player playerOne, Player playerTwo) {
+	public BasicOthello(Board board, Player playerOne, Player playerTwo) {
 		this.board = board;
 		playerLookupMap.put(playerOne.getId(), playerOne);
 		playerLookupMap.put(playerTwo.getId(), playerTwo);

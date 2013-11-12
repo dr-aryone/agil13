@@ -40,12 +40,12 @@ public class BasicOthelloFactory implements OthelloFactory {
 
 	private Othello createOthello(Player playerOne, Player playerTwo) {
 		Board board = generateBoard();
-		ClassicOthello othello = new ClassicOthello(board, playerOne, playerTwo);
+		BasicOthello othello = new BasicOthello(board, playerOne, playerTwo);
 		addInitialBricksToBoard(othello, playerOne, playerTwo);
 		return othello;
 	}
 
-	private static void addInitialBricksToBoard(ClassicOthello othello, Player playerOne, Player playerTwo) {
+	private static void addInitialBricksToBoard(BasicOthello othello, Player playerOne, Player playerTwo) {
 		othello.occupyNodeByPlayer(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y, playerOne);
 		othello.occupyNodeByPlayer(MIDDLE_UPPER_LEFT_X + 1, MIDDLE_UPPER_LEFT_Y, playerTwo);
 		othello.occupyNodeByPlayer(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y + 1, playerTwo);
