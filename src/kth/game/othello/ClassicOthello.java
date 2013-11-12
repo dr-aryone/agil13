@@ -138,8 +138,7 @@ class ClassicOthello implements Othello {
 	private List<Node> findBestMoveForCurrentPlayer() {
 		List<Node> bestMove = Collections.emptyList();
 		for (Node node : board.getNodes()) {
-			List<Node> currentMove = getNodesToSwap(currentPlayer.getId(), node.getId());
-			currentMove.add(node);
+			List<Node> currentMove = move(currentPlayer.getId(), node.getId());
 			if (currentMove.size() > bestMove.size()) {
 				bestMove = currentMove;
 			}
@@ -149,8 +148,12 @@ class ClassicOthello implements Othello {
 
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
+		if (!isMoveValid(playerId, nodeId)) {
+			throw new IllegalArgumentException("Move is not valid");
+		}
+		List<Node> moves = getNodesToSwap(playerId, nodeId);
+		moves.add(nodeLookupMap.get(nodeId));
+		return moves;
 	}
 
 	@Override
