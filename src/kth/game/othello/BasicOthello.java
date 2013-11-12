@@ -3,10 +3,8 @@ package kth.game.othello;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import kth.game.othello.board.BasicBoard;
 import kth.game.othello.board.BasicNode;
@@ -16,16 +14,14 @@ import kth.game.othello.player.Player;
 
 class BasicOthello implements Othello {
 
-	private final Map<String, Player> playerLookupMap = new LinkedHashMap<>();
 	private final Map<String, Node> nodeLookupMap = new HashMap<>();
 
 	private Board board;
-	private Player playerInTurn;
+	private final PlayerHandler playerHandler;
 
 	public BasicOthello(Board board, Player playerOne, Player playerTwo) {
 		this.setBoard(board);
-		playerLookupMap.put(playerOne.getId(), playerOne);
-		playerLookupMap.put(playerTwo.getId(), playerTwo);
+		playerHandler = new PlayerHandler(playerOne, playerTwo);
 		for (Node node : board.getNodes())
 			nodeLookupMap.put(node.getId(), node);
 	}
@@ -110,12 +106,12 @@ class BasicOthello implements Othello {
 
 	@Override
 	public Player getPlayerInTurn() {
-		return playerInTurn;
+		return playerHandler.getPlayerInTurn();
 	}
 
 	@Override
 	public List<Player> getPlayers() {
-		return new ArrayList<>(playerLookupMap.values());
+		return playerHandler.getAllPlayers();
 	}
 
 	@Override
@@ -149,17 +145,8 @@ class BasicOthello implements Othello {
 			throw new IllegalStateException("Current player is not a computer");
 		}
 		List<Node> bestMoveForCurrentPlayer = findBestMoveForCurrentPlayer();
-		setPlayerInTurn(getNextPlayer());
+		playerHandler.changePlayer();
 		return bestMoveForCurrentPlayer;
-	}
-
-	private Player getNextPlayer() {
-		for (String id : playerLookupMap.keySet()) {
-			if (!getPlayerInTurn().getId().equals(id)) {
-				return playerLookupMap.get(getPlayerInTurn());
-			}
-		}
-		return null;
 	}
 
 	private List<Node> findBestMoveForCurrentPlayer() {
@@ -181,32 +168,22 @@ class BasicOthello implements Othello {
 		}
 		List<Node> moves = getNodesToSwap(playerId, nodeId);
 		moves.add(nodeLookupMap.get(nodeId));
-		setPlayerInTurn(getNextPlayer());
+		playerHandler.changePlayer();
 		return moves;
 	}
 
 	@Override
 	public void start() {
-		start(randomPlayer().getId());
+		start(playerHandler.randomPlayer().getId());
 	}
 
 	@Override
 	public void start(String playerId) {
-		setPlayerInTurn(playerLookupMap.get(playerId));
+		playerHandler.setPlayerInTurn(playerId);
 
-	}
-
-	private Player randomPlayer() {
-		Random r = new Random();
-		Player[] players = playerLookupMap.values().toArray(new Player[0]);
-		return players[r.nextInt(players.length)];
 	}
 
 	private void setBoard(Board board) {
 		this.board = board;
-	}
-
-	private void setPlayerInTurn(Player playerInTurn) {
-		this.playerInTurn = playerInTurn;
 	}
 }
