@@ -56,7 +56,7 @@ public class BasicOthelloFactory implements OthelloFactory {
 		List<Node> nodes = new ArrayList<>();
 		for (int x = 0; x < OTHELLO_BOARD_SIDE_LENGTH; x++) {
 			for (int y = 0; y < OTHELLO_BOARD_SIDE_LENGTH; y++) {
-				String id = x * OTHELLO_BOARD_SIDE_LENGTH + "" + y;
+				String id = "" + x + y;
 				nodes.add(new BasicNode(x, y, id, null));
 			}
 		}
