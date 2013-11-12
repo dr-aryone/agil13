@@ -46,10 +46,10 @@ public class BasicOthelloFactory implements OthelloFactory {
 	}
 
 	private static void addInitialBricksToBoard(BasicOthello othello, Player playerOne, Player playerTwo) {
-		othello.occupyNodeByPlayer(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y, playerOne);
-		othello.occupyNodeByPlayer(MIDDLE_UPPER_LEFT_X + 1, MIDDLE_UPPER_LEFT_Y, playerTwo);
-		othello.occupyNodeByPlayer(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y + 1, playerTwo);
-		othello.occupyNodeByPlayer(MIDDLE_UPPER_LEFT_X + 1, MIDDLE_UPPER_LEFT_Y + 1, playerOne);
+		othello.claimNode(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y, playerOne);
+		othello.claimNode(MIDDLE_UPPER_LEFT_X + 1, MIDDLE_UPPER_LEFT_Y, playerTwo);
+		othello.claimNode(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y + 1, playerTwo);
+		othello.claimNode(MIDDLE_UPPER_LEFT_X + 1, MIDDLE_UPPER_LEFT_Y + 1, playerOne);
 	}
 
 	private static Board generateBoard() {

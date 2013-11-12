@@ -37,14 +37,12 @@ public class OthelloTest extends TestCase {
 	public void testInitialBricks() {
 		Othello othello = othelloFactory.createComputerGameOnClassicalBoard();
 		List<Node> nodes = othello.getBoard().getNodes();
-		assertTrue(nodes.get(3 * 8 + 3).isMarked());
-		assertTrue(nodes.get(3 * 8 + 4).isMarked());
-		assertTrue(nodes.get(4 * 8 + 3).isMarked());
-		assertTrue(nodes.get(4 * 8 + 4).isMarked());
-		assertFalse(nodes.get(5 * 8 + 3).isMarked());
-		assertFalse(nodes.get(3 * 8 + 7).isMarked());
-		assertFalse(nodes.get(1 * 8 + 3).isMarked());
-		assertFalse(nodes.get(2 * 8 + 4).isMarked());
+		for (Node node : nodes)
+			if (node.getXCoordinate() >= 3 && node.getXCoordinate() <= 4) {
+				if (node.getYCoordinate() >= 3 && node.getYCoordinate() <= 4)
+					assertTrue(node.isMarked());
+			} else
+				assertFalse(node.isMarked());
 	}
 
 	@Test
@@ -56,7 +54,7 @@ public class OthelloTest extends TestCase {
 			if (node.getXCoordinate() == 3 && node.getYCoordinate() == 2) {
 				nodeToPlace = node;
 			}
-			if (node.getXCoordinate() == 3 && node.getXCoordinate() == 3) {
+			if (node.getXCoordinate() == 3 && node.getYCoordinate() == 3) {
 				swapNode = node;
 			}
 		}

@@ -64,15 +64,22 @@ class BasicOthello implements Othello {
 		return findNode(getBoard(), x, y);
 	}
 
-	void occupyNodeByPlayer(int x, int y, Player player) {
-		occupyNodeByPlayer(findNode(x, y), player);
+	void claimNode(int x, int y, Player player) {
+		claimNode(findNode(x, y), player);
 	}
 
-	private void occupyNodeByPlayer(Node node, Player player) {
-		Node occupiedNode = new BasicNode(node.getXCoordinate(), node.getYCoordinate(), node.getId(), player.getId());
+	private void claimNode(Node node, Player player) {
+		setNodeOccupation(occupyNodeByPlayer(node, player));
+	}
+
+	private Node occupyNodeByPlayer(Node node, Player player) {
+		return new BasicNode(node.getXCoordinate(), node.getYCoordinate(), node.getId(), player.getId());
+	}
+
+	private void setNodeOccupation(Node node) {
 		List<Node> nodes = getBoard().getNodes();
-		nodes.set(node.getXCoordinate() * 8 + node.getYCoordinate(), occupiedNode);
-		nodeLookupMap.put(occupiedNode.getId(), occupiedNode);
+		nodes.set(node.getXCoordinate() * 8 + node.getYCoordinate(), node);
+		nodeLookupMap.put(node.getId(), node);
 		setBoard(new BasicBoard(nodes));
 	}
 
@@ -168,10 +175,12 @@ class BasicOthello implements Othello {
 		if (!isMoveValid(playerId, nodeId)) {
 			throw new IllegalArgumentException("Move is not valid");
 		}
-		List<Node> moves = getNodesToSwap(playerId, nodeId);
-		moves.add(nodeLookupMap.get(nodeId));
+		List<Node> nodesToSwap = getNodesToSwap(playerId, nodeId);
+		nodesToSwap.add(nodeLookupMap.get(nodeId));
+		for (Node node : nodesToSwap)
+			claimNode(node, playerHandler.getPlayer(playerId));
 		playerHandler.changePlayer();
-		return moves;
+		return nodesToSwap;
 	}
 
 	@Override
