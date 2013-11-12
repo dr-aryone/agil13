@@ -34,7 +34,7 @@ public class BasicNode implements Node {
 
 	@Override
 	public boolean isMarked() {
-		return getOccupantPlayerId() == null;
+		return getOccupantPlayerId() != null;
 	}
 
 	@Override
@@ -56,5 +56,11 @@ public class BasicNode implements Node {
 		result = result * 31 + getXCoordinate();
 		result = result * 31 + getYCoordinate();
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Node x: %d, y: %d, id: %s, player: %s", getXCoordinate(), getYCoordinate(), getId(),
+				getOccupantPlayerId());
 	}
 }
