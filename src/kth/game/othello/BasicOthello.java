@@ -26,6 +26,8 @@ class BasicOthello implements Othello {
 		this.setBoard(board);
 		playerLookupMap.put(playerOne.getId(), playerOne);
 		playerLookupMap.put(playerTwo.getId(), playerTwo);
+		for (Node node : board.getNodes())
+			nodeLookupMap.put(node.getId(), node);
 	}
 
 	@Override
@@ -74,6 +76,7 @@ class BasicOthello implements Othello {
 		Node occupiedNode = new BasicNode(node.getXCoordinate(), node.getYCoordinate(), node.getId(), player.getId());
 		List<Node> nodes = getBoard().getNodes();
 		nodes.set(node.getXCoordinate() * 8 + node.getYCoordinate(), occupiedNode);
+		nodeLookupMap.put(occupiedNode.getId(), occupiedNode);
 		setBoard(new BasicBoard(nodes));
 	}
 
