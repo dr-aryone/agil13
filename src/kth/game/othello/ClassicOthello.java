@@ -2,6 +2,7 @@ package kth.game.othello;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -12,7 +13,7 @@ import kth.game.othello.player.Player;
 
 class ClassicOthello implements Othello {
 
-	private final Map<String, Player> playerLookupMap = new HashMap<>();
+	private final Map<String, Player> playerLookupMap = new LinkedHashMap<>();
 	private final Map<String, Node> nodeLookupMap = new HashMap<>();
 	private final Board board;
 
