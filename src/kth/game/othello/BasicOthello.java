@@ -106,6 +106,8 @@ class BasicOthello implements Othello {
 
 	@Override
 	public Player getPlayerInTurn() {
+		if (!isActive())
+			return null;
 		return playerHandler.getPlayerInTurn();
 	}
 
