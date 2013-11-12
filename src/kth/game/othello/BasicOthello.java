@@ -20,10 +20,10 @@ class BasicOthello implements Othello {
 	private final Map<String, Node> nodeLookupMap = new HashMap<>();
 
 	private Board board;
-	private Player currentPlayer;
+	private Player playerInTurn;
 
 	public BasicOthello(Board board, Player playerOne, Player playerTwo) {
-		this.board = board;
+		this.setBoard(board);
 		playerLookupMap.put(playerOne.getId(), playerOne);
 		playerLookupMap.put(playerTwo.getId(), playerTwo);
 	}
@@ -63,7 +63,7 @@ class BasicOthello implements Othello {
 	}
 
 	private Node findNode(int x, int y) {
-		return findNode(board, x, y);
+		return findNode(getBoard(), x, y);
 	}
 
 	void occupyNodeByPlayer(int x, int y, Player player) {
@@ -72,9 +72,9 @@ class BasicOthello implements Othello {
 
 	private void occupyNodeByPlayer(Node node, Player player) {
 		Node occupiedNode = new BasicNode(node.getXCoordinate(), node.getYCoordinate(), node.getId(), player.getId());
-		List<Node> nodes = board.getNodes();
+		List<Node> nodes = getBoard().getNodes();
 		nodes.set(node.getXCoordinate() * 8 + node.getYCoordinate(), occupiedNode);
-		board = new BasicBoard(nodes);
+		setBoard(new BasicBoard(nodes));
 	}
 
 	static Node findNode(Board board, int x, int y) {
@@ -107,7 +107,7 @@ class BasicOthello implements Othello {
 
 	@Override
 	public Player getPlayerInTurn() {
-		return currentPlayer;
+		return playerInTurn;
 	}
 
 	@Override
@@ -117,7 +117,7 @@ class BasicOthello implements Othello {
 
 	@Override
 	public boolean hasValidMove(String playerId) {
-		for (Node node : board.getNodes()) {
+		for (Node node : getBoard().getNodes()) {
 			if (!node.isMarked() && isMoveValid(playerId, node.getId())) {
 				return true;
 			}
@@ -127,7 +127,7 @@ class BasicOthello implements Othello {
 
 	@Override
 	public boolean isActive() {
-		for (Node node : board.getNodes()) {
+		for (Node node : getBoard().getNodes()) {
 			if (!node.isMarked()) {
 				return true;
 			}
@@ -146,7 +146,7 @@ class BasicOthello implements Othello {
 			throw new IllegalStateException("Current player is not a computer");
 		}
 		List<Node> bestMoveForCurrentPlayer = findBestMoveForCurrentPlayer();
-		currentPlayer = getNextPlayer();
+		setPlayerInTurn(getNextPlayer());
 		return bestMoveForCurrentPlayer;
 	}
 
@@ -161,7 +161,7 @@ class BasicOthello implements Othello {
 
 	private List<Node> findBestMoveForCurrentPlayer() {
 		List<Node> bestMove = Collections.emptyList();
-		for (Node node : board.getNodes()) {
+		for (Node node : getBoard().getNodes()) {
 			List<Node> currentMove = getNodesToSwap(getPlayerInTurn().getId(), node.getId());
 			currentMove.add(nodeLookupMap.get(node.getId()));
 			if (currentMove.size() > bestMove.size()) {
@@ -178,7 +178,7 @@ class BasicOthello implements Othello {
 		}
 		List<Node> moves = getNodesToSwap(playerId, nodeId);
 		moves.add(nodeLookupMap.get(nodeId));
-		currentPlayer = getNextPlayer();
+		setPlayerInTurn(getNextPlayer());
 		return moves;
 	}
 
@@ -189,7 +189,7 @@ class BasicOthello implements Othello {
 
 	@Override
 	public void start(String playerId) {
-		currentPlayer = playerLookupMap.get(playerId);
+		setPlayerInTurn(playerLookupMap.get(playerId));
 
 	}
 
@@ -197,5 +197,13 @@ class BasicOthello implements Othello {
 		Random r = new Random();
 		Player[] players = playerLookupMap.values().toArray(new Player[0]);
 		return players[r.nextInt(players.length)];
+	}
+
+	private void setBoard(Board board) {
+		this.board = board;
+	}
+
+	private void setPlayerInTurn(Player playerInTurn) {
+		this.playerInTurn = playerInTurn;
 	}
 }
