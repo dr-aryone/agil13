@@ -63,7 +63,7 @@ class PlayerHandler {
 	private Player getNextPlayer() {
 		for (String id : playerLookupMap.keySet()) {
 			if (!getPlayerInTurn().getId().equals(id)) {
-				return playerLookupMap.get(getPlayerInTurn());
+				return playerLookupMap.get(id);
 			}
 		}
 		return null;
