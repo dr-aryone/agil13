@@ -1,4 +1,4 @@
-package kth.game.othello.player;
+package kth.game.othello;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class PlayerHandler {
+import kth.game.othello.player.Player;
+
+class PlayerHandler {
 	private final Map<String, Player> playerLookupMap = new LinkedHashMap<>();
 	private Player playerInTurn;
 
-	public PlayerHandler(Player playerOne, Player playerTwo) {
+	PlayerHandler(Player playerOne, Player playerTwo) {
 		playerLookupMap.put(playerOne.getId(), playerOne);
 		playerLookupMap.put(playerTwo.getId(), playerTwo);
 	}
@@ -18,7 +20,7 @@ public class PlayerHandler {
 	/**
 	 * @return one random Player out of the available players
 	 */
-	public Player randomPlayer() {
+	Player randomPlayer() {
 		Random r = new Random();
 		Player[] players = playerLookupMap.values().toArray(new Player[0]);
 		return players[r.nextInt(players.length)];
@@ -31,7 +33,7 @@ public class PlayerHandler {
 	 *            the id of the Player
 	 * @return the Player with the given id
 	 */
-	public Player getPlayer(String playerId) {
+	Player getPlayer(String playerId) {
 		return playerLookupMap.get(playerId);
 	}
 
@@ -40,7 +42,7 @@ public class PlayerHandler {
 	 * 
 	 * @return the player in turn
 	 */
-	public Player getPlayerInTurn() {
+	Player getPlayerInTurn() {
 		return playerInTurn;
 	}
 
@@ -49,7 +51,7 @@ public class PlayerHandler {
 	 * 
 	 * @return a list of all available players
 	 */
-	public List<Player> getAllPlayers() {
+	List<Player> getAllPlayers() {
 		return new ArrayList<>(playerLookupMap.values());
 	}
 
@@ -58,7 +60,7 @@ public class PlayerHandler {
 	 * 
 	 * @return the Player who has the next turn.
 	 */
-	public Player getNextPlayer() {
+	Player getNextPlayer() {
 		for (String id : playerLookupMap.keySet()) {
 			if (!getPlayerInTurn().getId().equals(id)) {
 				return playerLookupMap.get(id);
@@ -73,7 +75,7 @@ public class PlayerHandler {
 	 * @param playerId
 	 *            the id of the player which is supposed to play.
 	 */
-	public void setPlayerInTurn(String playerId) {
+	void setPlayerInTurn(String playerId) {
 		setPlayerInTurn(getPlayer(playerId));
 	}
 
@@ -84,7 +86,7 @@ public class PlayerHandler {
 	/**
 	 * Change player to the one who is next in turn.
 	 */
-	public void changePlayer() {
+	void changePlayer() {
 		setPlayerInTurn(getNextPlayer());
 	}
 

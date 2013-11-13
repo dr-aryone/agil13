@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kth.game.othello.board.Board;
-import kth.game.othello.board.BoardHandler;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
-import kth.game.othello.player.PlayerHandler;
 
 class BasicOthello implements Othello {
 
