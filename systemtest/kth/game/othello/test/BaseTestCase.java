@@ -1,5 +1,7 @@
 package kth.game.othello.test;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -26,11 +28,24 @@ public abstract class BaseTestCase extends TestCase {
 	}
 
 	protected List<Node> makeAHumanMove(Othello othello, Player human) {
-		for (Node node : othello.getBoard().getNodes()) {
+		List<Node> possibleNodes = othello.getBoard().getNodes();
+		Collections.sort(possibleNodes, RANDOM_SORTER);
+		for (Node node : possibleNodes) {
 			if (othello.isMoveValid(human.getId(), node.getId())) {
 				return othello.move(human.getId(), node.getId());
 			}
 		}
 		throw new IllegalStateException();
 	}
+
+	private static final Comparator<Node> RANDOM_SORTER = new Comparator<Node>() {
+		@Override
+		public int compare(Node n1, Node n2) {
+			if (Math.random() > 0.5) {
+				return 1;
+			} else {
+				return -1;
+			}
+		}
+	};
 }
