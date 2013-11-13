@@ -132,25 +132,23 @@ class BasicOthello implements Othello {
 		if (getPlayerInTurn().getType() != Player.Type.COMPUTER) {
 			throw new IllegalStateException("Current player is not a computer");
 		}
-		List<Node> nodesToSwap = findBestMoveForCurrentPlayer();
-		for (Node node : nodesToSwap)
-			claimNode(node, playerHandler.getPlayer(getPlayerInTurn().getId()));
-		playerHandler.changePlayer();
-		return nodesToSwap;
+		Node bestStartNode = findBestMoveForCurrentPlayer();
+		return move(getPlayerInTurn().getId(), bestStartNode.getId());
 	}
 
-	private List<Node> findBestMoveForCurrentPlayer() {
-		List<Node> bestMove = Collections.emptyList();
+	private Node findBestMoveForCurrentPlayer() {
+		int maxFlips = 0;
+		Node maxFlipsArg = null;
 		for (Node node : getBoard().getNodes()) {
-			if (node.isMarked() || !isMoveValid(getPlayerInTurn().getId(), node.getId()))
+			if (!isMoveValid(getPlayerInTurn().getId(), node.getId()))
 				continue;
 			List<Node> currentMove = getNodesToSwap(getPlayerInTurn().getId(), node.getId());
-			currentMove.add(nodeLookupMap.get(node.getId()));
-			if (currentMove.size() > bestMove.size()) {
-				bestMove = currentMove;
+			if (currentMove.size() > maxFlips) {
+				maxFlipsArg = node;
+				maxFlips = currentMove.size();
 			}
 		}
-		return bestMove;
+		return maxFlipsArg;
 	}
 
 	@Override
