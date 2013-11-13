@@ -140,7 +140,7 @@ public class OthelloTest extends BaseTestCase {
 
 	private void runOthello(Othello othello) {
 		int nodesMarked = 4;
-		othello.start(othello.getPlayers().get(0).getId());
+		othello.start(othello.getPlayers().get(1).getId());
 		while (othello.isActive()) {
 			if (othello.getPlayerInTurn().getType() == Player.Type.COMPUTER) {
 				if (!othello.move().isEmpty())
