@@ -126,7 +126,7 @@ class BasicOthello implements Othello {
 	@Override
 	public boolean hasValidMove(String playerId) {
 		for (Node node : getBoard().getNodes()) {
-			if (!node.isMarked() && isMoveValid(playerId, node.getId())) {
+			if (isMoveValid(playerId, node.getId())) {
 				return true;
 			}
 		}
