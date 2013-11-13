@@ -1,8 +1,5 @@
 package kth.game.othello.test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.util.List;
 
 import kth.game.othello.BasicOthelloFactory;
@@ -17,13 +14,6 @@ import org.junit.Test;
 public class OthelloTest extends BaseTestCase {
 
 	static final OthelloFactory othelloFactory = new BasicOthelloFactory();
-
-	private Player createMockedPlayer(int playerIndex) {
-		Player player = mock(Player.class);
-		when(player.getId()).thenReturn("player" + playerIndex);
-		when(player.getName()).thenReturn("Player " + playerIndex);
-		return player;
-	}
 
 	@Test
 	public void testInitialPlayer() {
