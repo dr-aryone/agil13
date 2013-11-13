@@ -11,6 +11,7 @@ import kth.game.othello.board.BasicNode;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
+import kth.game.othello.player.PlayerHandler;
 
 class BasicOthello implements Othello {
 

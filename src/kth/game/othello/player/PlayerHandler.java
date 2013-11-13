@@ -1,4 +1,4 @@
-package kth.game.othello;
+package kth.game.othello.player;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -6,13 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import kth.game.othello.player.Player;
-
-class PlayerHandler {
+public class PlayerHandler {
 	private final Map<String, Player> playerLookupMap = new LinkedHashMap<>();
 	private Player playerInTurn;
 
-	PlayerHandler(Player playerOne, Player playerTwo) {
+	public PlayerHandler(Player playerOne, Player playerTwo) {
 		playerLookupMap.put(playerOne.getId(), playerOne);
 		playerLookupMap.put(playerTwo.getId(), playerTwo);
 	}
@@ -20,7 +18,7 @@ class PlayerHandler {
 	/**
 	 * @return one random Player out of the available players
 	 */
-	Player randomPlayer() {
+	public Player randomPlayer() {
 		Random r = new Random();
 		Player[] players = playerLookupMap.values().toArray(new Player[0]);
 		return players[r.nextInt(players.length)];
@@ -33,7 +31,7 @@ class PlayerHandler {
 	 *            the id of the Player
 	 * @return the Player with the given id
 	 */
-	Player getPlayer(String playerId) {
+	public Player getPlayer(String playerId) {
 		return playerLookupMap.get(playerId);
 	}
 
@@ -42,7 +40,7 @@ class PlayerHandler {
 	 * 
 	 * @return the player in turn
 	 */
-	Player getPlayerInTurn() {
+	public Player getPlayerInTurn() {
 		return playerInTurn;
 	}
 
@@ -51,7 +49,7 @@ class PlayerHandler {
 	 * 
 	 * @return a list of all available players
 	 */
-	List<Player> getAllPlayers() {
+	public List<Player> getAllPlayers() {
 		return new ArrayList<>(playerLookupMap.values());
 	}
 
@@ -75,7 +73,7 @@ class PlayerHandler {
 	 * @param playerId
 	 *            the id of the player which is supposed to play.
 	 */
-	void setPlayerInTurn(String playerId) {
+	public void setPlayerInTurn(String playerId) {
 		setPlayerInTurn(getPlayer(playerId));
 	}
 
@@ -86,7 +84,7 @@ class PlayerHandler {
 	/**
 	 * Change player to the one who is next in turn.
 	 */
-	void changePlayer() {
+	public void changePlayer() {
 		setPlayerInTurn(getNextPlayer());
 	}
 
