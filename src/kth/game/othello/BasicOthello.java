@@ -135,11 +135,9 @@ class BasicOthello implements Othello {
 
 	@Override
 	public boolean isActive() {
-		for (Node node : getBoard().getNodes()) {
-			if (!node.isMarked()) {
+		for (Player player : playerHandler.getAllPlayers())
+			if (hasValidMove(player.getId()))
 				return true;
-			}
-		}
 		return false;
 	}
 
