@@ -38,7 +38,10 @@ public class BoardHandler {
 	}
 
 	public Node findNode(int x, int y) {
-		return board.getNodes().get(x * OTHELLO_BOARD_SIDE_LENGTH + y);
+		int nodeIndex = x * OTHELLO_BOARD_SIDE_LENGTH + y;
+		if (nodeIndex >= 0 && nodeIndex < board.getNodes().size())
+			return board.getNodes().get(nodeIndex);
+		return null;
 	}
 
 	public void occupyNodeByPlayer(Node node, Player player) {
