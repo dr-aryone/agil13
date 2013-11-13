@@ -14,8 +14,6 @@ import kth.game.othello.player.Player;
 public class BasicOthelloFactory implements OthelloFactory {
 
 	private static final int OTHELLO_BOARD_SIDE_LENGTH = 8;
-	private static final int MIDDLE_UPPER_LEFT_X = 3;
-	private static final int MIDDLE_UPPER_LEFT_Y = MIDDLE_UPPER_LEFT_X;
 
 	@Override
 	public Othello createComputerGameOnClassicalBoard() {

@@ -50,20 +50,8 @@ class BasicOthello implements Othello {
 	}
 
 	private Node step(Node node, Direction direction) {
-		return findNode(node.getXCoordinate() + direction.getXDirection(),
-				node.getYCoordinate() + direction.getYDirection());
-	}
-
-	private Node findNode(int x, int y) {
-		return findNode(getBoard(), x, y);
-	}
-
-	static Node findNode(Board board, int x, int y) {
-		for (Node node : board.getNodes()) {
-			if (node.getXCoordinate() == x && node.getYCoordinate() == y)
-				return node;
-		}
-		return null;
+		return boardHandler.findNode(node.getXCoordinate() + direction.getXDirection(), node.getYCoordinate()
+				+ direction.getYDirection());
 	}
 
 	@Override
