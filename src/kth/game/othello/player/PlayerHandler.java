@@ -58,7 +58,7 @@ public class PlayerHandler {
 	 * 
 	 * @return the Player who has the next turn.
 	 */
-	private Player getNextPlayer() {
+	public Player getNextPlayer() {
 		for (String id : playerLookupMap.keySet()) {
 			if (!getPlayerInTurn().getId().equals(id)) {
 				return playerLookupMap.get(id);

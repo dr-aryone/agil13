@@ -94,9 +94,13 @@ class BasicOthello implements Othello {
 
 	@Override
 	public Player getPlayerInTurn() {
-		if (!isActive())
-			return null;
-		return playerHandler.getPlayerInTurn();
+		if (hasValidMove(playerHandler.getPlayerInTurn().getId())) {
+			return playerHandler.getPlayerInTurn();
+		} else if (hasValidMove(playerHandler.getNextPlayer().getId())) {
+			playerHandler.changePlayer();
+			return playerHandler.getPlayerInTurn();
+		}
+		return null;
 	}
 
 	@Override
@@ -116,10 +120,7 @@ class BasicOthello implements Othello {
 
 	@Override
 	public boolean isActive() {
-		for (Player player : playerHandler.getAllPlayers())
-			if (hasValidMove(player.getId()))
-				return true;
-		return false;
+		return getPlayerInTurn() != null;
 	}
 
 	@Override
@@ -160,7 +161,6 @@ class BasicOthello implements Othello {
 		nodesToSwap.add(nodeLookupMap.get(nodeId));
 		for (Node node : nodesToSwap)
 			claimNode(node, playerHandler.getPlayer(playerId));
-		playerHandler.changePlayer();
 		return nodesToSwap;
 	}
 
