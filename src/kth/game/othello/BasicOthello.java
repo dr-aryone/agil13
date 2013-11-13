@@ -143,7 +143,7 @@ class BasicOthello implements Othello {
 
 	@Override
 	public boolean isMoveValid(String playerId, String nodeId) {
-		return !getNodesToSwap(playerId, nodeId).isEmpty();
+		return !nodeLookupMap.get(nodeId).isMarked() && !getNodesToSwap(playerId, nodeId).isEmpty();
 	}
 
 	@Override
