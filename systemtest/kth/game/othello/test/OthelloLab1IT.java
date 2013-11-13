@@ -11,8 +11,6 @@ import kth.game.othello.player.Player.Type;
 import org.junit.Test;
 
 public class OthelloLab1IT {
-	
-	/*
 
 	private Object getNumberOfOccupiedNodes(Othello othello) {
 		int occupiedNodesCounter = 0;
@@ -67,5 +65,4 @@ public class OthelloLab1IT {
 		}
 	}
 
-*/
 }
