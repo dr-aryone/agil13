@@ -1,7 +1,6 @@
 package kth.game.othello;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import kth.game.othello.board.Board;
@@ -26,32 +25,12 @@ class BasicOthello implements Othello {
 	}
 
 	@Override
+	// TODO move this to BoardHandler also?
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
 		List<Node> nodesToSwap = new ArrayList<>();
 		for (Direction direction : Direction.values())
-			nodesToSwap.addAll(getNodesToSwapInOneDirection(playerId, nodeId, direction));
+			nodesToSwap.addAll(boardHandler.getNodesToSwapInOneDirection(playerId, nodeId, direction));
 		return nodesToSwap;
-	}
-
-	private List<Node> getNodesToSwapInOneDirection(String playerId, String nodeId, Direction direction) {
-		List<Node> nodesToSwap = new ArrayList<>();
-
-		Node startNode = boardHandler.getNodeForId(nodeId);
-
-		for (Node current = step(startNode, direction); current != null && current.isMarked(); current = step(current,
-				direction)) {
-			if (current.getOccupantPlayerId().equals(playerId))
-				return nodesToSwap;
-			nodesToSwap.add(current);
-		}
-
-		return Collections.emptyList();
-
-	}
-
-	private Node step(Node node, Direction direction) {
-		return boardHandler.findNode(node.getXCoordinate() + direction.getXDirection(), node.getYCoordinate()
-				+ direction.getYDirection());
 	}
 
 	@Override

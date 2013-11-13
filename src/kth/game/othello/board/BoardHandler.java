@@ -1,9 +1,12 @@
 package kth.game.othello.board;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kth.game.othello.Direction;
 import kth.game.othello.player.Player;
 
 public class BoardHandler {
@@ -53,6 +56,27 @@ public class BoardHandler {
 		nodes.set(x * OTHELLO_BOARD_SIDE_LENGTH + y, occupied);
 		nodeLookupMap.put(node.getId(), occupied);
 		setBoard(new BasicBoard(nodes));
+	}
+
+	public List<Node> getNodesToSwapInOneDirection(String playerId, String nodeId, Direction direction) {
+		List<Node> nodesToSwap = new ArrayList<>();
+
+		Node startNode = getNodeForId(nodeId);
+		Node current = step(startNode, direction);
+		while (current != null && current.isMarked()) {
+			if (current.getOccupantPlayerId().equals(playerId))
+				return nodesToSwap;
+			nodesToSwap.add(current);
+			current = step(current, direction);
+		}
+
+		return Collections.emptyList();
+
+	}
+
+	private Node step(Node node, Direction direction) {
+		return findNode(node.getXCoordinate() + direction.getXDirection(),
+				node.getYCoordinate() + direction.getYDirection());
 	}
 
 	private void setBoard(BasicBoard board) {
