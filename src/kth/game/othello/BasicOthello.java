@@ -2,34 +2,27 @@ package kth.game.othello;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import kth.game.othello.board.BasicBoard;
-import kth.game.othello.board.BasicNode;
 import kth.game.othello.board.Board;
+import kth.game.othello.board.BoardHandler;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.PlayerHandler;
 
 class BasicOthello implements Othello {
 
-	private final Map<String, Node> nodeLookupMap = new HashMap<>();
-
-	private Board board;
+	private final BoardHandler boardHandler;
 	private final PlayerHandler playerHandler;
 
 	public BasicOthello(Board board, Player playerOne, Player playerTwo) {
-		this.setBoard(board);
+		boardHandler = new BoardHandler(board);
 		playerHandler = new PlayerHandler(playerOne, playerTwo);
-		for (Node node : board.getNodes())
-			nodeLookupMap.put(node.getId(), node);
 	}
 
 	@Override
 	public Board getBoard() {
-		return board;
+		return boardHandler.getBoard();
 	}
 
 	@Override
@@ -43,7 +36,7 @@ class BasicOthello implements Othello {
 	private List<Node> getNodesToSwapInOneDirection(String playerId, String nodeId, Direction direction) {
 		List<Node> nodesToSwap = new ArrayList<>();
 
-		Node startNode = nodeLookupMap.get(nodeId);
+		Node startNode = boardHandler.getNodeForId(nodeId);
 
 		for (Node current = step(startNode, direction); current != null && current.isMarked(); current = step(current,
 				direction)) {
@@ -63,25 +56,6 @@ class BasicOthello implements Othello {
 
 	private Node findNode(int x, int y) {
 		return findNode(getBoard(), x, y);
-	}
-
-	void claimNode(int x, int y, Player player) {
-		claimNode(findNode(x, y), player);
-	}
-
-	private void claimNode(Node node, Player player) {
-		setNodeOccupation(occupyNodeByPlayer(node, player));
-	}
-
-	private Node occupyNodeByPlayer(Node node, Player player) {
-		return new BasicNode(node.getXCoordinate(), node.getYCoordinate(), node.getId(), player.getId());
-	}
-
-	private void setNodeOccupation(Node node) {
-		List<Node> nodes = getBoard().getNodes();
-		nodes.set(node.getXCoordinate() * 8 + node.getYCoordinate(), node);
-		nodeLookupMap.put(node.getId(), node);
-		setBoard(new BasicBoard(nodes));
 	}
 
 	static Node findNode(Board board, int x, int y) {
@@ -125,7 +99,7 @@ class BasicOthello implements Othello {
 
 	@Override
 	public boolean isMoveValid(String playerId, String nodeId) {
-		return !nodeLookupMap.get(nodeId).isMarked() && !getNodesToSwap(playerId, nodeId).isEmpty();
+		return !boardHandler.getNodeForId(nodeId).isMarked() && !getNodesToSwap(playerId, nodeId).isEmpty();
 	}
 
 	@Override
@@ -158,9 +132,9 @@ class BasicOthello implements Othello {
 			throw new IllegalArgumentException("Move is not valid");
 		}
 		List<Node> nodesToSwap = getNodesToSwap(playerId, nodeId);
-		nodesToSwap.add(nodeLookupMap.get(nodeId));
+		nodesToSwap.add(boardHandler.getNodeForId(nodeId));
 		for (Node node : nodesToSwap)
-			claimNode(node, playerHandler.getPlayer(playerId));
+			boardHandler.occupyNodeByPlayer(node, playerHandler.getPlayer(playerId));
 		return nodesToSwap;
 	}
 
@@ -172,9 +146,7 @@ class BasicOthello implements Othello {
 	@Override
 	public void start(String playerId) {
 		playerHandler.setPlayerInTurn(playerId);
-	}
-
-	private void setBoard(Board board) {
-		this.board = board;
+		List<Player> players = playerHandler.getAllPlayers();
+		boardHandler.placeInitialBricks(players.get(0), players.get(1));
 	}
 }
