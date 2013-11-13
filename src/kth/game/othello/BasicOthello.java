@@ -163,7 +163,7 @@ class BasicOthello implements Othello {
 	private List<Node> findBestMoveForCurrentPlayer() {
 		List<Node> bestMove = Collections.emptyList();
 		for (Node node : getBoard().getNodes()) {
-			if (node.isMarked())
+			if (node.isMarked() && isMoveValid(getPlayerInTurn().getId(), node.getId()))
 				continue;
 			List<Node> currentMove = getNodesToSwap(getPlayerInTurn().getId(), node.getId());
 			currentMove.add(nodeLookupMap.get(node.getId()));
