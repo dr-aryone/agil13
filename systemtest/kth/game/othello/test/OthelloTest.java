@@ -36,6 +36,7 @@ public class OthelloTest extends BaseTestCase {
 	@Test
 	public void testInitialBricks() {
 		Othello othello = othelloFactory.createComputerGameOnClassicalBoard();
+		othello.start();
 		List<Node> nodes = othello.getBoard().getNodes();
 		for (Node node : nodes)
 			if (node.getXCoordinate() >= 3 && node.getXCoordinate() <= 4) {
@@ -140,7 +141,7 @@ public class OthelloTest extends BaseTestCase {
 
 	private void runOthello(Othello othello) {
 		int nodesMarked = 4;
-		othello.start(othello.getPlayers().get(1).getId());
+		othello.start();
 		while (othello.isActive()) {
 			if (othello.getPlayerInTurn().getType() == Player.Type.COMPUTER) {
 				if (!othello.move().isEmpty())
