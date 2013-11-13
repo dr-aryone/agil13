@@ -13,10 +13,10 @@ class Demo1 {
 	OthelloFactory factory = new BasicOthelloFactory();
 
 	public static void main(String[] args) {
-		new Demo1();
+		new Demo1().play();
 	}
 
-	Demo1() {
+	private void play() {
 		Othello othello = factory.createComputerGameOnClassicalBoard();
 		othello.start();
 		play(othello);
@@ -28,6 +28,8 @@ class Demo1 {
 		int player0Score = 0, player1Score = 0;
 		List<Player> players = othello.getPlayers();
 		for (Node node : othello.getBoard().getNodes()) {
+			if (!node.isMarked())
+				continue;
 			if (node.getOccupantPlayerId().equals(players.get(0).getId())) {
 				player0Score++;
 			} else if (node.getOccupantPlayerId().equals(players.get(1).getId())) {
