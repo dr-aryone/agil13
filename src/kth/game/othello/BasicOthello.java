@@ -153,14 +153,18 @@ class BasicOthello implements Othello {
 		if (getPlayerInTurn().getType() != Player.Type.COMPUTER) {
 			throw new IllegalStateException("Current player is not a computer");
 		}
-		List<Node> bestMoveForCurrentPlayer = findBestMoveForCurrentPlayer();
+		List<Node> nodesToSwap = findBestMoveForCurrentPlayer();
+		for (Node node : nodesToSwap)
+			claimNode(node, playerHandler.getPlayer(getPlayerInTurn().getId()));
 		playerHandler.changePlayer();
-		return bestMoveForCurrentPlayer;
+		return nodesToSwap;
 	}
 
 	private List<Node> findBestMoveForCurrentPlayer() {
 		List<Node> bestMove = Collections.emptyList();
 		for (Node node : getBoard().getNodes()) {
+			if (node.isMarked())
+				continue;
 			List<Node> currentMove = getNodesToSwap(getPlayerInTurn().getId(), node.getId());
 			currentMove.add(nodeLookupMap.get(node.getId()));
 			if (currentMove.size() > bestMove.size()) {
@@ -191,7 +195,6 @@ class BasicOthello implements Othello {
 	@Override
 	public void start(String playerId) {
 		playerHandler.setPlayerInTurn(playerId);
-
 	}
 
 	private void setBoard(Board board) {
