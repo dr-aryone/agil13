@@ -12,11 +12,9 @@ import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 
-class BoardHandler {
+class BoardHandler implements OthelloConstants {
 
-	private static final int OTHELLO_BOARD_SIDE_LENGTH = 8;
-	private static final int MIDDLE_UPPER_LEFT_X = 3;
-	private static final int MIDDLE_UPPER_LEFT_Y = MIDDLE_UPPER_LEFT_X;
+	private static final int MIDDLE_UPPER_LEFT_X = 3, MIDDLE_UPPER_LEFT_Y = MIDDLE_UPPER_LEFT_X;
 
 	private final Map<String, Node> nodeLookupMap = new HashMap<>();
 
@@ -92,7 +90,7 @@ class BoardHandler {
 	void occupyNodeByPlayer(Node node, Player player) {
 		int x = node.getXCoordinate();
 		int y = node.getYCoordinate();
-		Node occupied = new BasicNode(node.getXCoordinate(), node.getYCoordinate(), node.getId(), player.getId());
+		Node occupied = BasicNode.newNodeOccupiedByPlayer(node, player);
 
 		List<Node> nodes = getBoard().getNodes();
 		nodes.set(x * OTHELLO_BOARD_SIDE_LENGTH + y, occupied);

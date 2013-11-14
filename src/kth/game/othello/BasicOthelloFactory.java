@@ -11,9 +11,7 @@ import kth.game.othello.player.ComputerPlayer;
 import kth.game.othello.player.HumanPlayer;
 import kth.game.othello.player.Player;
 
-public class BasicOthelloFactory implements OthelloFactory {
-
-	private static final int OTHELLO_BOARD_SIDE_LENGTH = 8;
+public class BasicOthelloFactory implements OthelloFactory, OthelloConstants {
 
 	@Override
 	public Othello createComputerGameOnClassicalBoard() {
@@ -46,8 +44,7 @@ public class BasicOthelloFactory implements OthelloFactory {
 		List<Node> nodes = new ArrayList<>();
 		for (int x = 0; x < OTHELLO_BOARD_SIDE_LENGTH; x++) {
 			for (int y = 0; y < OTHELLO_BOARD_SIDE_LENGTH; y++) {
-				String id = "" + x + y;
-				nodes.add(new BasicNode(x, y, id, null));
+				nodes.add(new BasicNode(x, y));
 			}
 		}
 		return new BasicBoard(nodes);
