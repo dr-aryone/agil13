@@ -133,15 +133,12 @@ public class OthelloTest extends BaseTestCase {
 		int nodesMarked = 4;
 		othello.start();
 		while (othello.isActive()) {
-			if (othello.getPlayerInTurn().getType() == Player.Type.COMPUTER) {
-				if (!othello.move().isEmpty())
-					nodesMarked++;
-			} else if (othello.getPlayerInTurn().getType() == Player.Type.HUMAN) {
-				if (!makeAHumanMove(othello, othello.getPlayerInTurn()).isEmpty())
-					nodesMarked++;
-			} else {
-				throw new IllegalStateException("Player of unknown type");
-			}
+			if (othello.getPlayerInTurn().getType() == Player.Type.COMPUTER)
+				othello.move().isEmpty();
+			else if (othello.getPlayerInTurn().getType() == Player.Type.HUMAN)
+				makeAHumanMove(othello, othello.getPlayerInTurn());
+
+			nodesMarked++;
 			assertEquals(nodesMarked, getNumberOfOccupiedNodes(othello));
 		}
 	}
