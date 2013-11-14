@@ -61,7 +61,7 @@ class BoardHandler {
 		setBoard(new BasicBoard(nodes));
 	}
 
-	List<Node> getNodesToSwapInOneDirection(String playerId, String nodeId, Direction direction) {
+	private List<Node> getNodesToSwapInOneDirection(String playerId, String nodeId, Direction direction) {
 		List<Node> nodesToSwap = new ArrayList<>();
 
 		Node startNode = getNodeForId(nodeId);
@@ -75,6 +75,13 @@ class BoardHandler {
 
 		return Collections.emptyList();
 
+	}
+
+	List<Node> getNodesToSwap(String playerId, String nodeId) {
+		List<Node> nodesToSwap = new ArrayList<>();
+		for (Direction direction : Direction.values())
+			nodesToSwap.addAll(getNodesToSwapInOneDirection(playerId, nodeId, direction));
+		return nodesToSwap;
 	}
 
 	private Node step(Node node, Direction direction) {
