@@ -28,7 +28,7 @@ public class BasicNode implements Node, OthelloConstants {
 		this(xCoordinate, yCoordinate, getNextId(), null);
 	}
 
-	BasicNode(int xCoordinate, int yCoordinate, String id, String occupantPlayerId) {
+	private BasicNode(int xCoordinate, int yCoordinate, String id, String occupantPlayerId) {
 		this.xCoordinate = xCoordinate;
 		this.yCoordinate = yCoordinate;
 		this.id = id;

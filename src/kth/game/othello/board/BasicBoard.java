@@ -5,6 +5,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * An implementation of the {@link Board} interface used in the game of Othello.
+ * 
+ */
 public class BasicBoard implements Board {
 
 	private static final Comparator<Node> NODE_SORTER = new Comparator<Node>() {
@@ -25,8 +29,14 @@ public class BasicBoard implements Board {
 		}
 	};
 
-	final List<Node> nodes;
+	private final List<Node> nodes;
 
+	/**
+	 * Create a new BasicBoard with the given nodes.
+	 * 
+	 * @param nodes
+	 *            The nodes to be held inside this board
+	 */
 	public BasicBoard(List<Node> nodes) {
 		this.nodes = nodes;
 		Collections.sort(nodes, NODE_SORTER);
