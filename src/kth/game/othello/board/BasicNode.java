@@ -1,13 +1,12 @@
 package kth.game.othello.board;
 
-import kth.game.othello.OthelloConstants;
 import kth.game.othello.player.Player;
 
 /**
  * An implementation of the {@link Node} interface used in the game of Othello.
  * 
  */
-public class BasicNode implements Node, OthelloConstants {
+public class BasicNode implements Node {
 
 	private static int nextId = 1;
 
@@ -102,9 +101,6 @@ public class BasicNode implements Node, OthelloConstants {
 	}
 
 	private static String getNextId() {
-		int id = nextId++;
-		if (id % 10 == OTHELLO_BOARD_SIDE_LENGTH)
-			nextId += 2; // keep ID aligned with board dimensions
-		return String.valueOf(id);
+		return String.valueOf(nextId++);
 	}
 }
