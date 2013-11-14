@@ -12,9 +12,10 @@ class PlayerHandler {
 	private final Map<String, Player> playerLookupMap = new LinkedHashMap<>();
 	private Player playerInTurn;
 
-	PlayerHandler(Player playerOne, Player playerTwo) {
-		playerLookupMap.put(playerOne.getId(), playerOne);
-		playerLookupMap.put(playerTwo.getId(), playerTwo);
+	PlayerHandler(Player firstPlayer, Player... morePlayers) {
+		playerLookupMap.put(firstPlayer.getId(), firstPlayer);
+		for (Player player : morePlayers)
+			playerLookupMap.put(player.getId(), player);
 	}
 
 	/**
@@ -22,8 +23,8 @@ class PlayerHandler {
 	 */
 	Player randomPlayer() {
 		Random r = new Random();
-		Player[] players = playerLookupMap.values().toArray(new Player[0]);
-		return players[r.nextInt(players.length)];
+		List<Player> players = getAllPlayers();
+		return players.get(r.nextInt(players.size()));
 	}
 
 	/**
@@ -61,12 +62,9 @@ class PlayerHandler {
 	 * @return the Player who has the next turn.
 	 */
 	Player getNextPlayer() {
-		for (String id : playerLookupMap.keySet()) {
-			if (!getPlayerInTurn().getId().equals(id)) {
-				return playerLookupMap.get(id);
-			}
-		}
-		return null;
+		List<Player> players = getAllPlayers();
+		int playerInTurnIndex = players.indexOf(playerInTurn);
+		return players.get((playerInTurnIndex + 1) % players.size());
 	}
 
 	/**
