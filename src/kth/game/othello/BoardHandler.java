@@ -38,7 +38,8 @@ class BoardHandler implements OthelloConstants {
 	}
 
 	/**
-	 * Gets a Node object from a given coordinate in the board.
+	 * Gets a Node object from a given coordinate in the board, or
+	 * <code>null</code> if the coordinates are out of bounds of the board.
 	 * 
 	 * @param xCoordinate
 	 *            the x-coordinate of the Node to get.
@@ -49,7 +50,7 @@ class BoardHandler implements OthelloConstants {
 	 */
 	Node getNode(int xCoordinate, int yCoordinate) {
 		int nodeIndex = xCoordinate * OTHELLO_BOARD_SIDE_LENGTH + yCoordinate;
-		if (nodeIndex >= 0 && nodeIndex < board.getNodes().size())
+		if (isWithinBoardBounds(xCoordinate, yCoordinate))
 			return board.getNodes().get(nodeIndex);
 		return null;
 	}
@@ -98,22 +99,6 @@ class BoardHandler implements OthelloConstants {
 		setBoard(new BasicBoard(nodes));
 	}
 
-	private List<Node> getNodesToSwapInOneDirection(String playerId, String nodeId, Direction direction) {
-		List<Node> nodesToSwap = new ArrayList<>();
-
-		Node startNode = getNode(nodeId);
-		Node current = step(startNode, direction);
-		while (current != null && current.isMarked()) {
-			if (current.getOccupantPlayerId().equals(playerId))
-				return nodesToSwap;
-			nodesToSwap.add(current);
-			current = step(current, direction);
-		}
-
-		return Collections.emptyList();
-
-	}
-
 	/**
 	 * Gets all nodes to swap if the Player would place a brick on that Node.
 	 * 
@@ -129,6 +114,27 @@ class BoardHandler implements OthelloConstants {
 		for (Direction direction : Direction.values())
 			nodesToSwap.addAll(getNodesToSwapInOneDirection(playerId, nodeId, direction));
 		return nodesToSwap;
+	}
+
+	private boolean isWithinBoardBounds(int xCoordinate, int yCoordinate) {
+		return xCoordinate >= 0 && xCoordinate < OTHELLO_BOARD_SIDE_LENGTH && yCoordinate >= 0
+				&& yCoordinate < OTHELLO_BOARD_SIDE_LENGTH;
+	}
+
+	private List<Node> getNodesToSwapInOneDirection(String playerId, String nodeId, Direction direction) {
+		List<Node> nodesToSwap = new ArrayList<>();
+
+		Node startNode = getNode(nodeId);
+		Node current = step(startNode, direction);
+		while (current != null && current.isMarked()) {
+			if (current.getOccupantPlayerId().equals(playerId))
+				return nodesToSwap;
+			nodesToSwap.add(current);
+			current = step(current, direction);
+		}
+
+		return Collections.emptyList();
+
 	}
 
 	private Node step(Node node, Direction direction) {
