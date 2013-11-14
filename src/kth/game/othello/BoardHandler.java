@@ -28,28 +28,67 @@ class BoardHandler {
 			nodeLookupMap.put(node.getId(), node);
 	}
 
-	Node getNodeForId(String nodeId) {
+	/**
+	 * Gets a Node object from a given id.
+	 * 
+	 * @param nodeId
+	 *            the id of the node to find
+	 * @return the Node object of which getId().equals(nodeId)
+	 */
+	Node getNode(String nodeId) {
 		return nodeLookupMap.get(nodeId);
 	}
 
-	Board getBoard() {
-		return board;
-	}
-
-	void placeInitialBricks(Player white, Player black) {
-		occupyNodeByPlayer(findNode(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y), white);
-		occupyNodeByPlayer(findNode(MIDDLE_UPPER_LEFT_X + 1, MIDDLE_UPPER_LEFT_Y), black);
-		occupyNodeByPlayer(findNode(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y + 1), black);
-		occupyNodeByPlayer(findNode(MIDDLE_UPPER_LEFT_X + 1, MIDDLE_UPPER_LEFT_Y + 1), white);
-	}
-
-	Node findNode(int x, int y) {
-		int nodeIndex = x * OTHELLO_BOARD_SIDE_LENGTH + y;
+	/**
+	 * Gets a Node object from a given coordinate in the board.
+	 * 
+	 * @param xCoordinate
+	 *            the x-coordinate of the Node to get.
+	 * @param yCoordinate
+	 *            the y-coordinate of the Node to get.
+	 * @return the Node object of which xCoordinate() == xCoordinate and
+	 *         yCoordinate() == yCoordinate
+	 */
+	Node getNode(int xCoordinate, int yCoordinate) {
+		int nodeIndex = xCoordinate * OTHELLO_BOARD_SIDE_LENGTH + yCoordinate;
 		if (nodeIndex >= 0 && nodeIndex < board.getNodes().size())
 			return board.getNodes().get(nodeIndex);
 		return null;
 	}
 
+	/**
+	 * Returns the board of the current state.
+	 * 
+	 * @return the Board of the current state.
+	 */
+	Board getBoard() {
+		return board;
+	}
+
+	/**
+	 * Places the four initial middle bricks as: white, black black, white
+	 * 
+	 * @param white
+	 *            The player who will be represented as the "black" player.
+	 * @param black
+	 *            The player who will be represented as the "white" player.
+	 */
+	void placeInitialBricks(Player white, Player black) {
+		occupyNodeByPlayer(getNode(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y), white);
+		occupyNodeByPlayer(getNode(MIDDLE_UPPER_LEFT_X + 1, MIDDLE_UPPER_LEFT_Y), black);
+		occupyNodeByPlayer(getNode(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y + 1), black);
+		occupyNodeByPlayer(getNode(MIDDLE_UPPER_LEFT_X + 1, MIDDLE_UPPER_LEFT_Y + 1), white);
+	}
+
+	/**
+	 * Claims a Node for the given Player. The Node can either be either marked
+	 * or unmarked.
+	 * 
+	 * @param node
+	 *            the Node to claim.
+	 * @param player
+	 *            the Player to claim the Node.
+	 */
 	void occupyNodeByPlayer(Node node, Player player) {
 		int x = node.getXCoordinate();
 		int y = node.getYCoordinate();
@@ -64,7 +103,7 @@ class BoardHandler {
 	private List<Node> getNodesToSwapInOneDirection(String playerId, String nodeId, Direction direction) {
 		List<Node> nodesToSwap = new ArrayList<>();
 
-		Node startNode = getNodeForId(nodeId);
+		Node startNode = getNode(nodeId);
 		Node current = step(startNode, direction);
 		while (current != null && current.isMarked()) {
 			if (current.getOccupantPlayerId().equals(playerId))
@@ -77,6 +116,16 @@ class BoardHandler {
 
 	}
 
+	/**
+	 * Gets all nodes to swap if the Player would place a brick on that Node.
+	 * 
+	 * @param playerId
+	 *            the id of the Player that is trying to place a brick.
+	 * @param nodeId
+	 *            the id of the Node that the Player is trying to place a brick
+	 *            on.
+	 * @return a List of Nodes that would be swapped.
+	 */
 	List<Node> getNodesToSwap(String playerId, String nodeId) {
 		List<Node> nodesToSwap = new ArrayList<>();
 		for (Direction direction : Direction.values())
@@ -85,7 +134,7 @@ class BoardHandler {
 	}
 
 	private Node step(Node node, Direction direction) {
-		return findNode(node.getXCoordinate() + direction.getXDirection(),
+		return getNode(node.getXCoordinate() + direction.getXDirection(),
 				node.getYCoordinate() + direction.getYDirection());
 	}
 

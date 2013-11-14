@@ -59,7 +59,7 @@ class BasicOthello implements Othello {
 
 	@Override
 	public boolean isMoveValid(String playerId, String nodeId) {
-		return !boardHandler.getNodeForId(nodeId).isMarked() && !getNodesToSwap(playerId, nodeId).isEmpty();
+		return !boardHandler.getNode(nodeId).isMarked() && !getNodesToSwap(playerId, nodeId).isEmpty();
 	}
 
 	@Override
@@ -92,7 +92,7 @@ class BasicOthello implements Othello {
 			throw new IllegalArgumentException("Move is not valid");
 		}
 		List<Node> nodesToSwap = getNodesToSwap(playerId, nodeId);
-		nodesToSwap.add(boardHandler.getNodeForId(nodeId));
+		nodesToSwap.add(boardHandler.getNode(nodeId));
 		for (Node node : nodesToSwap)
 			boardHandler.occupyNodeByPlayer(node, playerHandler.getPlayer(playerId));
 		return nodesToSwap;
