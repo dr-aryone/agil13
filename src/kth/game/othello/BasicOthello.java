@@ -71,21 +71,6 @@ class BasicOthello implements Othello {
 		return move(getPlayerInTurn().getId(), bestStartNode.getId());
 	}
 
-	private Node findBestMoveForCurrentPlayer() {
-		int maxFlips = 0;
-		Node maxFlipsArg = null;
-		for (Node node : getBoard().getNodes()) {
-			if (!isMoveValid(getPlayerInTurn().getId(), node.getId()))
-				continue;
-			List<Node> currentMove = getNodesToSwap(getPlayerInTurn().getId(), node.getId());
-			if (currentMove.size() > maxFlips) {
-				maxFlipsArg = node;
-				maxFlips = currentMove.size();
-			}
-		}
-		return maxFlipsArg;
-	}
-
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
 		if (!isMoveValid(playerId, nodeId)) {
@@ -108,5 +93,20 @@ class BasicOthello implements Othello {
 		playerHandler.setPlayerInTurn(playerId);
 		List<Player> players = playerHandler.getAllPlayers();
 		boardHandler.placeInitialBricks(players.get(0), players.get(1));
+	}
+
+	private Node findBestMoveForCurrentPlayer() {
+		int maxFlips = 0;
+		Node maxFlipsArg = null;
+		for (Node node : getBoard().getNodes()) {
+			if (!isMoveValid(getPlayerInTurn().getId(), node.getId()))
+				continue;
+			List<Node> currentMove = getNodesToSwap(getPlayerInTurn().getId(), node.getId());
+			if (currentMove.size() > maxFlips) {
+				maxFlipsArg = node;
+				maxFlips = currentMove.size();
+			}
+		}
+		return maxFlipsArg;
 	}
 }

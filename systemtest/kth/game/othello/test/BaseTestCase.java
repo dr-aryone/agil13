@@ -12,7 +12,7 @@ import kth.game.othello.player.Player;
 
 public abstract class BaseTestCase extends TestCase {
 
-	protected Object getNumberOfOccupiedNodes(Othello othello) {
+	protected int getNumberOfOccupiedNodes(Othello othello) {
 		int occupiedNodesCounter = 0;
 		for (Node node : othello.getBoard().getNodes()) {
 			if (node.isMarked()) {
