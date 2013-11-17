@@ -120,15 +120,57 @@ public class OthelloTest extends BaseTestCase {
 		Player white = othello.getPlayers().get(0);
 		Player black = othello.getPlayers().get(1);
 		othello.start(black.getId());
+
+		// round 1
 		assertEquals(othello.getPlayerInTurn(), black);
+		assertNull(getNode(2, 3, othello).getOccupantPlayerId());
+		Node n23 = getNode(2, 3, othello);
+		othello.move(black.getId(), n23.getId());
+		assertEquals(black.getId(), getNode(2, 3, othello).getOccupantPlayerId());
+		assertEquals(black.getId(), getNode(3, 3, othello).getOccupantPlayerId());
+		assertEquals(black.getId(), getNode(4, 3, othello).getOccupantPlayerId());
 
-		Node n1 = getNode(2, 3, othello);
-		othello.move(black.getId(), n1.getId());
-		assertEquals(getNode(2, 3, othello).getOccupantPlayerId(), black.getId());
-		assertEquals(getNode(3, 3, othello).getOccupantPlayerId(), black.getId());
-		assertEquals(getNode(4, 3, othello).getOccupantPlayerId(), black.getId());
-		assertEquals(getNode(4, 4, othello).getOccupantPlayerId(), white.getId());
+		assertEquals(white.getId(), getNode(4, 4, othello).getOccupantPlayerId());
 
+		// round 2
+		assertEquals(othello.getPlayerInTurn(), white);
+		assertNull(getNode(2, 2, othello).getOccupantPlayerId());
+		Node n22 = getNode(2, 2, othello);
+		othello.move(white.getId(), n22.getId());
+		assertEquals(white.getId(), getNode(2, 2, othello).getOccupantPlayerId());
+		assertEquals(white.getId(), getNode(3, 3, othello).getOccupantPlayerId());
+		assertEquals(white.getId(), getNode(4, 4, othello).getOccupantPlayerId());
+
+		assertEquals(black.getId(), getNode(2, 3, othello).getOccupantPlayerId());
+
+		// round 3
+		assertEquals(othello.getPlayerInTurn(), black);
+		assertNull(getNode(3, 2, othello).getOccupantPlayerId());
+		Node n32 = getNode(3, 2, othello);
+		othello.move(black.getId(), n32.getId());
+		assertEquals(black.getId(), getNode(2, 3, othello).getOccupantPlayerId());
+		assertEquals(black.getId(), getNode(3, 3, othello).getOccupantPlayerId());
+		assertEquals(black.getId(), getNode(4, 3, othello).getOccupantPlayerId());
+		assertEquals(black.getId(), getNode(3, 2, othello).getOccupantPlayerId());
+		assertEquals(black.getId(), getNode(3, 4, othello).getOccupantPlayerId());
+
+		assertEquals(white.getId(), getNode(2, 2, othello).getOccupantPlayerId());
+		assertEquals(white.getId(), getNode(4, 4, othello).getOccupantPlayerId());
+
+		// round 4
+		assertEquals(othello.getPlayerInTurn(), white);
+		assertNull(getNode(2, 4, othello).getOccupantPlayerId());
+		Node n24 = getNode(2, 4, othello);
+		othello.move(white.getId(), n24.getId());
+		assertEquals(white.getId(), getNode(2, 4, othello).getOccupantPlayerId());
+		assertEquals(white.getId(), getNode(3, 4, othello).getOccupantPlayerId());
+		assertEquals(white.getId(), getNode(4, 4, othello).getOccupantPlayerId());
+		assertEquals(white.getId(), getNode(2, 2, othello).getOccupantPlayerId());
+		assertEquals(white.getId(), getNode(2, 3, othello).getOccupantPlayerId());
+
+		assertEquals(black.getId(), getNode(3, 2, othello).getOccupantPlayerId());
+		assertEquals(black.getId(), getNode(3, 3, othello).getOccupantPlayerId());
+		assertEquals(black.getId(), getNode(4, 3, othello).getOccupantPlayerId());
 	}
 
 	private Node getNode(int x, int y, Othello othello) {
