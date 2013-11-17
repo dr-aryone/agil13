@@ -26,4 +26,22 @@ abstract class AbstractPlayer implements Player {
 		return type;
 	}
 
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = result * 31 + id.hashCode();
+		result = result * 31 + name.hashCode();
+		result = result * 31 + type.hashCode();
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this)
+			return true;
+		if (!(obj instanceof AbstractPlayer))
+			return false;
+		AbstractPlayer a = (AbstractPlayer) obj;
+		return id.equals(a.id) && name.equals(a.name) && type.equals(a.type);
+	}
 }
