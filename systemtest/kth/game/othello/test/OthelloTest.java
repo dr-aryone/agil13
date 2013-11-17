@@ -115,6 +115,30 @@ public class OthelloTest extends BaseTestCase {
 	}
 
 	@Test
+	public void testBrickSwap() {
+		Othello othello = othelloFactory.createHumanGameOnOriginalBoard();
+		Player white = othello.getPlayers().get(0);
+		Player black = othello.getPlayers().get(1);
+		othello.start(black.getId());
+		assertEquals(othello.getPlayerInTurn(), black);
+
+		Node n1 = getNode(2, 3, othello);
+		othello.move(black.getId(), n1.getId());
+		assertEquals(getNode(2, 3, othello).getOccupantPlayerId(), black.getId());
+		assertEquals(getNode(3, 3, othello).getOccupantPlayerId(), black.getId());
+		assertEquals(getNode(4, 3, othello).getOccupantPlayerId(), black.getId());
+		assertEquals(getNode(4, 4, othello).getOccupantPlayerId(), white.getId());
+
+	}
+
+	private Node getNode(int x, int y, Othello othello) {
+		for (Node node : othello.getBoard().getNodes())
+			if (node.getXCoordinate() == x && node.getYCoordinate() == y)
+				return node;
+		return null;
+	}
+
+	@Test
 	public void testComputerVersusComputer() {
 		runOthello(othelloFactory.createComputerGameOnClassicalBoard());
 	}
