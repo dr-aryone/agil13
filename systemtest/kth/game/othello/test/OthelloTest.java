@@ -198,7 +198,11 @@ public class OthelloTest extends BaseTestCase {
 	private void runOthello(Othello othello) {
 		int nodesMarked = 4;
 		othello.start();
+		Player previous = null;
 		while (othello.isActive()) {
+			assertPlayerSwap(previous, othello);
+			previous = othello.getPlayerInTurn();
+
 			if (othello.getPlayerInTurn().getType() == Player.Type.COMPUTER)
 				othello.move().isEmpty();
 			else if (othello.getPlayerInTurn().getType() == Player.Type.HUMAN)
@@ -207,5 +211,17 @@ public class OthelloTest extends BaseTestCase {
 			nodesMarked++;
 			assertEquals(nodesMarked, getNumberOfOccupiedNodes(othello));
 		}
+	}
+
+	private void assertPlayerSwap(Player previous, Othello othello) {
+		if (!othello.getPlayerInTurn().equals(previous)) // player was swapped
+			return;
+
+		// the same player played several rounds in a row
+		// assert that the other player has no valid moves
+		List<Player> players = othello.getPlayers();
+		int playerIndex = players.indexOf(previous);
+		Player otherPlayer = players.get((playerIndex + 1) % players.size());
+		assertFalse(othello.hasValidMove(otherPlayer.getId()));
 	}
 }
