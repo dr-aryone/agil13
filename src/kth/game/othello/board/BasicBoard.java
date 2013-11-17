@@ -1,6 +1,7 @@
 package kth.game.othello.board;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -47,4 +48,24 @@ public class BasicBoard implements Board {
 		return new ArrayList<>(nodes);
 	}
 
+	@Override
+	public String toString() {
+		char[][] board = new char[10][10];
+		for (char[] row : board) {
+			Arrays.fill(row, '#');
+		}
+		for (Node node : nodes) {
+			char nodeChar = node.getOccupantPlayerId() == null ? ' ' : (node.getOccupantPlayerId().charAt(0));
+			board[node.getXCoordinate() + 1][node.getYCoordinate() + 1] = nodeChar;
+		}
+
+		StringBuilder boardString = new StringBuilder();
+		for (char[] row : board) {
+			for (char nodeChar : row) {
+				boardString.append(nodeChar);
+			}
+			boardString.append('\n');
+		}
+		return boardString.toString();
+	}
 }

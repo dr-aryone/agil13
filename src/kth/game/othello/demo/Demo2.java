@@ -53,6 +53,7 @@ class Demo2 {
 	private void play(Othello othello) {
 		Scanner scanner = new Scanner(System.in);
 		while (othello.isActive()) {
+			System.out.println(othello.getBoard());
 			if (othello.getPlayerInTurn().getType() == Player.Type.COMPUTER) {
 				othello.move();
 			} else {
