@@ -80,6 +80,7 @@ class BasicOthello implements Othello {
 		nodesToSwap.add(boardHandler.getNode(nodeId));
 		for (Node node : nodesToSwap)
 			boardHandler.occupyNodeByPlayer(node, playerHandler.getPlayer(playerId));
+		playerHandler.changePlayer();
 		return nodesToSwap;
 	}
 
