@@ -10,24 +10,10 @@ import kth.game.othello.board.Board;
 import kth.game.othello.board.factory.BoardFactory;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
-import kth.game.othello.player.PlayerCreator;
-import kth.game.othello.player.movestrategy.MoveStrategy;
 
 import org.junit.Test;
 
 public class OthelloLab2IT extends BaseTestCase {
-
-	private BoardFactory getBoardFactory() {
-		return null;
-	}
-
-	private MoveStrategy getNewMoveStrategy() {
-		return null;
-	}
-
-	private PlayerCreator getPlayerCreator() {
-		return null;
-	}
 
 	private void makeNumberOfComputerMoves(int numberOfMoves, Othello othello) {
 		for (int i = 0; i < numberOfMoves; i++) {

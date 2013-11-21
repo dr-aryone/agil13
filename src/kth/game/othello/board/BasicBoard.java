@@ -58,13 +58,13 @@ public class BasicBoard implements Board {
 
 	@Override
 	public String toString() {
-		char[][] board = new char[10][10];
+		char[][] board = new char[getWidth() + 3][getHeight() + 3];
 		for (char[] row : board) {
 			Arrays.fill(row, '#');
 		}
 		for (Node node : nodes) {
 			char nodeChar = node.getOccupantPlayerId() == null ? ' ' : (node.getOccupantPlayerId().charAt(0));
-			board[node.getXCoordinate() + 1][node.getYCoordinate() + 1] = nodeChar;
+			board[node.getYCoordinate() + 1][node.getXCoordinate() + 1] = nodeChar;
 		}
 
 		StringBuilder boardString = new StringBuilder();
@@ -75,5 +75,21 @@ public class BasicBoard implements Board {
 			boardString.append('\n');
 		}
 		return boardString.toString();
+	}
+
+	private int getHeight() {
+		int maxX = 0;
+		for (Node node : nodes)
+			if (node.getXCoordinate() > maxX)
+				maxX = node.getXCoordinate();
+		return maxX;
+	}
+
+	private int getWidth() {
+		int maxY = 0;
+		for (Node node : nodes)
+			if (node.getYCoordinate() > maxY)
+				maxY = node.getYCoordinate();
+		return maxY;
 	}
 }

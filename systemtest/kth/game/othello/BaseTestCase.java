@@ -10,6 +10,8 @@ import kth.game.othello.board.factory.BoardFactory;
 import kth.game.othello.player.BasicPlayerCreator;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.PlayerCreator;
+import kth.game.othello.player.movestrategy.GreedyMoveStrategy;
+import kth.game.othello.player.movestrategy.MoveStrategy;
 
 public abstract class BaseTestCase {
 
@@ -23,10 +25,22 @@ public abstract class BaseTestCase {
 		return occupiedNodesCounter;
 	}
 
+	protected BoardFactory getBoardFactory() {
+		return new BoardFactory(new BasicNodeCreator(), new BasicBoardCreator());
+	}
+
+	protected MoveStrategy getNewMoveStrategy() {
+		return new GreedyMoveStrategy();
+	}
+
+	protected PlayerCreator getPlayerCreator() {
+		return new BasicPlayerCreator();
+	}
+
 	protected OthelloFactory getOthelloFactory() {
 		OthelloCreator othelloCreator = new BasicOthelloCreator();
-		BoardFactory boardFactory = new BoardFactory(new BasicNodeCreator(), new BasicBoardCreator());
-		PlayerCreator playerCreator = new BasicPlayerCreator();
+		BoardFactory boardFactory = getBoardFactory();
+		PlayerCreator playerCreator = getPlayerCreator();
 		return new OthelloFactory(othelloCreator, boardFactory, playerCreator);
 	}
 
