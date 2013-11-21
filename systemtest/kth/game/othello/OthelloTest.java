@@ -52,14 +52,14 @@ public class OthelloTest extends BaseTestCase {
 
 		List<Node> moves = othello.getNodesToSwap(othello.getPlayerInTurn().getId(), nodeToPlace.getId());
 
-		assertEquals(moves.size(), 1);
+		assertEquals(1, moves.size());
 		assertTrue(moves.contains(swapNode));
 	}
 
 	@Test
 	public void testMove() {
 		Othello othello = getOthelloFactory().createHumanGameOnOriginalBoard();
-		othello.start("1");
+		othello.start();
 		Node nodeToPlace = null, swapNode = null;
 		for (Node node : othello.getBoard().getNodes()) {
 			if (node.getXCoordinate() == 3 && node.getYCoordinate() == 2) {
@@ -71,7 +71,7 @@ public class OthelloTest extends BaseTestCase {
 		}
 
 		List<Node> moves = othello.move(othello.getPlayerInTurn().getId(), nodeToPlace.getId());
-		assertEquals(moves.size(), 2);
+		assertEquals(2, moves.size());
 		assertTrue(moves.contains(nodeToPlace));
 		assertTrue(moves.contains(swapNode));
 	}
