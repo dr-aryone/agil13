@@ -3,11 +3,10 @@ package kth.game.othello;
 import java.util.Collections;
 import java.util.List;
 
-import junit.framework.TestCase;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 
-public abstract class BaseTestCase extends TestCase {
+public abstract class BaseTestCase {
 
 	protected int getNumberOfOccupiedNodes(Othello othello) {
 		int occupiedNodesCounter = 0;

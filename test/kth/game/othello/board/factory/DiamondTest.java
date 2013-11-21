@@ -3,16 +3,16 @@ package kth.game.othello.board.factory;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.TestCase;
 import kth.game.othello.board.BoardCreator;
 import kth.game.othello.board.Node;
 import kth.game.othello.board.NodeCreator;
 import kth.game.othello.player.Player;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class DiamondTest extends TestCase {
+public class DiamondTest {
 
 	private List<Player> getPlayers(int numberOfPlayers) {
 		List<Player> players = new ArrayList<Player>();
@@ -27,7 +27,7 @@ public class DiamondTest extends TestCase {
 		Diamond diamond = new Diamond(null, null);
 		int boardSize = 7;
 		diamond.getDiamondBoard(getPlayers(4), boardSize);
-		fail();
+		Assert.fail();
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -35,7 +35,7 @@ public class DiamondTest extends TestCase {
 		Diamond diamond = new Diamond(null, null);
 		int boardSize = 7;
 		diamond.getDiamondBoard(getPlayers(2), boardSize);
-		fail();
+		Assert.fail();
 	}
 
 	@Test
