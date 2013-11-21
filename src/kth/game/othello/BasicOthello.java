@@ -20,7 +20,7 @@ class BasicOthello implements Othello {
 	BasicOthello(BoardHandler boardHandler, PlayerHandler playerHandler) {
 		this.boardHandler = boardHandler;
 		this.playerHandler = playerHandler;
-		this.rules = new BasicRules();
+		this.rules = new BasicRules(boardHandler);
 	}
 
 	@Override
@@ -30,7 +30,7 @@ class BasicOthello implements Othello {
 
 	@Override
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
-		return boardHandler.getNodesToSwap(playerId, nodeId);
+		return rules.getNodesToSwap(playerId, nodeId);
 	}
 
 	@Override
@@ -51,12 +51,7 @@ class BasicOthello implements Othello {
 
 	@Override
 	public boolean hasValidMove(String playerId) {
-		for (Node node : getBoard().getNodes()) {
-			if (isMoveValid(playerId, node.getId())) {
-				return true;
-			}
-		}
-		return false;
+		return rules.hasValidMove(playerId);
 	}
 
 	@Override
@@ -66,7 +61,7 @@ class BasicOthello implements Othello {
 
 	@Override
 	public boolean isMoveValid(String playerId, String nodeId) {
-		return !boardHandler.getNode(nodeId).isMarked() && !getNodesToSwap(playerId, nodeId).isEmpty();
+		return rules.isMoveValid(playerId, nodeId);
 	}
 
 	@Override

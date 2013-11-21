@@ -1,7 +1,5 @@
 package kth.game.othello;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +33,20 @@ class BoardHandler implements OthelloConstants {
 	 */
 	Node getNode(String nodeId) {
 		return nodeLookupMap.get(nodeId);
+	}
+
+	/**
+	 * Gets a Node object from given x and y.
+	 * 
+	 * @param x
+	 *            the x-coordinate of the node.
+	 * @param y
+	 *            the y-coordinate of the node.
+	 * @return the Node object of which getXCoordinate() == x &&
+	 *         getYCoordinate() == y.
+	 */
+	Node getNode(int x, int y) {
+		return board.getNode(x, y);
 	}
 
 	/**
@@ -81,41 +93,4 @@ class BoardHandler implements OthelloConstants {
 		board = new BasicBoard(nodes);
 	}
 
-	/**
-	 * Gets all nodes to swap if the Player would place a brick on that Node.
-	 * 
-	 * @param playerId
-	 *            the id of the Player that is trying to place a brick.
-	 * @param nodeId
-	 *            the id of the Node that the Player is trying to place a brick
-	 *            on.
-	 * @return a List of Nodes that would be swapped.
-	 */
-	List<Node> getNodesToSwap(String playerId, String nodeId) {
-		List<Node> nodesToSwap = new ArrayList<>();
-		for (Direction direction : Direction.values())
-			nodesToSwap.addAll(getNodesToSwapInOneDirection(playerId, nodeId, direction));
-		return nodesToSwap;
-	}
-
-	private List<Node> getNodesToSwapInOneDirection(String playerId, String nodeId, Direction direction) {
-		List<Node> nodesToSwap = new ArrayList<>();
-
-		Node startNode = getNode(nodeId);
-		Node current = step(startNode, direction);
-		while (current != null && current.isMarked()) {
-			if (current.getOccupantPlayerId().equals(playerId))
-				return nodesToSwap;
-			nodesToSwap.add(current);
-			current = step(current, direction);
-		}
-
-		return Collections.emptyList();
-
-	}
-
-	private Node step(Node node, Direction direction) {
-		return board.getNode(node.getXCoordinate() + direction.getXDirection(),
-				node.getYCoordinate() + direction.getYDirection());
-	}
 }
