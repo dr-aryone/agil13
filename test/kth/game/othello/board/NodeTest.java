@@ -3,6 +3,8 @@ package kth.game.othello.board;
 import java.util.Observable;
 import java.util.Observer;
 
+import kth.game.othello.MockingBase;
+
 import org.junit.Test;
 
 public class NodeTest extends MockingBase {

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import kth.game.othello.MockingBase;
+
 import org.junit.Test;
 
 public class BoardTest extends MockingBase {

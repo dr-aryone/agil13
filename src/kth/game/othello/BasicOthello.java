@@ -13,8 +13,12 @@ class BasicOthello implements Othello {
 	private final PlayerHandler playerHandler;
 
 	public BasicOthello(Board board, Player playerOne, Player playerTwo) {
-		boardHandler = new BoardHandler(board);
-		playerHandler = new PlayerHandler(playerOne, playerTwo);
+		this(new BoardHandler(board), new PlayerHandler(playerOne, playerTwo));
+	}
+
+	BasicOthello(BoardHandler boardHandler, PlayerHandler playerHandler) {
+		this.boardHandler = boardHandler;
+		this.playerHandler = playerHandler;
 	}
 
 	@Override

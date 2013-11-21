@@ -38,24 +38,6 @@ class BoardHandler implements OthelloConstants {
 	}
 
 	/**
-	 * Gets a Node object from a given coordinate in the board, or
-	 * <code>null</code> if the coordinates are out of bounds of the board.
-	 * 
-	 * @param xCoordinate
-	 *            the x-coordinate of the Node to get.
-	 * @param yCoordinate
-	 *            the y-coordinate of the Node to get.
-	 * @return the Node object of which xCoordinate() == xCoordinate and
-	 *         yCoordinate() == yCoordinate
-	 */
-	Node getNode(int xCoordinate, int yCoordinate) {
-		int nodeIndex = xCoordinate * OTHELLO_BOARD_SIDE_LENGTH + yCoordinate;
-		if (isWithinBoardBounds(xCoordinate, yCoordinate))
-			return board.getNodes().get(nodeIndex);
-		return null;
-	}
-
-	/**
 	 * Returns the board of the current state.
 	 * 
 	 * @return the Board of the current state.
@@ -73,10 +55,10 @@ class BoardHandler implements OthelloConstants {
 	 *            The player who will be represented as the "white" player.
 	 */
 	void placeInitialBricks(Player white, Player black) {
-		occupyNodeByPlayer(getNode(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y), white);
-		occupyNodeByPlayer(getNode(MIDDLE_UPPER_LEFT_X + 1, MIDDLE_UPPER_LEFT_Y), black);
-		occupyNodeByPlayer(getNode(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y + 1), black);
-		occupyNodeByPlayer(getNode(MIDDLE_UPPER_LEFT_X + 1, MIDDLE_UPPER_LEFT_Y + 1), white);
+		occupyNodeByPlayer(board.getNode(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y), white);
+		occupyNodeByPlayer(board.getNode(MIDDLE_UPPER_LEFT_X + 1, MIDDLE_UPPER_LEFT_Y), black);
+		occupyNodeByPlayer(board.getNode(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y + 1), black);
+		occupyNodeByPlayer(board.getNode(MIDDLE_UPPER_LEFT_X + 1, MIDDLE_UPPER_LEFT_Y + 1), white);
 	}
 
 	/**
@@ -96,7 +78,7 @@ class BoardHandler implements OthelloConstants {
 		List<Node> nodes = getBoard().getNodes();
 		nodes.set(x * OTHELLO_BOARD_SIDE_LENGTH + y, occupied);
 		nodeLookupMap.put(node.getId(), occupied);
-		setBoard(new BasicBoard(nodes));
+		board = new BasicBoard(nodes);
 	}
 
 	/**
@@ -116,11 +98,6 @@ class BoardHandler implements OthelloConstants {
 		return nodesToSwap;
 	}
 
-	private boolean isWithinBoardBounds(int xCoordinate, int yCoordinate) {
-		return xCoordinate >= 0 && xCoordinate < OTHELLO_BOARD_SIDE_LENGTH && yCoordinate >= 0
-				&& yCoordinate < OTHELLO_BOARD_SIDE_LENGTH;
-	}
-
 	private List<Node> getNodesToSwapInOneDirection(String playerId, String nodeId, Direction direction) {
 		List<Node> nodesToSwap = new ArrayList<>();
 
@@ -138,11 +115,7 @@ class BoardHandler implements OthelloConstants {
 	}
 
 	private Node step(Node node, Direction direction) {
-		return getNode(node.getXCoordinate() + direction.getXDirection(),
+		return board.getNode(node.getXCoordinate() + direction.getXDirection(),
 				node.getYCoordinate() + direction.getYDirection());
-	}
-
-	private void setBoard(BasicBoard board) {
-		this.board = board;
 	}
 }

@@ -1,7 +1,8 @@
-package kth.game.othello.board;
+package kth.game.othello;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import kth.game.othello.board.Node;
 
 public class MockingBase {
 
