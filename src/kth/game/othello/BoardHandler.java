@@ -12,7 +12,7 @@ import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 
-class BoardHandler implements OthelloConstants {
+class BoardHandler {
 
 	private static final int MIDDLE_UPPER_LEFT_X = 3, MIDDLE_UPPER_LEFT_Y = MIDDLE_UPPER_LEFT_X;
 
