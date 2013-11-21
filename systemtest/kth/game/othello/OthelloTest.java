@@ -39,7 +39,7 @@ public class OthelloTest extends BaseTestCase {
 	@Test
 	public void testGetNodesToSwap() {
 		Othello othello = getOthelloFactory().createHumanGameOnOriginalBoard();
-		othello.start();
+		othello.start(othello.getPlayers().get(1).getId());
 		Node nodeToPlace = null, swapNode = null;
 		for (Node node : othello.getBoard().getNodes()) {
 			if (node.getXCoordinate() == 3 && node.getYCoordinate() == 2) {
@@ -59,7 +59,7 @@ public class OthelloTest extends BaseTestCase {
 	@Test
 	public void testMove() {
 		Othello othello = getOthelloFactory().createHumanGameOnOriginalBoard();
-		othello.start();
+		othello.start(othello.getPlayers().get(1).getId());
 		Node nodeToPlace = null, swapNode = null;
 		for (Node node : othello.getBoard().getNodes()) {
 			if (node.getXCoordinate() == 3 && node.getYCoordinate() == 2) {
