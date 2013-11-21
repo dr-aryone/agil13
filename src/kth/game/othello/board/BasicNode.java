@@ -1,5 +1,7 @@
 package kth.game.othello.board;
 
+import java.util.Observer;
+
 import kth.game.othello.player.Player;
 
 /**
@@ -57,6 +59,12 @@ public class BasicNode implements Node {
 	@Override
 	public boolean isMarked() {
 		return getOccupantPlayerId() != null;
+	}
+
+	@Override
+	public void addObserver(Observer observer) {
+		// TODO Auto-generated method stub
+
 	}
 
 	/**

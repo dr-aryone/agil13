@@ -1,32 +1,66 @@
 package kth.game.othello;
 
-/**
- * A factory for producing othello games.
- * 
- * @author Tomas Ekholm
- */
-public interface OthelloFactory {
+import java.util.ArrayList;
+import java.util.List;
 
-	/**
-	 * Create an Othello game with an original board with two computer.
-	 * 
-	 * @return An Othello game
-	 */
-	public Othello createComputerGameOnClassicalBoard();
+import kth.game.othello.board.Board;
+import kth.game.othello.board.factory.BoardFactory;
+import kth.game.othello.player.Player;
+import kth.game.othello.player.PlayerCreator;
 
-	/**
-	 * Create an Othello game with an original board with two humans.
-	 * 
-	 * @return An Othello game
-	 */
-	public Othello createHumanGameOnOriginalBoard();
+public class OthelloFactory {
 
-	/**
-	 * Creates an Othello game with an original board with one computer playing against one human. The computer will be
-	 * the first player in the list of players.
-	 * 
-	 * @return An Othello game
+	private BoardFactory boardFactory;
+	private OthelloCreator othelloCreator;
+	private PlayerCreator playerCreator;
+
+	public OthelloFactory(OthelloCreator othelloCreator, BoardFactory boardFactory, PlayerCreator playerCreator) {
+		this.othelloCreator = othelloCreator;
+		this.boardFactory = boardFactory;
+		this.playerCreator = playerCreator;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see kth.game.othello.OthelloFactory#createComputerGameOnClassicalBoard()
 	 */
-	public Othello createHumanVersusComputerGameOnOriginalBoard();
+	public Othello createComputerGameOnClassicalBoard() {
+		List<Player> players = new ArrayList<Player>();
+		players.add(playerCreator.createComputerPlayer("Computer"));
+		players.add(playerCreator.createComputerPlayer("computer"));
+		return othelloCreator.createOthello(boardFactory.getQuadraticBoard(8, players), players);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see kth.game.othello.OthelloFactory#createGame(kth.game.othello.board.Board, java.util.List)
+	 */
+	public Othello createGame(Board board, List<Player> players) {
+		return othelloCreator.createOthello(board, players);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see kth.game.othello.OthelloFactory#createHumanGameOnOriginalBoard()
+	 */
+	public Othello createHumanGameOnOriginalBoard() {
+		List<Player> players = new ArrayList<Player>();
+		players.add(playerCreator.createHumanPlayer("HUMAN"));
+		players.add(playerCreator.createHumanPlayer("human"));
+		Board board = boardFactory.getQuadraticBoard(8, players);
+		return othelloCreator.createOthello(board, players);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see kth.game.othello.OthelloFactory#createHumanVersusComputerGameOnOriginalBoard()
+	 */
+	public Othello createHumanVersusComputerGameOnOriginalBoard() {
+		List<Player> players = new ArrayList<Player>();
+		players.add(playerCreator.createComputerPlayer("Computer"));
+		players.add(playerCreator.createHumanPlayer("Human"));
+		Board board = boardFactory.getQuadraticBoard(8, players);
+		return othelloCreator.createOthello(board, players);
+	};
 
 }

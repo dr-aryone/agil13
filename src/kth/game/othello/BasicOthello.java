@@ -5,6 +5,7 @@ import java.util.List;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
+import kth.game.othello.score.Score;
 
 class BasicOthello implements Othello {
 
@@ -94,6 +95,12 @@ class BasicOthello implements Othello {
 		playerHandler.setPlayerInTurn(playerId);
 		List<Player> players = playerHandler.getAllPlayers();
 		boardHandler.placeInitialBricks(players.get(0), players.get(1));
+	}
+
+	@Override
+	public Score getScore() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	private Node findBestMoveForCurrentPlayer() {

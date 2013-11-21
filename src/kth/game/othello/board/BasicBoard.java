@@ -49,6 +49,12 @@ public class BasicBoard implements Board {
 	}
 
 	@Override
+	public Node getNode(int x, int y) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public String toString() {
 		char[][] board = new char[10][10];
 		for (char[] row : board) {

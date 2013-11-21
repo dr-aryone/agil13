@@ -5,11 +5,10 @@ import java.util.List;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
+import kth.game.othello.score.Score;
 
 /**
  * This class represents an Othello game.
- * 
- * @author Tomas Ekholm
  */
 public interface Othello {
 
@@ -44,6 +43,13 @@ public interface Othello {
 	public List<Player> getPlayers();
 
 	/**
+	 * The score of the game
+	 * 
+	 * @return the score
+	 */
+	public Score getScore();
+
+	/**
 	 * Determines if a player has any valid move.
 	 * 
 	 * @param playerId the id of the player
@@ -68,7 +74,8 @@ public interface Othello {
 	public boolean isMoveValid(String playerId, String nodeId);
 
 	/**
-	 * If the player in turn is a computer than this computer makes a move and updates the player in turn. 
+	 * If the player in turn is a computer than this computer makes a move and updates the player in turn. All observers
+	 * will be notified with the additional argument being the list of nodes that were swapped.
 	 * 
 	 * @return the nodes that where swapped for this move, including the node where the player made the move
 	 * @throws IllegalStateException if there is not a computer in turn
@@ -77,7 +84,8 @@ public interface Othello {
 
 	/**
 	 * Validates if the move is correct and if the player is in turn. If so, then the move is made which updates the
-	 * board and the player in turn. 
+	 * board and the player in turn. All observers will be notified with the additional argument being the list of nodes
+	 * that were swapped.
 	 * 
 	 * @param playerId the id of the player that makes the move
 	 * @param nodeId the id of the node where the player wants to move
