@@ -100,7 +100,7 @@ public class BasicNode implements Node {
 	public int hashCode() {
 		int result = 17;
 		result = result * 31 + getId().hashCode();
-		result = result * 31 + getOccupantPlayerId().hashCode();
+		result = result * 31 + (getOccupantPlayerId() != null ? getOccupantPlayerId().hashCode() : 0);
 		result = result * 31 + getXCoordinate();
 		result = result * 31 + getYCoordinate();
 		return result;
