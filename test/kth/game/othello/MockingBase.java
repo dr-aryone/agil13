@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 
@@ -24,7 +25,7 @@ public class MockingBase {
 	}
 
 	protected Node createMockedNode(int x, int y) {
-		return createMockedNode(x, y, "node" + x + "," + y, "player1");
+		return createMockedNode(x, y, x + "," + y, null);
 	}
 
 	protected Node createMockedNode(int x, int y, String id, String playerId) {
@@ -34,5 +35,17 @@ public class MockingBase {
 		when(node.getXCoordinate()).thenReturn(x);
 		when(node.getYCoordinate()).thenReturn(y);
 		return node;
+	}
+
+	protected Board createMockedBoard(int size) {
+		Board board = mock(Board.class);
+		List<Node> nodes = new ArrayList<>();
+		for (int i = 0; i < size; i++) {
+			Node mockedNode = createMockedNode(i, i);
+			nodes.add(mockedNode);
+			when(board.getNode(i, i)).thenReturn(mockedNode);
+		}
+		when(board.getNodes()).thenReturn(nodes);
+		return board;
 	}
 }
