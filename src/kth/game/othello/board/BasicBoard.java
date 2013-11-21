@@ -50,7 +50,9 @@ public class BasicBoard implements Board {
 
 	@Override
 	public Node getNode(int x, int y) {
-		// TODO Auto-generated method stub
+		for (Node node : nodes)
+			if (node.getXCoordinate() == x && node.getYCoordinate() == y)
+				return node;
 		return null;
 	}
 
