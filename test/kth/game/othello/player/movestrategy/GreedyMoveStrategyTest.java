@@ -65,11 +65,11 @@ public class GreedyMoveStrategyTest extends MockingBase {
 
 		when(board.getNodes()).thenReturn(testNodes);
 
-		List<Node> asList = Arrays.asList(createMockedNode(2, 1));
-		when(rules.getNodesToSwap("1", "3:1")).thenReturn(asList);
-		List<Node> asList2 = Arrays.asList(createMockedNode(1, 0), createMockedNode(2, 0));
+		List<Node> smallResult = Arrays.asList(createMockedNode(2, 1));
+		when(rules.getNodesToSwap("1", "3:1")).thenReturn(smallResult);
+		List<Node> bigResult = Arrays.asList(createMockedNode(1, 0), createMockedNode(2, 0));
 		when(rules.getNodesToSwap("1", "3:0"))
-				.thenReturn(asList2);
+				.thenReturn(bigResult);
 
 		Node node = strategy.move("1", rules, board);
 

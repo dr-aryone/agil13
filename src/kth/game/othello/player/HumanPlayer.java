@@ -17,7 +17,7 @@ public class HumanPlayer extends AbstractPlayer {
 	 *            The name of the player
 	 */
 	public HumanPlayer(String id, String name) {
-		super(id, name, Player.Type.HUMAN);
+		super(id, name, Player.Type.HUMAN, null);
 	}
 
 }

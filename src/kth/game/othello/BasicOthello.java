@@ -11,6 +11,7 @@ class BasicOthello implements Othello {
 
 	private final BoardHandler boardHandler;
 	private final PlayerHandler playerHandler;
+	private final Rules rules;
 
 	public BasicOthello(Board board, Player playerOne, Player playerTwo) {
 		this(new BoardHandler(board), new PlayerHandler(playerOne, playerTwo));
@@ -19,6 +20,7 @@ class BasicOthello implements Othello {
 	BasicOthello(BoardHandler boardHandler, PlayerHandler playerHandler) {
 		this.boardHandler = boardHandler;
 		this.playerHandler = playerHandler;
+		this.rules = new BasicRules();
 	}
 
 	@Override
@@ -72,7 +74,7 @@ class BasicOthello implements Othello {
 		if (getPlayerInTurn().getType() != Player.Type.COMPUTER) {
 			throw new IllegalStateException("Current player is not a computer");
 		}
-		Node bestStartNode = findBestMoveForCurrentPlayer();
+		Node bestStartNode = getPlayerInTurn().getMoveStrategy().move(getPlayerInTurn().getId(), rules, getBoard());
 		return move(getPlayerInTurn().getId(), bestStartNode.getId());
 	}
 
@@ -105,20 +107,5 @@ class BasicOthello implements Othello {
 	public Score getScore() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	private Node findBestMoveForCurrentPlayer() {
-		int maxFlips = 0;
-		Node maxFlipsArg = null;
-		for (Node node : getBoard().getNodes()) {
-			if (!isMoveValid(getPlayerInTurn().getId(), node.getId()))
-				continue;
-			List<Node> currentMove = getNodesToSwap(getPlayerInTurn().getId(), node.getId());
-			if (currentMove.size() > maxFlips) {
-				maxFlipsArg = node;
-				maxFlips = currentMove.size();
-			}
-		}
-		return maxFlipsArg;
 	}
 }

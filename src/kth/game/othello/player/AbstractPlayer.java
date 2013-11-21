@@ -6,11 +6,13 @@ abstract class AbstractPlayer implements Player {
 	private final String id;
 	private final String name;
 	private final Type type;
+	private MoveStrategy moveStrategy;
 
-	AbstractPlayer(String id, String name, Type type) {
+	AbstractPlayer(String id, String name, Type type, MoveStrategy moveStrategy) {
 		this.id = id;
 		this.name = name;
 		this.type = type;
+		this.moveStrategy = moveStrategy;
 	}
 
 	@Override
@@ -30,14 +32,12 @@ abstract class AbstractPlayer implements Player {
 
 	@Override
 	public MoveStrategy getMoveStrategy() {
-		// TODO Auto-generated method stub
-		return null;
+		return moveStrategy;
 	}
 
 	@Override
 	public void setMoveStrategy(MoveStrategy moveStrategy) {
-		// TODO Auto-generated method stub
-
+		this.moveStrategy = moveStrategy;
 	}
 
 	@Override
