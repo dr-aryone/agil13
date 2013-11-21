@@ -29,6 +29,10 @@ class Square {
 	 * @return
 	 */
 	Board getQuadraticBoard(int size, List<Player> players) {
+		if (players.size() != 2) {
+			throw new IllegalArgumentException("The number of players must be two.");
+		}
+
 		String player1Id = players.get(0).getId();
 		String player2Id = players.get(1).getId();
 
