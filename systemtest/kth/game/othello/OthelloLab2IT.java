@@ -48,7 +48,6 @@ public class OthelloLab2IT extends BaseTestCase {
 		players.add(getPlayerCreator().createComputerPlayer("orange"));
 		int boardSize = 11;
 		Board board = boardFactory.getDiamondBoard(players, boardSize);
-		System.out.println(board.toString());
 		Othello othello = getOthelloFactory().createGame(board, players);
 		othello.start();
 		while (othello.isActive()) {
