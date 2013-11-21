@@ -1,10 +1,7 @@
-package kth.game.othello.test;
+package kth.game.othello;
 
 import java.util.List;
 
-import kth.game.othello.BasicOthelloFactory;
-import kth.game.othello.Othello;
-import kth.game.othello.OthelloFactory;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
@@ -13,11 +10,9 @@ import org.junit.Test;
 
 public class OthelloTest extends BaseTestCase {
 
-	static final OthelloFactory othelloFactory = new BasicOthelloFactory();
-
 	@Test
 	public void testInitialPlayer() {
-		Othello humanVersusComputer = othelloFactory.createHumanVersusComputerGameOnOriginalBoard();
+		Othello humanVersusComputer = getOthelloFactory().createHumanVersusComputerGameOnOriginalBoard();
 		List<Player> players = humanVersusComputer.getPlayers();
 		assertEquals(Player.Type.COMPUTER, players.get(0).getType());
 		assertEquals(Player.Type.HUMAN, players.get(1).getType());
@@ -25,7 +20,7 @@ public class OthelloTest extends BaseTestCase {
 
 	@Test
 	public void testInitialBricks() {
-		Othello othello = othelloFactory.createComputerGameOnClassicalBoard();
+		Othello othello = getOthelloFactory().createComputerGameOnClassicalBoard();
 		othello.start();
 		List<Node> nodes = othello.getBoard().getNodes();
 		for (Node node : nodes)
@@ -38,7 +33,7 @@ public class OthelloTest extends BaseTestCase {
 
 	@Test
 	public void testGetNodesToSwap() {
-		Othello othello = othelloFactory.createHumanGameOnOriginalBoard();
+		Othello othello = getOthelloFactory().createHumanGameOnOriginalBoard();
 		othello.start("1");
 		Node nodeToPlace = null, swapNode = null;
 		for (Node node : othello.getBoard().getNodes()) {
@@ -58,7 +53,7 @@ public class OthelloTest extends BaseTestCase {
 
 	@Test
 	public void testMove() {
-		Othello othello = othelloFactory.createHumanGameOnOriginalBoard();
+		Othello othello = getOthelloFactory().createHumanGameOnOriginalBoard();
 		othello.start("1");
 		Node nodeToPlace = null, swapNode = null;
 		for (Node node : othello.getBoard().getNodes()) {
@@ -107,7 +102,7 @@ public class OthelloTest extends BaseTestCase {
 
 	@Test
 	public void testIsActive() {
-		Othello othello = othelloFactory.createComputerGameOnClassicalBoard();
+		Othello othello = getOthelloFactory().createComputerGameOnClassicalBoard();
 		othello.start();
 		while (othello.isActive())
 			othello.move();
@@ -116,7 +111,7 @@ public class OthelloTest extends BaseTestCase {
 
 	@Test
 	public void testBrickSwap() {
-		Othello othello = othelloFactory.createHumanGameOnOriginalBoard();
+		Othello othello = getOthelloFactory().createHumanGameOnOriginalBoard();
 		Player white = othello.getPlayers().get(0);
 		Player black = othello.getPlayers().get(1);
 		othello.start(black.getId());
@@ -182,17 +177,17 @@ public class OthelloTest extends BaseTestCase {
 
 	@Test
 	public void testComputerVersusComputer() {
-		runOthello(othelloFactory.createComputerGameOnClassicalBoard());
+		runOthello(getOthelloFactory().createComputerGameOnClassicalBoard());
 	}
 
 	@Test
 	public void testComputerVersusHuman() {
-		runOthello(othelloFactory.createHumanVersusComputerGameOnOriginalBoard());
+		runOthello(getOthelloFactory().createHumanVersusComputerGameOnOriginalBoard());
 	}
 
 	@Test
 	public void testHumanVersusHuman() {
-		runOthello(othelloFactory.createHumanGameOnOriginalBoard());
+		runOthello(getOthelloFactory().createHumanGameOnOriginalBoard());
 	}
 
 	private void runOthello(Othello othello) {

@@ -3,7 +3,6 @@ package kth.game.othello;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.factory.BoardFactory;
 import kth.game.othello.player.Player;
@@ -13,7 +12,7 @@ import kth.game.othello.player.movestrategy.MoveStrategy;
 
 import org.junit.Test;
 
-public class OthelloLab2IT {
+public class OthelloLab2IT extends BaseTestCase {
 
 	private BoardFactory getBoardFactory() {
 		return null;
@@ -23,17 +22,13 @@ public class OthelloLab2IT {
 		return null;
 	}
 
-	private OthelloFactory getOthelloFactory() {
-		return null;
-	}
-
 	private PlayerCreator getPlayerCreator() {
 		return null;
 	}
 
 	private void makeNumberOfComputerMoves(int numberOfMoves, Othello othello) {
 		for (int i = 0; i < numberOfMoves; i++) {
-			Assert.assertEquals(Type.COMPUTER, othello.getPlayerInTurn().getType());
+			assertEquals(Type.COMPUTER, othello.getPlayerInTurn().getType());
 			othello.move();
 		}
 	}
@@ -43,7 +38,7 @@ public class OthelloLab2IT {
 		Othello othello = getOthelloFactory().createHumanVersusComputerGameOnOriginalBoard();
 		String playerId = othello.getPlayers().get(0).getId();
 		othello.start();
-		Assert.assertEquals(2, othello.getScore().getPoints(playerId));
+		assertEquals(2, othello.getScore().getPoints(playerId));
 	}
 
 	@Test
@@ -52,7 +47,7 @@ public class OthelloLab2IT {
 		String playerId = othello.getPlayers().get(0).getId();
 		othello.start(playerId);
 		othello.move(playerId, othello.getBoard().getNode(5, 3).getId());
-		Assert.assertEquals(4, othello.getScore().getPoints(playerId));
+		assertEquals(4, othello.getScore().getPoints(playerId));
 	}
 
 	@Test
@@ -71,7 +66,7 @@ public class OthelloLab2IT {
 			othello.move();
 		}
 
-		Assert.assertFalse(othello.isActive());
+		assertFalse(othello.isActive());
 	}
 
 	@Test
@@ -88,6 +83,6 @@ public class OthelloLab2IT {
 		// Make some moves
 		makeNumberOfComputerMoves(50, othello);
 
-		Assert.assertFalse(othello.isActive());
+		assertFalse(othello.isActive());
 	}
 }

@@ -29,6 +29,10 @@ public class BasicNode implements Node {
 		this(xCoordinate, yCoordinate, getNextId(), null);
 	}
 
+	BasicNode(int xCoordinate, int yCoordinate, String occupantPlayerId) {
+		this(xCoordinate, yCoordinate, getNextId(), occupantPlayerId);
+	}
+
 	private BasicNode(int xCoordinate, int yCoordinate, String id, String occupantPlayerId) {
 		this.xCoordinate = xCoordinate;
 		this.yCoordinate = yCoordinate;

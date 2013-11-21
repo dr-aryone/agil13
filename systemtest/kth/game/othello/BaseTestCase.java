@@ -1,12 +1,9 @@
-package kth.game.othello.test;
+package kth.game.othello;
 
 import java.util.Collections;
 import java.util.List;
 
 import junit.framework.TestCase;
-import kth.game.othello.BasicOthelloFactory;
-import kth.game.othello.Othello;
-import kth.game.othello.OthelloFactory;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 
@@ -23,7 +20,7 @@ public abstract class BaseTestCase extends TestCase {
 	}
 
 	protected OthelloFactory getOthelloFactory() {
-		return new BasicOthelloFactory();
+		return null;
 	}
 
 	protected List<Node> makeAHumanMove(Othello othello, Player human) {

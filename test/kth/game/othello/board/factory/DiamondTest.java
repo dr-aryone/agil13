@@ -6,6 +6,7 @@ import java.util.List;
 import kth.game.othello.board.BoardCreator;
 import kth.game.othello.board.Node;
 import kth.game.othello.board.NodeCreator;
+import kth.game.othello.board.factory.Diamond;
 import kth.game.othello.player.Player;
 
 import org.junit.Assert;

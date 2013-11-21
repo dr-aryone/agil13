@@ -1,4 +1,4 @@
-package kth.game.othello.test;
+package kth.game.othello.board;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
