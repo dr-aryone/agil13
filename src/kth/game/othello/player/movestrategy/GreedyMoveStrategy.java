@@ -18,7 +18,7 @@ class GreedyMoveStrategy implements MoveStrategy {
 		int maxFlips = 0;
 		Node maxFlipsArg = null;
 		for (Node node : board.getNodes()) {
-			if (rules.isMoveValid(playerId, node.getId()))
+			if (!rules.isMoveValid(playerId, node.getId()))
 				continue;
 			List<Node> currentMove = rules.getNodesToSwap(playerId, node.getId());
 			if (currentMove.size() > maxFlips) {
