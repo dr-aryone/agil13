@@ -1,26 +1,15 @@
 package kth.game.othello.board.factory;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import kth.game.othello.MockingBase;
 import kth.game.othello.board.BoardCreator;
 import kth.game.othello.board.Node;
 import kth.game.othello.board.NodeCreator;
-import kth.game.othello.player.Player;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class DiamondTest {
-
-	private List<Player> getPlayers(int numberOfPlayers) {
-		List<Player> players = new ArrayList<Player>();
-		for (int i = 0; i < numberOfPlayers; i++) {
-			players.add(Mockito.mock(Player.class));
-		}
-		return players;
-	}
+public class DiamondTest extends MockingBase {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testShouldThrowExceptionIfFourPlayers() {
