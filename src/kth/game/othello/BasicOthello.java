@@ -12,6 +12,7 @@ class BasicOthello implements Othello {
 
 	private final BoardHandler boardHandler;
 	private final PlayerHandler playerHandler;
+	private final MoveHandler moveHandler;
 	private final Rules rules;
 
 	public BasicOthello(Board board, Player playerOne, Player playerTwo) {
@@ -26,6 +27,7 @@ class BasicOthello implements Othello {
 		this.boardHandler = boardHandler;
 		this.playerHandler = playerHandler;
 		this.rules = new BasicRules(boardHandler);
+		this.moveHandler = new MoveHandler(rules, playerHandler, boardHandler);
 	}
 
 	@Override
@@ -40,13 +42,7 @@ class BasicOthello implements Othello {
 
 	@Override
 	public Player getPlayerInTurn() {
-		if (hasValidMove(playerHandler.getPlayerInTurn().getId())) {
-			return playerHandler.getPlayerInTurn();
-		} else if (hasValidMove(playerHandler.getNextPlayer().getId())) {
-			playerHandler.changePlayer();
-			return playerHandler.getPlayerInTurn();
-		}
-		return null;
+		return moveHandler.getPlayerInTurn();
 	}
 
 	@Override
@@ -71,24 +67,12 @@ class BasicOthello implements Othello {
 
 	@Override
 	public List<Node> move() {
-		if (getPlayerInTurn().getType() != Player.Type.COMPUTER) {
-			throw new IllegalStateException("Current player is not a computer");
-		}
-		Node bestStartNode = getPlayerInTurn().getMoveStrategy().move(getPlayerInTurn().getId(), rules, getBoard());
-		return move(getPlayerInTurn().getId(), bestStartNode.getId());
+		return moveHandler.move();
 	}
 
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
-		if (!isMoveValid(playerId, nodeId)) {
-			throw new IllegalArgumentException("Move is not valid");
-		}
-		List<Node> nodesToSwap = getNodesToSwap(playerId, nodeId);
-		nodesToSwap.add(boardHandler.getNode(nodeId));
-		for (Node node : nodesToSwap)
-			boardHandler.occupyNodeByPlayer(node, playerHandler.getPlayer(playerId));
-		playerHandler.changePlayer();
-		return nodesToSwap;
+		return moveHandler.move(playerId, nodeId);
 	}
 
 	@Override
