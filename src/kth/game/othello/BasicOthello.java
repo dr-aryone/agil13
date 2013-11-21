@@ -1,5 +1,6 @@
 package kth.game.othello;
 
+import java.util.Arrays;
 import java.util.List;
 
 import kth.game.othello.board.Board;
@@ -14,7 +15,11 @@ class BasicOthello implements Othello {
 	private final Rules rules;
 
 	public BasicOthello(Board board, Player playerOne, Player playerTwo) {
-		this(new BoardHandler(board), new PlayerHandler(playerOne, playerTwo));
+		this(board, Arrays.asList(playerOne, playerTwo));
+	}
+
+	public BasicOthello(Board board, List<Player> players) {
+		this(new BoardHandler(board), new PlayerHandler(players));
 	}
 
 	BasicOthello(BoardHandler boardHandler, PlayerHandler playerHandler) {
