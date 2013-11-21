@@ -9,13 +9,13 @@ import kth.game.othello.board.Node;
 import kth.game.othello.board.NodeCreator;
 import kth.game.othello.player.Player;
 
-public class Castle {
+class Castle {
 
-	private BoardCreator boardCreator;
+	private final BoardCreator boardCreator;
 
-	private NodeCreator nodeCreator;
+	private final NodeCreator nodeCreator;
 
-	public Castle(NodeCreator nodeCreator, BoardCreator boardCreator) {
+	Castle(NodeCreator nodeCreator, BoardCreator boardCreator) {
 		this.nodeCreator = nodeCreator;
 		this.boardCreator = boardCreator;
 	}
@@ -23,10 +23,11 @@ public class Castle {
 	/**
 	 * This board has a shape of a castle and can be played by two players.
 	 * 
-	 * @param players The list of players, that must be three
+	 * @param players
+	 *            The list of players, that must be three
 	 * @return the board
 	 */
-	public Board getBoard(List<Player> players) {
+	Board getBoard(List<Player> players) {
 		if (players.size() != 2) {
 			throw new IllegalArgumentException("The number of players must be two.");
 		}

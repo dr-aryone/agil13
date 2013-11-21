@@ -1,30 +1,15 @@
 package kth.game.othello.board;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
 
-public class BoardTest extends TestCase {
-
-	private Node createMockedNode(int x, int y) {
-		return createMockedNode(x, y, "node" + x + "," + y, "player1");
-	}
-
-	private Node createMockedNode(int x, int y, String id, String playerId) {
-		Node node = mock(Node.class);
-		when(node.getId()).thenReturn(id);
-		when(node.getOccupantPlayerId()).thenReturn(playerId);
-		when(node.getXCoordinate()).thenReturn(x);
-		when(node.getYCoordinate()).thenReturn(y);
-		return node;
-	}
+public class BoardTest extends MockingBase {
 
 	@Test
 	public void testBoardCreation() {

@@ -11,12 +11,13 @@ import kth.game.othello.board.Node;
 import kth.game.othello.board.NodeCreator;
 import kth.game.othello.player.Player;
 
-public class Diamond {
-	private BoardCreator boardCreator;
+class Diamond {
 
-	private NodeCreator nodeCreator;
+	private final BoardCreator boardCreator;
 
-	public Diamond(NodeCreator nodeCreator, BoardCreator boardCreator) {
+	private final NodeCreator nodeCreator;
+
+	Diamond(NodeCreator nodeCreator, BoardCreator boardCreator) {
 		this.nodeCreator = nodeCreator;
 		this.boardCreator = boardCreator;
 	}
@@ -45,8 +46,10 @@ public class Diamond {
 	/**
 	 * This board has a shape of a diamond and can be played by three players.
 	 * 
-	 * @param players The list of players, that must be three
-	 * @param size an odd number being the size of the board
+	 * @param players
+	 *            The list of players, that must be three
+	 * @param size
+	 *            an odd number being the size of the board
 	 * @return the diamond board
 	 */
 	public Board getDiamondBoard(List<Player> players, int size) {

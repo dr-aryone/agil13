@@ -9,12 +9,12 @@ import kth.game.othello.board.Node;
 import kth.game.othello.board.NodeCreator;
 import kth.game.othello.player.Player;
 
-public class Square {
-	private BoardCreator boardCreator;
+class Square {
+	private final BoardCreator boardCreator;
 
-	private NodeCreator nodeCreator;
+	private final NodeCreator nodeCreator;
 
-	public Square(NodeCreator nodeCreator, BoardCreator boardCreator) {
+	Square(NodeCreator nodeCreator, BoardCreator boardCreator) {
 		this.nodeCreator = nodeCreator;
 		this.boardCreator = boardCreator;
 	}
@@ -22,11 +22,17 @@ public class Square {
 	/**
 	 * This board is the traditional board for two players.
 	 * 
-	 * @param size an even number determining the size of the board
-	 * @param players the list players of players, that must be two
+	 * @param size
+	 *            an even number determining the size of the board
+	 * @param players
+	 *            the list players of players, that must be two
 	 * @return
 	 */
-	public Board getQuadraticBoard(int size, List<Player> players) {
+	Board getQuadraticBoard(int size, List<Player> players) {
+		if (players.size() != 2) {
+			throw new IllegalArgumentException("The number of players must be two.");
+		}
+
 		String player1Id = players.get(0).getId();
 		String player2Id = players.get(1).getId();
 

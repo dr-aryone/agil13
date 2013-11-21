@@ -12,7 +12,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class DiamondTest {
+public class SquareTest {
 
 	private List<Player> getPlayers(int numberOfPlayers) {
 		List<Player> players = new ArrayList<Player>();
@@ -24,17 +24,17 @@ public class DiamondTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testShouldThrowExceptionIfFourPlayers() {
-		Diamond diamond = new Diamond(null, null);
+		Square square = new Square(null, null);
 		int boardSize = 7;
-		diamond.getDiamondBoard(getPlayers(4), boardSize);
+		square.getQuadraticBoard(boardSize, getPlayers(3));
 		Assert.fail();
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testShouldThrowExceptionIfOnlyTwoPlayers() {
-		Diamond diamond = new Diamond(null, null);
+		Square square = new Square(null, null);
 		int boardSize = 7;
-		diamond.getDiamondBoard(getPlayers(2), boardSize);
+		square.getQuadraticBoard(boardSize, getPlayers(1));
 		Assert.fail();
 	}
 
@@ -44,10 +44,10 @@ public class DiamondTest {
 		Mockito.when(nodeCreator.createNodeWithCoordinate(Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
 		BoardCreator boardCreator = Mockito.mock(BoardCreator.class);
 		Mockito.when(boardCreator.createBoard(Mockito.anyListOf(Node.class))).thenReturn(null);
-		Diamond diamond = new Diamond(nodeCreator, boardCreator);
+		Square square = new Square(nodeCreator, boardCreator);
 		int boardSize = 7;
 
-		diamond.getDiamondBoard(getPlayers(3), boardSize);
+		square.getQuadraticBoard(boardSize, getPlayers(2));
 
 		Mockito.verify(boardCreator).createBoard(Mockito.anyListOf(Node.class));
 	}
