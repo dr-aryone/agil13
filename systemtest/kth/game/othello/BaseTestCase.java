@@ -3,8 +3,13 @@ package kth.game.othello;
 import java.util.Collections;
 import java.util.List;
 
+import kth.game.othello.board.BasicBoardCreator;
+import kth.game.othello.board.BasicNodeCreator;
 import kth.game.othello.board.Node;
+import kth.game.othello.board.factory.BoardFactory;
+import kth.game.othello.player.BasicPlayerCreator;
 import kth.game.othello.player.Player;
+import kth.game.othello.player.PlayerCreator;
 
 public abstract class BaseTestCase {
 
@@ -19,7 +24,10 @@ public abstract class BaseTestCase {
 	}
 
 	protected OthelloFactory getOthelloFactory() {
-		return null;
+		OthelloCreator othelloCreator = new BasicOthelloCreator();
+		BoardFactory boardFactory = new BoardFactory(new BasicNodeCreator(), new BasicBoardCreator());
+		PlayerCreator playerCreator = new BasicPlayerCreator();
+		return new OthelloFactory(othelloCreator, boardFactory, playerCreator);
 	}
 
 	protected List<Node> makeAHumanMove(Othello othello, Player human) {
