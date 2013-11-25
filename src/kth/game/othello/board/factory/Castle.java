@@ -24,7 +24,7 @@ class Castle {
 	 * This board has a shape of a castle and can be played by two players.
 	 * 
 	 * @param players
-	 *            The list of players, that must be three
+	 *            The list of players, that must be two
 	 * @return the board
 	 */
 	Board getBoard(List<Player> players) {
