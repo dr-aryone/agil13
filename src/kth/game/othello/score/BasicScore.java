@@ -1,25 +1,34 @@
 package kth.game.othello.score;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
+import java.util.Observable;
 
-class BasicScore implements Score {
+import kth.game.othello.player.Player;
 
-	@Override
-	public void addObserver(Observer observer) {
-		// TODO Auto-generated method stub
+class BasicScore extends Observable implements Score {
 
+	private final List<ScoreItem> playerScores = new ArrayList<>();
+
+	BasicScore(Player firstPlayer, Player... morePlayers) {
+		playerScores.add(new ScoreItem(firstPlayer.getId(), 0));
+		for (Player player : morePlayers) {
+			playerScores.add(new ScoreItem(player.getId(), 0));
+		}
 	}
 
 	@Override
 	public List<ScoreItem> getPlayersScore() {
-		// TODO Auto-generated method stub
-		return null;
+		return playerScores;
 	}
 
 	@Override
 	public int getPoints(String playerId) {
-		// TODO Auto-generated method stub
+		for (ScoreItem scoreItem : playerScores) {
+			if (scoreItem.getPlayerId().equals(playerId)) {
+				return scoreItem.getScore();
+			}
+		}
 		return 0;
 	}
 
