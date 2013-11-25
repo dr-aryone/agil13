@@ -80,12 +80,7 @@ class BasicOthello implements Othello {
 
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
-		String increasePlayer = getPlayerInTurn().getId();
-		List<Node> changedNodes = moveHandler.move(playerId, nodeId);
-		String decreasePlayer = getPlayerInTurn().getId();
-		score.increasePoints(increasePlayer, changedNodes.size());
-		score.decreasePoints(decreasePlayer, changedNodes.size() - 1);
-		return changedNodes;
+		return moveHandler.move(playerId, nodeId);
 	}
 
 	@Override
