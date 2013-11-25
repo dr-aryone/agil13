@@ -6,11 +6,14 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import kth.game.othello.board.BasicNode;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 public class MockingBase {
 
@@ -28,9 +31,18 @@ public class MockingBase {
 		return createMockedNode(x, y, x + "," + y, null);
 	}
 
-	protected Node createMockedNode(int x, int y, String id, String playerId) {
-		Node node = mock(Node.class);
+	protected BasicNode createMockedNode(int x, int y, String id, String playerId) {
+		final BasicNode node = mock(BasicNode.class);
 		when(node.getId()).thenReturn(id);
+		Mockito.doAnswer(new Answer<Void>() {
+			@Override
+			public Void answer(InvocationOnMock invocation) throws Throwable {
+				String newId = (String) invocation.getArguments()[0];
+				when(node.getOccupantPlayerId()).thenReturn(newId);
+				return null;
+			}
+		}).when(node).setOccupantPlayerId(Mockito.anyString());
+
 		when(node.getOccupantPlayerId()).thenReturn(playerId);
 		when(node.getXCoordinate()).thenReturn(x);
 		when(node.getYCoordinate()).thenReturn(y);
