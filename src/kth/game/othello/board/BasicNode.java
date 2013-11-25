@@ -53,6 +53,7 @@ public class BasicNode extends Observable implements Node {
 
 	public void setOccupantPlayerId(String occupantPlayerId) {
 		this.occupantPlayerId = occupantPlayerId;
+		setChanged();
 		notifyObservers(occupantPlayerId);
 	}
 
