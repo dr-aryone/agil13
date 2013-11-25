@@ -12,8 +12,6 @@ import kth.game.othello.player.Player;
 
 class BoardHandler {
 
-	private static final int MIDDLE_UPPER_LEFT_X = 3, MIDDLE_UPPER_LEFT_Y = MIDDLE_UPPER_LEFT_X;
-
 	private final Map<String, Node> nodeLookupMap = new HashMap<>();
 
 	private Board board;
@@ -56,21 +54,6 @@ class BoardHandler {
 	 */
 	Board getBoard() {
 		return board;
-	}
-
-	/**
-	 * Places the four initial middle bricks as: white, black black, white
-	 * 
-	 * @param white
-	 *            The player who will be represented as the "black" player.
-	 * @param black
-	 *            The player who will be represented as the "white" player.
-	 */
-	void placeInitialBricks(Player white, Player black) {
-		occupyNodeByPlayer(board.getNode(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y), white);
-		occupyNodeByPlayer(board.getNode(MIDDLE_UPPER_LEFT_X + 1, MIDDLE_UPPER_LEFT_Y), black);
-		occupyNodeByPlayer(board.getNode(MIDDLE_UPPER_LEFT_X, MIDDLE_UPPER_LEFT_Y + 1), black);
-		occupyNodeByPlayer(board.getNode(MIDDLE_UPPER_LEFT_X + 1, MIDDLE_UPPER_LEFT_Y + 1), white);
 	}
 
 	/**
