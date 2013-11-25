@@ -90,6 +90,9 @@ class BasicOthello implements Othello {
 
 	@Override
 	public void start(String playerId) {
+		for (Node node : getBoard().getNodes()) {
+			node.addObserver(score);
+		}
 		playerHandler.setPlayerInTurn(playerId);
 	}
 

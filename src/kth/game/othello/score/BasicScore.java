@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 
+import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 
 /**
  * The responsibility of this class is to handle of the scores of the players.
  */
-public class BasicScore extends Observable implements Score {
+public class BasicScore extends Observable implements Score, Observer {
 
 	private final List<ScoreItem> playerScores = new ArrayList<>();
 
@@ -20,35 +22,21 @@ public class BasicScore extends Observable implements Score {
 		}
 	}
 
-	/**
-	 * Increases the points of a player by the number of points specified by the
-	 * parameter. This method will notify the observers of this class.
-	 * 
-	 * @param playerId
-	 *            The id of the player to increase score of.
-	 * @param points
-	 *            The number of points that the players score increased by.
-	 */
-	public void increasePoints(String playerId, int points) {
+	private void incrementPoints(String playerId) {
+		changePoints(playerId, 1);
+	}
+
+	private void decrementPoints(String playerId) {
+		changePoints(playerId, -1);
+	}
+
+	private void changePoints(String playerId, int points) {
 		ScoreItem oldScoreItem = getScoreItem(playerId);
 		if (playerScores.remove(oldScoreItem)) {
 			playerScores.add(new ScoreItem(oldScoreItem.getPlayerId(), oldScoreItem.getScore() + points));
 			setChanged();
 			notifyObservers(Collections.singletonList(playerId));
 		}
-	}
-
-	/**
-	 * Decreases the points of a player by the number of points specified by the
-	 * parameter. This method will notify the observers of this class.
-	 * 
-	 * @param playerId
-	 *            The id of the player to decrease score of.
-	 * @param points
-	 *            The number of points that the players score decreased by.
-	 */
-	public void decreasePoints(String playerId, int points) {
-		increasePoints(playerId, -points);
 	}
 
 	@Override
@@ -72,5 +60,17 @@ public class BasicScore extends Observable implements Score {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if (!(o instanceof Node))
+			return;
+		Node node = (Node) o;
+		incrementPoints(node.getOccupantPlayerId());
+		if (!(arg instanceof String))
+			return;
+		String previousPlayerId = (String) arg;
+		decrementPoints(previousPlayerId);
 	}
 }
