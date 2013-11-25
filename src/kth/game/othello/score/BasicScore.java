@@ -14,7 +14,7 @@ public class BasicScore extends Observable implements Score {
 
 	private final List<ScoreItem> playerScores = new ArrayList<>();
 
-	BasicScore(List<Player> players) {
+	public BasicScore(List<Player> players) {
 		for (Player player : players) {
 			playerScores.add(new ScoreItem(player.getId(), 0));
 		}
