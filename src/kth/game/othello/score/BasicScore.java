@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 
@@ -36,6 +37,20 @@ public class BasicScore extends Observable implements Score, Observer {
 			playerScores.add(new ScoreItem(oldScoreItem.getPlayerId(), oldScoreItem.getScore() + points));
 			setChanged();
 			notifyObservers(Collections.singletonList(playerId));
+		}
+	}
+
+	/**
+	 * Parses a board to set the initial score.
+	 * 
+	 * @param board
+	 *            The board to parse nodes from.
+	 */
+	public void setInitialScore(Board board) {
+		for (Node node : board.getNodes()) {
+			if (node.getOccupantPlayerId() != null) {
+				incrementPoints(node.getOccupantPlayerId());
+			}
 		}
 	}
 

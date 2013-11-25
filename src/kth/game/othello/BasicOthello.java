@@ -93,6 +93,7 @@ class BasicOthello implements Othello {
 		for (Node node : getBoard().getNodes()) {
 			node.addObserver(score);
 		}
+		score.setInitialScore(getBoard());
 		playerHandler.setPlayerInTurn(playerId);
 	}
 
