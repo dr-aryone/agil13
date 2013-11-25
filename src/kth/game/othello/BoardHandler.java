@@ -1,10 +1,8 @@
 package kth.game.othello;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import kth.game.othello.board.BasicBoard;
 import kth.game.othello.board.BasicNode;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
@@ -14,7 +12,7 @@ class BoardHandler {
 
 	private final Map<String, Node> nodeLookupMap = new HashMap<>();
 
-	private Board board;
+	private final Board board;
 
 	BoardHandler(Board board) {
 		this.board = board;
@@ -66,13 +64,9 @@ class BoardHandler {
 	 *            the Player to claim the Node.
 	 */
 	void occupyNodeByPlayer(Node node, Player player) {
-		Node occupied = BasicNode.newNodeOccupiedByPlayer(node, player);
-
-		List<Node> nodes = getBoard().getNodes();
-		int nodeIndex = nodes.indexOf(node);
-		nodes.set(nodeIndex, occupied);
-		nodeLookupMap.put(node.getId(), occupied);
-		board = new BasicBoard(nodes);
+		if (!(node instanceof BasicNode))
+			return;
+		BasicNode basicNode = (BasicNode) node;
+		basicNode.setOccupantPlayerId(player.getId());
 	}
-
 }
