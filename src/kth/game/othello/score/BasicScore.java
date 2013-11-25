@@ -16,6 +16,15 @@ public class BasicScore extends Observable implements Score {
 		}
 	}
 
+	/**
+	 * Increases the points of a player by the number of points specified by the
+	 * parameter.
+	 * 
+	 * @param playerId
+	 *            The id of the player to increase score of.
+	 * @param points
+	 *            The number of points that the players score increased by.
+	 */
 	public void increasePoints(String playerId, int points) {
 		ScoreItem oldScoreItem = getScoreItem(playerId);
 		if (playerScores.remove(oldScoreItem)) {
@@ -25,6 +34,15 @@ public class BasicScore extends Observable implements Score {
 		}
 	}
 
+	/**
+	 * Decreases the points of a player by the number of points specified by the
+	 * parameter.
+	 * 
+	 * @param playerId
+	 *            The id of the player to decrease score of.
+	 * @param points
+	 *            The number of points that the players score decreased by.
+	 */
 	public void decreasePoints(String playerId, int points) {
 		increasePoints(playerId, -points);
 	}
