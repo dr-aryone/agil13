@@ -5,6 +5,7 @@ import java.util.List;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
+import kth.game.othello.score.BasicScore;
 import kth.game.othello.score.Score;
 
 class BasicOthello implements Othello {
@@ -13,18 +14,24 @@ class BasicOthello implements Othello {
 	private final PlayerHandler playerHandler;
 	private final MoveHandler moveHandler;
 	private final Rules rules;
-	private Score score;
+	private final Score score;
 
 	public BasicOthello(Board board, List<Player> players) {
-		this(new BoardHandler(board), new PlayerHandler(players));
+		boardHandler = new BoardHandler(board);
+		playerHandler = new PlayerHandler(players);
+		score = new BasicScore(players);
+		rules = new BasicRules(boardHandler);
+		moveHandler = new MoveHandler(rules, playerHandler, boardHandler);
 	}
 
-	BasicOthello(BoardHandler boardHandler, PlayerHandler playerHandler) {
+/*	BasicOthello(BoardHandler boardHandler, PlayerHandler playerHandler, MoveHandler moveHandler, Rules rules,
+			Score score) {
 		this.boardHandler = boardHandler;
 		this.playerHandler = playerHandler;
-		this.rules = new BasicRules(boardHandler);
-		this.moveHandler = new MoveHandler(rules, playerHandler, boardHandler);
-	}
+		this.rules = rules;
+		this.moveHandler = moveHandler;
+		this.score = score;
+	}*/
 
 	@Override
 	public Board getBoard() {
@@ -85,7 +92,6 @@ class BasicOthello implements Othello {
 
 	@Override
 	public Score getScore() {
-		// TODO Auto-generated method stub
-		return null;
+		return score;
 	}
 }
