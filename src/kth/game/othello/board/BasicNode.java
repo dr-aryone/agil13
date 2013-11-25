@@ -1,6 +1,6 @@
 package kth.game.othello.board;
 
-import java.util.Observer;
+import java.util.Observable;
 
 import kth.game.othello.player.Player;
 
@@ -8,11 +8,12 @@ import kth.game.othello.player.Player;
  * An implementation of the {@link Node} interface used in the game of Othello.
  * 
  */
-public class BasicNode implements Node {
+public class BasicNode extends Observable implements Node {
 
 	private static int nextId = 1;
 
-	private final String id, occupantPlayerId;
+	private final String id;
+	private String occupantPlayerId;
 	private final int xCoordinate, yCoordinate;
 
 	/**
@@ -50,6 +51,11 @@ public class BasicNode implements Node {
 		return occupantPlayerId;
 	}
 
+	public void setOccupantPlayerId(String occupantPlayerId) {
+		this.occupantPlayerId = occupantPlayerId;
+		notifyObservers(occupantPlayerId);
+	}
+
 	@Override
 	public int getXCoordinate() {
 		return xCoordinate;
@@ -63,12 +69,6 @@ public class BasicNode implements Node {
 	@Override
 	public boolean isMarked() {
 		return getOccupantPlayerId() != null;
-	}
-
-	@Override
-	public void addObserver(Observer observer) {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
