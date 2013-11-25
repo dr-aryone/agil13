@@ -11,7 +11,7 @@ public class PlayerHandlerTest extends MockingBase {
 
 	@Test
 	public void testRandomPlayer() {
-		List<Player> players = getPlayers(10);
+		List<Player> players = createMockedPlayers(10);
 		PlayerHandler playerHandler = new PlayerHandler(players);
 		Assert.assertTrue("0123456789".contains(playerHandler.randomPlayer().getId()));
 		Assert.assertTrue("0123456789".contains(playerHandler.randomPlayer().getId()));
@@ -23,7 +23,7 @@ public class PlayerHandlerTest extends MockingBase {
 
 	@Test
 	public void testChangePlayer() {
-		List<Player> players = getPlayers(5);
+		List<Player> players = createMockedPlayers(5);
 		PlayerHandler playerHandler = new PlayerHandler(players);
 
 		Assert.assertNull(playerHandler.getPlayerInTurn());
@@ -53,7 +53,7 @@ public class PlayerHandlerTest extends MockingBase {
 
 	@Test
 	public void testGetPlayer() {
-		List<Player> players = getPlayers(5);
+		List<Player> players = createMockedPlayers(5);
 		PlayerHandler playerHandler = new PlayerHandler(players);
 		Assert.assertEquals("0", playerHandler.getPlayer("0").getId());
 		Assert.assertEquals("1", playerHandler.getPlayer("1").getId());

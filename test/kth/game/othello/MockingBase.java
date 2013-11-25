@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 
 public class MockingBase {
 
-	protected List<Player> getPlayers(int numberOfPlayers) {
+	protected List<Player> createMockedPlayers(int numberOfPlayers) {
 		List<Player> players = new ArrayList<Player>();
 		for (int i = 0; i < numberOfPlayers; i++) {
 			Player player = Mockito.mock(Player.class);

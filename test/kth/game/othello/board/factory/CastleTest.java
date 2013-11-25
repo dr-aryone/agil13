@@ -14,14 +14,14 @@ public class CastleTest extends MockingBase {
 	@Test(expected = IllegalArgumentException.class)
 	public void testShouldThrowExceptionIfFourPlayers() {
 		Castle castle = new Castle(null, null);
-		castle.getBoard(getPlayers(3));
+		castle.getBoard(createMockedPlayers(3));
 		Assert.fail();
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testShouldThrowExceptionIfOnlyTwoPlayers() {
 		Castle castle = new Castle(null, null);
-		castle.getBoard(getPlayers(1));
+		castle.getBoard(createMockedPlayers(1));
 		Assert.fail();
 	}
 
@@ -33,7 +33,7 @@ public class CastleTest extends MockingBase {
 		Mockito.when(boardCreator.createBoard(Mockito.anyListOf(Node.class))).thenReturn(null);
 		Castle castle = new Castle(nodeCreator, boardCreator);
 
-		castle.getBoard(getPlayers(2));
+		castle.getBoard(createMockedPlayers(2));
 
 		Mockito.verify(boardCreator).createBoard(Mockito.anyListOf(Node.class));
 	}

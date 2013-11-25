@@ -33,7 +33,7 @@ public class BoardHandlerTest extends MockingBase {
 
 	@Test
 	public void testOccupyNode() {
-		List<Player> players = getPlayers(2);
+		List<Player> players = createMockedPlayers(2);
 		Player white = players.get(0);
 		Player black = players.get(1);
 		Board board = createMockedBoard(5);

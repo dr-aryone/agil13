@@ -15,7 +15,7 @@ public class DiamondTest extends MockingBase {
 	public void testShouldThrowExceptionIfFourPlayers() {
 		Diamond diamond = new Diamond(null, null);
 		int boardSize = 7;
-		diamond.getDiamondBoard(getPlayers(4), boardSize);
+		diamond.getDiamondBoard(createMockedPlayers(4), boardSize);
 		Assert.fail();
 	}
 
@@ -23,7 +23,7 @@ public class DiamondTest extends MockingBase {
 	public void testShouldThrowExceptionIfOnlyTwoPlayers() {
 		Diamond diamond = new Diamond(null, null);
 		int boardSize = 7;
-		diamond.getDiamondBoard(getPlayers(2), boardSize);
+		diamond.getDiamondBoard(createMockedPlayers(2), boardSize);
 		Assert.fail();
 	}
 
@@ -36,7 +36,7 @@ public class DiamondTest extends MockingBase {
 		Diamond diamond = new Diamond(nodeCreator, boardCreator);
 		int boardSize = 7;
 
-		diamond.getDiamondBoard(getPlayers(3), boardSize);
+		diamond.getDiamondBoard(createMockedPlayers(3), boardSize);
 
 		Mockito.verify(boardCreator).createBoard(Mockito.anyListOf(Node.class));
 	}

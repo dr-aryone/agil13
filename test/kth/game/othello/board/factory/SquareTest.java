@@ -15,7 +15,7 @@ public class SquareTest extends MockingBase {
 	public void testShouldThrowExceptionIfFourPlayers() {
 		Square square = new Square(null, null);
 		int boardSize = 7;
-		square.getQuadraticBoard(boardSize, getPlayers(3));
+		square.getQuadraticBoard(boardSize, createMockedPlayers(3));
 		Assert.fail();
 	}
 
@@ -23,7 +23,7 @@ public class SquareTest extends MockingBase {
 	public void testShouldThrowExceptionIfOnlyTwoPlayers() {
 		Square square = new Square(null, null);
 		int boardSize = 7;
-		square.getQuadraticBoard(boardSize, getPlayers(1));
+		square.getQuadraticBoard(boardSize, createMockedPlayers(1));
 		Assert.fail();
 	}
 
@@ -36,7 +36,7 @@ public class SquareTest extends MockingBase {
 		Square square = new Square(nodeCreator, boardCreator);
 		int boardSize = 7;
 
-		square.getQuadraticBoard(boardSize, getPlayers(2));
+		square.getQuadraticBoard(boardSize, createMockedPlayers(2));
 
 		Mockito.verify(boardCreator).createBoard(Mockito.anyListOf(Node.class));
 	}
