@@ -6,6 +6,9 @@ import java.util.Observable;
 
 import kth.game.othello.player.Player;
 
+/**
+ * The responsibility of this class is to handle of the scores of the players.
+ */
 public class BasicScore extends Observable implements Score {
 
 	private final List<ScoreItem> playerScores = new ArrayList<>();
