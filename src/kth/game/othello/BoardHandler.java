@@ -12,8 +12,6 @@ import kth.game.othello.player.Player;
 
 class BoardHandler {
 
-	private static final int MIDDLE_UPPER_LEFT_X = 3, MIDDLE_UPPER_LEFT_Y = MIDDLE_UPPER_LEFT_X;
-
 	private final Map<String, Node> nodeLookupMap = new HashMap<>();
 
 	private Board board;
