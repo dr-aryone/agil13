@@ -96,8 +96,6 @@ class BasicOthello implements Othello {
 	@Override
 	public void start(String playerId) {
 		playerHandler.setPlayerInTurn(playerId);
-		List<Player> players = playerHandler.getAllPlayers();
-		boardHandler.placeInitialBricks(players.get(0), players.get(1));
 	}
 
 	@Override
