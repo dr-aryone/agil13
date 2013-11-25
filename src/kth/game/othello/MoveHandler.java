@@ -26,15 +26,6 @@ class MoveHandler {
 		return null;
 	}
 
-	public List<Node> move() {
-		if (getPlayerInTurn().getType() != Player.Type.COMPUTER) {
-			throw new IllegalStateException("Current player is not a computer");
-		}
-		Node bestStartNode = getPlayerInTurn().getMoveStrategy().move(getPlayerInTurn().getId(), rules,
-				boardHandler.getBoard());
-		return move(getPlayerInTurn().getId(), bestStartNode.getId());
-	}
-
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
 		if (!rules.isMoveValid(playerId, nodeId)) {
 			throw new IllegalArgumentException("Move is not valid");

@@ -14,7 +14,7 @@ class BasicOthello implements Othello {
 	private final PlayerHandler playerHandler;
 	private final MoveHandler moveHandler;
 	private final Rules rules;
-	private final Score score;
+	private final BasicScore score;
 
 	public BasicOthello(Board board, List<Player> players) {
 		boardHandler = new BoardHandler(board);
@@ -24,14 +24,14 @@ class BasicOthello implements Othello {
 		moveHandler = new MoveHandler(rules, playerHandler, boardHandler);
 	}
 
-/*	BasicOthello(BoardHandler boardHandler, PlayerHandler playerHandler, MoveHandler moveHandler, Rules rules,
-			Score score) {
+	BasicOthello(BoardHandler boardHandler, PlayerHandler playerHandler, MoveHandler moveHandler, Rules rules,
+			BasicScore score) {
 		this.boardHandler = boardHandler;
 		this.playerHandler = playerHandler;
 		this.rules = rules;
 		this.moveHandler = moveHandler;
 		this.score = score;
-	}*/
+	}
 
 	@Override
 	public Board getBoard() {
@@ -70,12 +70,22 @@ class BasicOthello implements Othello {
 
 	@Override
 	public List<Node> move() {
-		return moveHandler.move();
+		if (getPlayerInTurn().getType() != Player.Type.COMPUTER) {
+			throw new IllegalStateException("Current player is not a computer");
+		}
+		Node bestStartNode = getPlayerInTurn().getMoveStrategy().move(getPlayerInTurn().getId(), rules,
+				boardHandler.getBoard());
+		return move(getPlayerInTurn().getId(), bestStartNode.getId());
 	}
 
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
-		return moveHandler.move(playerId, nodeId);
+		String increasePlayer = getPlayerInTurn().getId();
+		List<Node> changedNodes = moveHandler.move(playerId, nodeId);
+		String decreasePlayer = getPlayerInTurn().getId();
+		score.increasePoints(increasePlayer, changedNodes.size());
+		score.decreasePoints(decreasePlayer, changedNodes.size() - 1);
+		return changedNodes;
 	}
 
 	@Override
