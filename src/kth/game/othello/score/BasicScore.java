@@ -22,11 +22,11 @@ public class BasicScore extends Observable implements Score, Observer {
 		}
 	}
 
-	private void incrementPoints(String playerId) {
+	void incrementPoints(String playerId) {
 		changePoints(playerId, 1);
 	}
 
-	private void decrementPoints(String playerId) {
+	void decrementPoints(String playerId) {
 		changePoints(playerId, -1);
 	}
 

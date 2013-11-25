@@ -11,7 +11,6 @@ import kth.game.othello.player.Player;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 public class ScoreTest extends MockingBase {
 
@@ -30,7 +29,7 @@ public class ScoreTest extends MockingBase {
 			}
 		});
 
-		score.increasePoints("0", Mockito.anyInt());
+		score.incrementPoints("0");
 		if (!updateTriggered.get())
 			Assert.fail();
 	}
@@ -42,10 +41,11 @@ public class ScoreTest extends MockingBase {
 
 		Assert.assertEquals(0, score.getPoints("0"));
 
-		score.increasePoints("0", 10);
-		Assert.assertEquals(10, score.getPoints("0"));
+		score.incrementPoints("0");
+		Assert.assertEquals(1, score.getPoints("0"));
 
-		score.decreasePoints("0", 20);
-		Assert.assertEquals(-10, score.getPoints("0"));
+		score.decrementPoints("0");
+		score.decrementPoints("0");
+		Assert.assertEquals(-1, score.getPoints("0"));
 	}
 }
