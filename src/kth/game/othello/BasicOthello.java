@@ -14,6 +14,7 @@ class BasicOthello implements Othello {
 	private final PlayerHandler playerHandler;
 	private final MoveHandler moveHandler;
 	private final Rules rules;
+	private Score score;
 
 	public BasicOthello(Board board, Player playerOne, Player playerTwo) {
 		this(board, Arrays.asList(playerOne, playerTwo));
