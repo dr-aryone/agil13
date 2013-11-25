@@ -37,7 +37,7 @@ public class ScoreTest extends MockingBase {
 
 	@Test
 	public void testScoreChange() {
-		List<Player> players = createMockedPlayers(3);
+		List<Player> players = createMockedPlayers(1);
 		BasicScore score = new BasicScore(players);
 
 		Assert.assertEquals(0, score.getPoints("0"));
