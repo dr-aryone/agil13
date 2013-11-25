@@ -6,15 +6,27 @@ import java.util.Observable;
 
 import kth.game.othello.player.Player;
 
-class BasicScore extends Observable implements Score {
+public class BasicScore extends Observable implements Score {
 
 	private final List<ScoreItem> playerScores = new ArrayList<>();
 
-	BasicScore(Player firstPlayer, Player... morePlayers) {
-		playerScores.add(new ScoreItem(firstPlayer.getId(), 0));
-		for (Player player : morePlayers) {
+	BasicScore(List<Player> players) {
+		for (Player player : players) {
 			playerScores.add(new ScoreItem(player.getId(), 0));
 		}
+	}
+
+	public void increasePoints(String playerId, int points) {
+		ScoreItem oldScoreItem = getScoreItem(playerId);
+		if (playerScores.remove(oldScoreItem)) {
+			playerScores.add(new ScoreItem(oldScoreItem.getPlayerId(), oldScoreItem.getScore() + points));
+			setChanged();
+			notifyObservers(getPoints(playerId));
+		}
+	}
+
+	public void decreasePoints(String playerId, int points) {
+		increasePoints(playerId, -points);
 	}
 
 	@Override
@@ -24,12 +36,19 @@ class BasicScore extends Observable implements Score {
 
 	@Override
 	public int getPoints(String playerId) {
-		for (ScoreItem scoreItem : playerScores) {
-			if (scoreItem.getPlayerId().equals(playerId)) {
-				return scoreItem.getScore();
-			}
-		}
-		return 0;
+		ScoreItem scoreItem = getScoreItem(playerId);
+		if (scoreItem != null)
+			return scoreItem.getScore();
+		else
+			return 0;
 	}
 
+	private ScoreItem getScoreItem(String playerId) {
+		for (ScoreItem scoreItem : playerScores) {
+			if (scoreItem.getPlayerId().equals(playerId)) {
+				return scoreItem;
+			}
+		}
+		return null;
+	}
 }
