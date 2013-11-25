@@ -1,6 +1,7 @@
 package kth.game.othello.score;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 
@@ -21,7 +22,7 @@ public class BasicScore extends Observable implements Score {
 
 	/**
 	 * Increases the points of a player by the number of points specified by the
-	 * parameter.
+	 * parameter. This method will notify the observers of this class.
 	 * 
 	 * @param playerId
 	 *            The id of the player to increase score of.
@@ -33,13 +34,13 @@ public class BasicScore extends Observable implements Score {
 		if (playerScores.remove(oldScoreItem)) {
 			playerScores.add(new ScoreItem(oldScoreItem.getPlayerId(), oldScoreItem.getScore() + points));
 			setChanged();
-			notifyObservers(getPoints(playerId));
+			notifyObservers(Collections.singletonList(playerId));
 		}
 	}
 
 	/**
 	 * Decreases the points of a player by the number of points specified by the
-	 * parameter.
+	 * parameter. This method will notify the observers of this class.
 	 * 
 	 * @param playerId
 	 *            The id of the player to decrease score of.
