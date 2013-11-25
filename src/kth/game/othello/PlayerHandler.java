@@ -1,7 +1,6 @@
 package kth.game.othello;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,10 +11,6 @@ import kth.game.othello.player.Player;
 class PlayerHandler {
 	private final Map<String, Player> playerLookupMap = new LinkedHashMap<>();
 	private Player playerInTurn;
-
-	PlayerHandler(Player... players) {
-		this(Arrays.asList(players));
-	}
 
 	PlayerHandler(List<Player> players) {
 		for (Player player : players)
