@@ -46,6 +46,7 @@ public class MockingBase {
 		when(node.getOccupantPlayerId()).thenReturn(playerId);
 		when(node.getXCoordinate()).thenReturn(x);
 		when(node.getYCoordinate()).thenReturn(y);
+		when(node.isMarked()).thenReturn(playerId != null);
 		return node;
 	}
 
