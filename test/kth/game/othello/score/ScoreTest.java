@@ -7,6 +7,7 @@ import java.util.Observer;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import kth.game.othello.MockingBase;
+import kth.game.othello.board.BasicNode;
 import kth.game.othello.player.Player;
 
 import org.junit.Assert;
@@ -28,8 +29,8 @@ public class ScoreTest extends MockingBase {
 				updateTriggered.set(true);
 			}
 		});
-
-		score.incrementPoints("0");
+		BasicNode node = createMockedNode(0, 0, "n0", "0");
+		score.update(node, null);
 		if (!updateTriggered.get())
 			Assert.fail();
 	}

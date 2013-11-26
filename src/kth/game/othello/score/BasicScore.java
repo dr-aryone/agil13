@@ -1,7 +1,6 @@
 package kth.game.othello.score;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -35,8 +34,6 @@ public class BasicScore extends Observable implements Score, Observer {
 		ScoreItem oldScoreItem = getScoreItem(playerId);
 		if (playerScores.remove(oldScoreItem)) {
 			playerScores.add(new ScoreItem(oldScoreItem.getPlayerId(), oldScoreItem.getScore() + points));
-			setChanged();
-			notifyObservers(Collections.singletonList(playerId));
 		}
 	}
 
@@ -82,10 +79,15 @@ public class BasicScore extends Observable implements Score, Observer {
 		if (!(o instanceof Node))
 			return;
 		Node node = (Node) o;
+		List<String> playerIds = new ArrayList<>();
 		incrementPoints(node.getOccupantPlayerId());
-		if (!(arg instanceof String))
-			return;
-		String previousPlayerId = (String) arg;
-		decrementPoints(previousPlayerId);
+		playerIds.add(node.getOccupantPlayerId());
+		if (arg instanceof String) {
+			String previousPlayerId = (String) arg;
+			decrementPoints(previousPlayerId);
+			playerIds.add(previousPlayerId);
+		}
+		setChanged();
+		notifyObservers(playerIds);
 	}
 }
