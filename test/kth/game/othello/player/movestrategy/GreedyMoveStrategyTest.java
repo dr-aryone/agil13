@@ -98,7 +98,7 @@ public class GreedyMoveStrategyTest extends MockingBase {
 		testNodes.add(createMockedNode(1, 1, "1:1", "1"));
 		when(rules.isMoveValid("0", "1:1")).thenReturn(false);
 		when(rules.isMoveValid("1", "1:1")).thenReturn(false);
-
+		
 		when(board.getNodes()).thenReturn(testNodes);
 
 		Node node = strategy.move("1", rules, board);
