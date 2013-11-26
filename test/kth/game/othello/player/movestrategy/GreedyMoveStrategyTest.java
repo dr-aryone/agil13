@@ -68,8 +68,7 @@ public class GreedyMoveStrategyTest extends MockingBase {
 		List<Node> smallResult = Arrays.asList(createMockedNode(2, 1));
 		when(rules.getNodesToSwap("1", "3:1")).thenReturn(smallResult);
 		List<Node> bigResult = Arrays.asList(createMockedNode(1, 0), createMockedNode(2, 0));
-		when(rules.getNodesToSwap("1", "3:0"))
-				.thenReturn(bigResult);
+		when(rules.getNodesToSwap("1", "3:0")).thenReturn(bigResult);
 
 		Node node = strategy.move("1", rules, board);
 
@@ -86,7 +85,6 @@ public class GreedyMoveStrategyTest extends MockingBase {
 		Rules rules = mock(Rules.class);
 
 		testNodes.add(createMockedNode(0, 0, "0:0", "1"));
-		when(rules.isMoveValid("0", "0:0")).thenReturn(false);
 		when(rules.isMoveValid("1", "0:0")).thenReturn(false);
 
 		testNodes.add(createMockedNode(0, 1, "0:1", "0"));
@@ -100,11 +98,12 @@ public class GreedyMoveStrategyTest extends MockingBase {
 		testNodes.add(createMockedNode(1, 1, "1:1", "1"));
 		when(rules.isMoveValid("0", "1:1")).thenReturn(false);
 		when(rules.isMoveValid("1", "1:1")).thenReturn(false);
+
 		when(board.getNodes()).thenReturn(testNodes);
 
 		Node node = strategy.move("1", rules, board);
 
-		Assert.assertTrue(node == null);
+		Assert.assertNull(node);
 	}
 
 	@Test
