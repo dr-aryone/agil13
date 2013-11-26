@@ -19,7 +19,7 @@ public class NodeTest extends MockingBase {
 			@Override
 			public void update(Observable o, Object arg) {
 				Assert.assertEquals(node, o);
-				Assert.assertEquals("p1", arg);
+				Assert.assertNull(arg);
 				updateTriggered.set(true);
 			}
 		});
