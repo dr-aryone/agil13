@@ -13,7 +13,7 @@ import kth.game.othello.player.Player.Type;
 
 import org.junit.Test;
 
-public class OthelloTest extends BaseTestCase {
+public class OthelloSystemTest extends BaseTestCase {
 
 	@Test
 	public void testInitialPlayer() {
