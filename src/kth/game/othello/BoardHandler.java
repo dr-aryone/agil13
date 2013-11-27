@@ -32,14 +32,7 @@ class BoardHandler {
 	}
 
 	/**
-	 * Gets a Node object from given x and y.
-	 * 
-	 * @param x
-	 *            the x-coordinate of the node.
-	 * @param y
-	 *            the y-coordinate of the node.
-	 * @return the Node object of which getXCoordinate() == x &&
-	 *         getYCoordinate() == y.
+	 * @see Board#getNode(int, int)
 	 */
 	Node getNode(int x, int y) {
 		return board.getNode(x, y);

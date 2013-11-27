@@ -53,7 +53,7 @@ public class BasicBoard implements Board {
 		for (Node node : nodes)
 			if (node.getXCoordinate() == x && node.getYCoordinate() == y)
 				return node;
-		return null;
+		throw new IllegalArgumentException("Node not inside board");
 	}
 
 	@Override
