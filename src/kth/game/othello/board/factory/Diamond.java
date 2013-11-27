@@ -1,8 +1,11 @@
 package kth.game.othello.board.factory;
 
+import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import kth.game.othello.board.Board;
@@ -22,7 +25,8 @@ class Diamond {
 		this.boardCreator = boardCreator;
 	}
 
-	private void addMarkedNodes(Set<Node> nodes, List<Player> players, int size) {
+	private Map<Point, String> getPreOccupiedNodes(List<Player> players, int size) {
+		Map<Point, String> preOccupiedNodes = new HashMap<>();
 		String player1Id = players.get(0).getId();
 		String player2Id = players.get(1).getId();
 		String player3Id = players.get(2).getId();
@@ -30,17 +34,19 @@ class Diamond {
 		// middle index for the node coordinates
 		int middleIndex = (size - 1) / 2;
 
-		nodes.add(nodeCreator.createNodeWithCoordinateAndOccupant(middleIndex - 1, middleIndex - 1, player1Id));
-		nodes.add(nodeCreator.createNodeWithCoordinateAndOccupant(middleIndex - 1, middleIndex + 0, player2Id));
-		nodes.add(nodeCreator.createNodeWithCoordinateAndOccupant(middleIndex - 1, middleIndex + 1, player3Id));
+		preOccupiedNodes.put(new Point(middleIndex - 1, middleIndex - 1), player1Id);
+		preOccupiedNodes.put(new Point(middleIndex - 1, middleIndex + 0), player2Id);
+		preOccupiedNodes.put(new Point(middleIndex - 1, middleIndex + 1), player3Id);
 
-		nodes.add(nodeCreator.createNodeWithCoordinateAndOccupant(middleIndex - 0, middleIndex - 1, player2Id));
-		nodes.add(nodeCreator.createNodeWithCoordinateAndOccupant(middleIndex - 0, middleIndex + 0, player3Id));
-		nodes.add(nodeCreator.createNodeWithCoordinateAndOccupant(middleIndex - 0, middleIndex + 1, player1Id));
+		preOccupiedNodes.put(new Point(middleIndex - 0, middleIndex - 1), player2Id);
+		preOccupiedNodes.put(new Point(middleIndex - 0, middleIndex + 0), player3Id);
+		preOccupiedNodes.put(new Point(middleIndex - 0, middleIndex + 1), player1Id);
 
-		nodes.add(nodeCreator.createNodeWithCoordinateAndOccupant(middleIndex + 1, middleIndex - 1, player3Id));
-		nodes.add(nodeCreator.createNodeWithCoordinateAndOccupant(middleIndex + 1, middleIndex + 0, player1Id));
-		nodes.add(nodeCreator.createNodeWithCoordinateAndOccupant(middleIndex + 1, middleIndex + 1, player2Id));
+		preOccupiedNodes.put(new Point(middleIndex + 1, middleIndex - 1), player3Id);
+		preOccupiedNodes.put(new Point(middleIndex + 1, middleIndex + 0), player1Id);
+		preOccupiedNodes.put(new Point(middleIndex + 1, middleIndex + 1), player2Id);
+
+		return preOccupiedNodes;
 	}
 
 	/**
@@ -60,8 +66,9 @@ class Diamond {
 			throw new IllegalArgumentException("The number of players must be three.");
 		}
 
+		Map<Point, String> preOccupiedNodes = getPreOccupiedNodes(players, size);
+
 		Set<Node> nodes = new HashSet<Node>();
-		addMarkedNodes(nodes, players, size);
 
 		int maxIndex = size - 1;
 		int middleIndex = maxIndex / 2;
@@ -69,14 +76,18 @@ class Diamond {
 		// Upper part
 		for (int yIndex = 0; yIndex < middleIndex; yIndex++) {
 			for (int xIndex = middleIndex - yIndex; xIndex <= (middleIndex + yIndex); xIndex++) {
-				nodes.add(nodeCreator.createNodeWithCoordinate(xIndex, yIndex));
+				Point nodePoint = new Point(xIndex, yIndex);
+				nodes.add(nodeCreator.createNodeWithCoordinateAndOccupant(xIndex, yIndex,
+						preOccupiedNodes.get(nodePoint)));
 			}
 		}
 
 		// Lower part
 		for (int yIndex = middleIndex; yIndex <= maxIndex; yIndex++) {
 			for (int xIndex = middleIndex - (maxIndex - yIndex); xIndex <= (middleIndex + (maxIndex - yIndex)); xIndex++) {
-				nodes.add(nodeCreator.createNodeWithCoordinate(xIndex, yIndex));
+				Point nodePoint = new Point(xIndex, yIndex);
+				nodes.add(nodeCreator.createNodeWithCoordinateAndOccupant(xIndex, yIndex,
+						preOccupiedNodes.get(nodePoint)));
 			}
 		}
 
