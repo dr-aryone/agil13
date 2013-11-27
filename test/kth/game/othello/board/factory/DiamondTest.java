@@ -62,9 +62,13 @@ public class DiamondTest extends MockingBase {
 		Diamond diamond = new Diamond(nodeCreator, new BasicBoardCreator());
 		Board board = diamond.getDiamondBoard(createMockedPlayers(3), boardSize);
 
-		for (Node n : board.getNodes()) {
-			for (Node m : board.getNodes()) {
-				Assert.assertFalse((n.getXCoordinate() == m.getXCoordinate() && n.getYCoordinate() == m
+		for (int i = 0; i < board.getNodes().size(); i++) {
+			for (int j = 0; j < board.getNodes().size(); j++) {
+				if (i == j)
+					continue;
+
+				Assert.assertFalse((board.getNodes().get(i).getXCoordinate() == board.getNodes().get(j)
+						.getXCoordinate() && board.getNodes().get(i).getYCoordinate() == board.getNodes().get(j)
 						.getYCoordinate()));
 			}
 		}
