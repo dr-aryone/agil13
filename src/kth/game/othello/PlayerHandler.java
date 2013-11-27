@@ -67,7 +67,7 @@ class PlayerHandler {
 	}
 
 	/**
-	 * Sets which Player is supposed to play.
+	 * Sets which Player is supposed to play next.
 	 * 
 	 * @param playerId
 	 *            the id of the player which is supposed to play.
