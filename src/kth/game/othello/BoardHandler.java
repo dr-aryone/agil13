@@ -64,6 +64,15 @@ class BoardHandler {
 	 *            the Player to claim the Node.
 	 */
 	void occupyNodeByPlayer(Node node, Player player) {
+		/*
+		 * This is not pretty, but it is necessary coupling as there is no other
+		 * way for the package kth.game.othello to reach the setOccupantPlayerId
+		 * of BasicNode.
+		 * 
+		 * Sadly, this makes the BasicOthello implementation dependent of which
+		 * Node implementation it uses. But as mentioned, there is not other way
+		 * to do this than to have this cast somewhere.
+		 */
 		if (!(node instanceof BasicNode))
 			return;
 		BasicNode basicNode = (BasicNode) node;
