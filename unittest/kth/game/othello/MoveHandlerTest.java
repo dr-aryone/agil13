@@ -119,6 +119,7 @@ public class MoveHandlerTest extends MockingBase {
 		MoveHandler moveHandler = new MoveHandler(rules, null, null);
 
 		moveHandler.move("1", "1");
+		Assert.fail();
 	}
 
 	@Test

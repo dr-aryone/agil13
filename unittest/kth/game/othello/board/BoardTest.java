@@ -9,6 +9,7 @@ import java.util.List;
 
 import kth.game.othello.MockingBase;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class BoardTest extends MockingBase {
@@ -31,6 +32,13 @@ public class BoardTest extends MockingBase {
 			assertEquals(sortedNode.getYCoordinate(), boardNode.getYCoordinate());
 			assertEquals(sortedNode.getId(), boardNode.getId());
 		}
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetNodeReturnsNullWhenFaultyCoordinates() {
+		Board board = new BasicBoard(new ArrayList<Node>());
+		board.getNode(0, 0);
+		Assert.fail();
 	}
 
 	@Test
