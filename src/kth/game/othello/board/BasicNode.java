@@ -2,8 +2,6 @@ package kth.game.othello.board;
 
 import java.util.Observable;
 
-import kth.game.othello.player.Player;
-
 /**
  * An implementation of the {@link Node} interface used in the game of Othello.
  * 
@@ -26,7 +24,7 @@ public class BasicNode extends Observable implements Node {
 	 * @param yCoordinate
 	 *            The y-coordinate of this node
 	 */
-	public BasicNode(int xCoordinate, int yCoordinate) {
+	BasicNode(int xCoordinate, int yCoordinate) {
 		this(xCoordinate, yCoordinate, getNextId(), null);
 	}
 
@@ -71,20 +69,6 @@ public class BasicNode extends Observable implements Node {
 	@Override
 	public boolean isMarked() {
 		return getOccupantPlayerId() != null;
-	}
-
-	/**
-	 * Create a new {@link BasicNode}, as a copy of the given node but with the
-	 * occupant player set to the given player.
-	 * 
-	 * @param node
-	 *            The node to occupy and copy
-	 * @param player
-	 *            The player to occupy the returned node
-	 * @return A new node with the given player set as occupant player
-	 */
-	public static Node newNodeOccupiedByPlayer(Node node, Player player) {
-		return new BasicNode(node.getXCoordinate(), node.getYCoordinate(), node.getId(), player.getId());
 	}
 
 	@Override
