@@ -1,7 +1,6 @@
 package kth.game.othello.board;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,9 +58,5 @@ public class BoardTest extends MockingBase {
 		assertEquals("p3", board.getNode(4, 4).getOccupantPlayerId());
 		assertEquals("p4", board.getNode(7, 0).getOccupantPlayerId());
 
-		assertNull(board.getNode(3, 4));
-		assertNull(board.getNode(1, 7));
-		assertNull(board.getNode(3123, 23));
-		assertNull(board.getNode(0, 0));
 	}
 }
