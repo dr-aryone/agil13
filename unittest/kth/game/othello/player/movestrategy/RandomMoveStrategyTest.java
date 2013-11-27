@@ -57,7 +57,7 @@ public class RandomMoveStrategyTest extends MockingBase {
 
 		Node node = strategy.move("1", rules, board);
 
-		Assert.assertTrue(node != null);
+		Assert.assertNotNull(node);
 		Assert.assertEquals(node.getXCoordinate(), 2);
 		Assert.assertEquals(node.getYCoordinate(), 0);
 
@@ -89,7 +89,7 @@ public class RandomMoveStrategyTest extends MockingBase {
 
 		Node node = strategy.move("1", rules, board);
 
-		Assert.assertTrue(node == null);
+		Assert.assertNull(node);
 	}
 
 	@Test
@@ -128,6 +128,6 @@ public class RandomMoveStrategyTest extends MockingBase {
 
 		Node node = strategy.move("1", rules, board);
 
-		Assert.assertTrue(node == null);
+		Assert.assertNull(node);
 	}
 }
