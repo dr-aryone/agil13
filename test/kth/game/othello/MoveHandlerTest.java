@@ -68,6 +68,50 @@ public class MoveHandlerTest extends MockingBase {
 		Assert.assertEquals("2", result);
 	}
 
+	@Test
+	public void testGetPlayerInTurnWithThreePlayers() {
+		Rules rules = mock(Rules.class);
+		final Player firstPlayerWhoHasNoMove = mock(Player.class);
+		when(firstPlayerWhoHasNoMove.getId()).thenReturn("1");
+		when(rules.hasValidMove("1")).thenReturn(false);
+
+		final Player secondPlayerWhoHasNoMove = mock(Player.class);
+		when(secondPlayerWhoHasNoMove.getId()).thenReturn("2");
+		when(rules.hasValidMove("2")).thenReturn(false);
+
+		final Player playerWhoHasMove = mock(Player.class);
+		when(playerWhoHasMove.getId()).thenReturn("3");
+		when(rules.hasValidMove("3")).thenReturn(true);
+
+		final PlayerHandler playerHandler = mock(PlayerHandler.class);
+
+		when(playerHandler.getPlayerInTurn()).thenReturn(firstPlayerWhoHasNoMove);
+		when(playerHandler.getNextPlayer()).thenReturn(secondPlayerWhoHasNoMove);
+
+		Mockito.doAnswer(new Answer<Void>() {
+			@Override
+			public Void answer(InvocationOnMock invocation) throws Throwable {
+				if (playerHandler.getPlayerInTurn().getId().equals("1")) {
+					when(playerHandler.getPlayerInTurn()).thenReturn(secondPlayerWhoHasNoMove);
+					when(playerHandler.getNextPlayer()).thenReturn(playerWhoHasMove);
+				} else if (playerHandler.getPlayerInTurn().getId().equals("2")) {
+					when(playerHandler.getPlayerInTurn()).thenReturn(playerWhoHasMove);
+					when(playerHandler.getNextPlayer()).thenReturn(firstPlayerWhoHasNoMove);
+				} else if (playerHandler.getPlayerInTurn().getId().equals("3")) {
+					when(playerHandler.getPlayerInTurn()).thenReturn(firstPlayerWhoHasNoMove);
+					when(playerHandler.getNextPlayer()).thenReturn(secondPlayerWhoHasNoMove);
+				}
+				return null;
+			}
+		}).when(playerHandler).changePlayer();
+
+		MoveHandler moveHandler = new MoveHandler(rules, playerHandler, null);
+
+		String result = moveHandler.getPlayerInTurn().getId();
+
+		Assert.assertEquals("3", result);
+	}
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testMoveWhenMoveIsInvalid() {
 		Rules rules = mock(Rules.class);
