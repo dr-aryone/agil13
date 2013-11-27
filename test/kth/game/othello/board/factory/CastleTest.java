@@ -46,8 +46,8 @@ public class CastleTest extends MockingBase {
 	public void testBoardContainsNoDuplicates() {
 		NodeCreator nodeCreator = mock(NodeCreator.class);
 		int boardSize = 7;
-		for (int i = 0; i < boardSize; i++) {
-			for (int j = 0; j < boardSize; j++) {
+		for (int i = 0; i <= boardSize; i++) {
+			for (int j = 0; j <= boardSize; j++) {
 				Node mockedNode = createMockedNode(i, j);
 				when(nodeCreator.createNodeWithCoordinate(i, j)).thenReturn(mockedNode);
 				mockedNode = createMockedNode(i, j, i + "," + j, "playerId");
