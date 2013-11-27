@@ -8,7 +8,7 @@ import kth.game.othello.Rules;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 
-class RandomMoveStrategy implements MoveStrategy {
+public class RandomMoveStrategy implements MoveStrategy {
 
 	@Override
 	public String getName() {

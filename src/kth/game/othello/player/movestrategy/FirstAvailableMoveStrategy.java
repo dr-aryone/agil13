@@ -4,7 +4,7 @@ import kth.game.othello.Rules;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 
-class FirstAvailableMoveStrategy implements MoveStrategy {
+public class FirstAvailableMoveStrategy implements MoveStrategy {
 
 	@Override
 	public String getName() {
