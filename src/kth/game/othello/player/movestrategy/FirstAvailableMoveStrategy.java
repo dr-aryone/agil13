@@ -4,7 +4,12 @@ import kth.game.othello.Rules;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 
-class FirstAvailableMoveStrategy implements MoveStrategy {
+/**
+ * This is an implementation of the {@link MoveStrategy} interface that will
+ * suggest a move based on the first valid one it can find, when searching
+ * through the existing nodes in order.
+ */
+public class FirstAvailableMoveStrategy implements MoveStrategy {
 
 	@Override
 	public String getName() {

@@ -8,7 +8,11 @@ import kth.game.othello.Rules;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 
-class RandomMoveStrategy implements MoveStrategy {
+/**
+ * An implementation of the {@link MoveStrategy} interface that will suggest
+ * valid moves completely at random.
+ */
+public class RandomMoveStrategy implements MoveStrategy {
 
 	@Override
 	public String getName() {

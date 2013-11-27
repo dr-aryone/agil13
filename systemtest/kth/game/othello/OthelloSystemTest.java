@@ -5,11 +5,21 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.List;
 
+import kth.game.othello.board.BasicBoardCreator;
+import kth.game.othello.board.BasicNodeCreator;
+import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
+import kth.game.othello.board.factory.BoardFactory;
+import kth.game.othello.player.BasicPlayerCreator;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
+import kth.game.othello.player.PlayerCreator;
+import kth.game.othello.player.movestrategy.FirstAvailableMoveStrategy;
+import kth.game.othello.player.movestrategy.GreedyMoveStrategy;
+import kth.game.othello.player.movestrategy.RandomMoveStrategy;
 
 import org.junit.Test;
 
@@ -181,6 +191,31 @@ public class OthelloSystemTest extends BaseTestCase {
 	}
 
 	@Test
+	public void testComputerVersusComputerOnCastleBoard() {
+		PlayerCreator playerCreator = new BasicPlayerCreator();
+		BoardFactory boardFactory = new BoardFactory(new BasicNodeCreator(), new BasicBoardCreator());
+		Player one = playerCreator.createComputerPlayer("computer 1", new FirstAvailableMoveStrategy());
+		Player two = playerCreator.createComputerPlayer("computer 2", new GreedyMoveStrategy());
+		List<Player> players = Arrays.asList(one, two);
+		Board diamond = boardFactory.getCastleBoard(players);
+		Othello othello = new BasicOthello(diamond, players);
+		runOthello(othello);
+	}
+
+	@Test
+	public void testComputerVersusComputerOnDiamondBoard() {
+		PlayerCreator playerCreator = new BasicPlayerCreator();
+		BoardFactory boardFactory = new BoardFactory(new BasicNodeCreator(), new BasicBoardCreator());
+		Player one = playerCreator.createComputerPlayer("computer 1", new FirstAvailableMoveStrategy());
+		Player two = playerCreator.createComputerPlayer("computer 2", new GreedyMoveStrategy());
+		Player three = playerCreator.createComputerPlayer("computer 3", new RandomMoveStrategy());
+		List<Player> players = Arrays.asList(one, two, three);
+		Board diamond = boardFactory.getDiamondBoard(players, 13);
+		Othello othello = new BasicOthello(diamond, players);
+		runOthello(othello);
+	}
+
+	@Test
 	public void testComputerVersusComputer() {
 		runOthello(getOthelloFactory().createComputerGameOnClassicalBoard());
 	}
@@ -196,7 +231,7 @@ public class OthelloSystemTest extends BaseTestCase {
 	}
 
 	private void runOthello(Othello othello) {
-		int nodesMarked = 4;
+		int nodesMarked = getNumberOfOccupiedNodes(othello);
 		othello.start();
 		Player previous = null;
 		while (othello.isActive()) {
