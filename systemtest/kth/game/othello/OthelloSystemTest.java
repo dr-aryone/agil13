@@ -198,7 +198,7 @@ public class OthelloSystemTest extends BaseTestCase {
 		Player two = playerCreator.createComputerPlayer("computer 1", new GreedyMoveStrategy());
 		Player three = playerCreator.createComputerPlayer("computer 1", new RandomMoveStrategy());
 		List<Player> players = Arrays.asList(one, two, three);
-		Board diamond = boardFactory.getDiamondBoard(players, 83);
+		Board diamond = boardFactory.getDiamondBoard(players, 13);
 		Othello othello = new BasicOthello(diamond, players);
 		runOthello(othello);
 	}
