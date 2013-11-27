@@ -67,8 +67,9 @@ public class DiamondTest extends MockingBase {
 				if (i == j)
 					continue;
 
-				Assert.assertFalse((board.getNodes().get(i).getXCoordinate() == board.getNodes().get(j)
-						.getXCoordinate() && board.getNodes().get(i).getYCoordinate() == board.getNodes().get(j)
+				Node node = board.getNodes().get(i);
+				Node compareNode = board.getNodes().get(j);
+				Assert.assertFalse((node.getXCoordinate() == compareNode.getXCoordinate() && node.getYCoordinate() == compareNode
 						.getYCoordinate()));
 			}
 		}
