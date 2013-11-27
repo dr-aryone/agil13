@@ -6,6 +6,11 @@ import kth.game.othello.Rules;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 
+/**
+ * An implementation of the {@link MoveStrategy} interface that will perform
+ * moves based on a greedy algorithm strategy. In other words, this will suggest
+ * the move that ends up in the most swapped bricks that turn.
+ */
 public class GreedyMoveStrategy implements MoveStrategy {
 
 	@Override
