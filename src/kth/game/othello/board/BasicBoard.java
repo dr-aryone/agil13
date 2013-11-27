@@ -58,7 +58,7 @@ public class BasicBoard implements Board {
 
 	@Override
 	public String toString() {
-		char[][] board = new char[getWidth() + 3][getHeight() + 3];
+		char[][] board = new char[getWidth() + 2][getHeight() + 2];
 		for (char[] row : board) {
 			Arrays.fill(row, '#');
 		}
@@ -82,7 +82,7 @@ public class BasicBoard implements Board {
 		for (Node node : nodes)
 			if (node.getXCoordinate() > maxX)
 				maxX = node.getXCoordinate();
-		return maxX;
+		return maxX + 1;
 	}
 
 	private int getWidth() {
@@ -90,6 +90,6 @@ public class BasicBoard implements Board {
 		for (Node node : nodes)
 			if (node.getYCoordinate() > maxY)
 				maxY = node.getYCoordinate();
-		return maxY;
+		return maxY + 1;
 	}
 }
