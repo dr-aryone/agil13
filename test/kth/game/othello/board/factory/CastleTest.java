@@ -56,8 +56,8 @@ public class CastleTest extends MockingBase {
 			}
 		}
 
-		Diamond diamond = new Diamond(nodeCreator, new BasicBoardCreator());
-		Board board = diamond.getDiamondBoard(createMockedPlayers(3), boardSize);
+		Castle castle = new Castle(nodeCreator, new BasicBoardCreator());
+		Board board = castle.getBoard(createMockedPlayers(2));
 
 		for (int i = 0; i < board.getNodes().size(); i++) {
 			for (int j = 0; j < board.getNodes().size(); j++) {
