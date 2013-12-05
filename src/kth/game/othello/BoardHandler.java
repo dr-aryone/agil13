@@ -39,6 +39,13 @@ class BoardHandler {
 	}
 
 	/**
+	 * @see Board#hasNode(int, int)
+	 */
+	public boolean hasNode(int x, int y) {
+		return board.hasNode(x, y);
+	}
+
+	/**
 	 * Returns the board of the current state.
 	 * 
 	 * @return the Board of the current state.
@@ -71,4 +78,5 @@ class BoardHandler {
 		BasicNode basicNode = (BasicNode) node;
 		basicNode.setOccupantPlayerId(player.getId());
 	}
+
 }

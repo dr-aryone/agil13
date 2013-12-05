@@ -54,11 +54,10 @@ class BasicRules implements Rules {
 	}
 
 	private Node step(Node node, Direction direction) {
-		try {
-			return boardHandler.getNode(node.getXCoordinate() + direction.getXDirection(), node.getYCoordinate()
-					+ direction.getYDirection());
-		} catch (IllegalArgumentException e) {
+		int x = node.getXCoordinate() + direction.getXDirection();
+		int y = node.getYCoordinate() + direction.getYDirection();
+		if (!boardHandler.hasNode(x, y))
 			return null;
-		}
+		return boardHandler.getNode(x, y);
 	}
 }

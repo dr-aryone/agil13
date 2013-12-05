@@ -58,20 +58,22 @@ public class BasicBoard implements Board {
 
 	@Override
 	public int getMaxX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getWidth() - 1;
 	}
 
 	@Override
 	public int getMaxY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getHeight() - 1;
 	}
 
 	@Override
 	public boolean hasNode(int x, int y) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			getNode(x, y);
+			return true;
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
 	}
 
 	@Override
