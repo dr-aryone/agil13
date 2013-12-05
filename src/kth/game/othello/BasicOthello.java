@@ -1,6 +1,7 @@
 package kth.game.othello;
 
 import java.util.List;
+import java.util.Observable;
 import java.util.Observer;
 
 import kth.game.othello.board.Board;
@@ -11,18 +12,26 @@ import kth.game.othello.score.Score;
 
 class BasicOthello implements Othello {
 
+	private static int nextId = 1;
+
+	private final Observable moveObservable = new OthelloObservable();
+	private final Observable gameFinishedObservable = new OthelloObservable();
+
 	private final BoardHandler boardHandler;
 	private final PlayerHandler playerHandler;
 	private final MoveHandler moveHandler;
 	private final Rules rules;
 	private final BasicScore score;
 
-	public BasicOthello(Board board, List<Player> players) {
+	private final String id;
+
+	BasicOthello(Board board, List<Player> players) {
 		boardHandler = new BoardHandler(board);
 		playerHandler = new PlayerHandler(players);
 		score = new BasicScore(players);
 		rules = new BasicRules(boardHandler);
 		moveHandler = new MoveHandler(rules, playerHandler, boardHandler);
+		id = getNextId();
 	}
 
 	BasicOthello(BoardHandler boardHandler, PlayerHandler playerHandler, MoveHandler moveHandler, Rules rules,
@@ -32,6 +41,7 @@ class BasicOthello implements Othello {
 		this.rules = rules;
 		this.moveHandler = moveHandler;
 		this.score = score;
+		id = getNextId();
 	}
 
 	@Override
@@ -61,7 +71,10 @@ class BasicOthello implements Othello {
 
 	@Override
 	public boolean isActive() {
-		return getPlayerInTurn() != null;
+		boolean isActive = getPlayerInTurn() != null;
+		if (!isActive) // game is over
+			gameFinishedObservable.notifyObservers();
+		return isActive;
 	}
 
 	@Override
@@ -81,7 +94,9 @@ class BasicOthello implements Othello {
 
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
-		return moveHandler.move(playerId, nodeId);
+		List<Node> swappedNodes = moveHandler.move(playerId, nodeId);
+		moveObservable.notifyObservers();
+		return swappedNodes;
 	}
 
 	@Override
@@ -105,19 +120,28 @@ class BasicOthello implements Othello {
 
 	@Override
 	public void addGameFinishedObserver(Observer observer) {
-		// TODO Auto-generated method stub
-
+		gameFinishedObservable.addObserver(observer);
 	}
 
 	@Override
 	public void addMoveObserver(Observer observer) {
-		// TODO Auto-generated method stub
-
+		moveObservable.addObserver(observer);
 	}
 
 	@Override
 	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return id;
+	}
+
+	private static String getNextId() {
+		return String.valueOf(nextId++);
+	}
+
+	private static class OthelloObservable extends Observable {
+		@Override
+		public void notifyObservers(Object arg) {
+			setChanged();
+			super.notifyObservers(arg);
+		}
 	}
 }
