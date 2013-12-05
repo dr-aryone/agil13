@@ -20,9 +20,10 @@ public class OthelloFactory {
 		this.playerCreator = playerCreator;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see kth.game.othello.OthelloFactory#createComputerGameOnClassicalBoard()
+	/**
+	 * Create an Othello game on an original board with two computer.
+	 * 
+	 * @return An Othello game
 	 */
 	public Othello createComputerGameOnClassicalBoard() {
 		List<Player> players = new ArrayList<Player>();
@@ -31,17 +32,19 @@ public class OthelloFactory {
 		return othelloCreator.createOthello(boardFactory.getQuadraticBoard(8, players), players);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see kth.game.othello.OthelloFactory#createGame(kth.game.othello.board.Board, java.util.List)
+	/**
+	 * @param board the board
+	 * @param players the players of the game
+	 * @return An Othello game
 	 */
 	public Othello createGame(Board board, List<Player> players) {
 		return othelloCreator.createOthello(board, players);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see kth.game.othello.OthelloFactory#createHumanGameOnOriginalBoard()
+	/**
+	 * Create an Othello game on an original board with two humans.
+	 * 
+	 * @return An Othello game
 	 */
 	public Othello createHumanGameOnOriginalBoard() {
 		List<Player> players = new ArrayList<Player>();
@@ -51,9 +54,11 @@ public class OthelloFactory {
 		return othelloCreator.createOthello(board, players);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see kth.game.othello.OthelloFactory#createHumanVersusComputerGameOnOriginalBoard()
+	/**
+	 * Creates an Othello game on an original board with one computer playing against one human. The computer will be
+	 * the first player in the list of players.
+	 * 
+	 * @return An Othello game
 	 */
 	public Othello createHumanVersusComputerGameOnOriginalBoard() {
 		List<Player> players = new ArrayList<Player>();

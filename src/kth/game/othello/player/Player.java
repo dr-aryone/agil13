@@ -7,7 +7,7 @@ public interface Player {
 	/**
 	 * The different type of {@link Player}s
 	 * 
-	 * @author Tomas Ekholm
+	 * @author tomasekholm
 	 */
 	public enum Type {
 		COMPUTER, HUMAN

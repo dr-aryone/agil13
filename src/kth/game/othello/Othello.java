@@ -1,6 +1,7 @@
 package kth.game.othello;
 
 import java.util.List;
+import java.util.Observer;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
@@ -9,8 +10,24 @@ import kth.game.othello.score.Score;
 
 /**
  * This class represents an Othello game.
+ * 
+ * @author tomasekholm
  */
 public interface Othello {
+
+	/**
+	 * Adds an observer. The observer will be called when the game has finished.
+	 * 
+	 * @param observer
+	 */
+	public void addGameFinishedObserver(Observer observer);
+
+	/**
+	 * Adds an observer. The observers update will be called when a move has finished.
+	 * 
+	 * @param observer
+	 */
+	public void addMoveObserver(Observer observer);
 
 	/**
 	 * The board on which the game is played.
@@ -18,6 +35,11 @@ public interface Othello {
 	 * @return the state of the board
 	 */
 	public Board getBoard();
+
+	/**
+	 * @return a unique id in the context of all Othello games.
+	 */
+	public String getId();
 
 	/**
 	 * Returns the nodes that will be swapped for a move at the given nodeId.
