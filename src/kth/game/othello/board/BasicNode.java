@@ -11,8 +11,8 @@ public class BasicNode extends Observable implements Node {
 	private static int nextId = 1;
 
 	private final String id;
-	private String occupantPlayerId;
 	private final int xCoordinate, yCoordinate;
+	private String occupantPlayerId;
 
 	/**
 	 * Create a new {@link BasicNode} with the given x- and y-coordinates. The
