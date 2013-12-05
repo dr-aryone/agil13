@@ -97,7 +97,7 @@ public class BasicBoard implements Board {
 		return boardString.toString();
 	}
 
-	private int getHeight() {
+	private int getWidth() {
 		int maxX = 0;
 		for (Node node : nodes)
 			if (node.getXCoordinate() > maxX)
@@ -105,7 +105,7 @@ public class BasicBoard implements Board {
 		return maxX + 1;
 	}
 
-	private int getWidth() {
+	private int getHeight() {
 		int maxY = 0;
 		for (Node node : nodes)
 			if (node.getYCoordinate() > maxY)
