@@ -23,6 +23,8 @@ public class RulesTest extends MockingBase {
 		Mockito.when(boardHandler.getNode("2")).thenReturn(xy02);
 		Mockito.when(boardHandler.getNode(0, 1)).thenReturn(xy01);
 		Mockito.when(boardHandler.getNode(0, 2)).thenReturn(xy02);
+		Mockito.when(boardHandler.hasNode(0, 1)).thenReturn(true);
+		Mockito.when(boardHandler.hasNode(0, 2)).thenReturn(true);
 
 		Rules rules = new BasicRules(boardHandler);
 		List<Node> swapped = rules.getNodesToSwap("p1", "0");
@@ -42,6 +44,8 @@ public class RulesTest extends MockingBase {
 		Mockito.when(boardHandler.getNode("2")).thenReturn(xy31);
 		Mockito.when(boardHandler.getNode(2, 1)).thenReturn(xy21);
 		Mockito.when(boardHandler.getNode(3, 1)).thenReturn(xy31);
+		Mockito.when(boardHandler.hasNode(2, 1)).thenReturn(true);
+		Mockito.when(boardHandler.hasNode(3, 1)).thenReturn(true);
 		Board board = Mockito.mock(Board.class);
 		Mockito.when(board.getNodes()).thenReturn(Arrays.asList(xy11, xy21, xy31));
 		Mockito.when(boardHandler.getBoard()).thenReturn(board);
@@ -62,6 +66,8 @@ public class RulesTest extends MockingBase {
 		Mockito.when(boardHandler.getNode("2")).thenReturn(xy43);
 		Mockito.when(boardHandler.getNode(4, 4)).thenReturn(xy44);
 		Mockito.when(boardHandler.getNode(4, 3)).thenReturn(xy43);
+		Mockito.when(boardHandler.hasNode(4, 4)).thenReturn(true);
+		Mockito.when(boardHandler.hasNode(4, 3)).thenReturn(true);
 		Board board = Mockito.mock(Board.class);
 		Mockito.when(board.getNodes()).thenReturn(Arrays.asList(xy45, xy44, xy43));
 		Mockito.when(boardHandler.getBoard()).thenReturn(board);
