@@ -6,6 +6,7 @@
 	<classpathentry kind="src" path="debug"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="mockito-all-1.9.5.jar"/>
+	<classpathentry kind="lib" path="OthelloView.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
