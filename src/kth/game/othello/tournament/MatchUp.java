@@ -1,6 +1,23 @@
 package kth.game.othello.tournament;
 
-public class MatchUp {
+import kth.game.othello.Othello;
+import kth.game.othello.player.Player;
 
-	// contains a game of othello and the player who's gonna start
+class MatchUp {
+
+	private final Player startingPlayer;
+	private final Othello othello;
+
+	MatchUp(Player startingPlayer, Othello othello) {
+		this.startingPlayer = startingPlayer;
+		this.othello = othello;
+	}
+
+	Player getStartingPlayer() {
+		return startingPlayer;
+	}
+
+	Othello getOthello() {
+		return othello;
+	}
 }
