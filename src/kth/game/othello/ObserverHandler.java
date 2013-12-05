@@ -8,7 +8,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * A handler for different kinds of observers tied to a certain Observable.
+ * A handler for different kinds of {@link Observer}'s tied to a certain
+ * {@link Observable}.
  */
 class ObserverHandler {
 
