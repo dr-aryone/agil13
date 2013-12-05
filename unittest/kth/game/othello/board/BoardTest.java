@@ -59,4 +59,34 @@ public class BoardTest extends MockingBase {
 		assertEquals("p4", board.getNode(7, 0).getOccupantPlayerId());
 
 	}
+
+	@Test
+	public void testHasNode() {
+		Node xy22 = createMockedNode(2, 2, "22", "p1");
+		Node xy33 = createMockedNode(3, 3, "33", "p2");
+		Node xy44 = createMockedNode(4, 4, "44", "p3");
+		Node xy70 = createMockedNode(7, 0, "70", "p4");
+
+		Board board = new BasicBoard(Arrays.asList(xy22, xy33, xy44, xy70));
+
+		Assert.assertTrue(board.hasNode(2, 2));
+		Assert.assertTrue(board.hasNode(3, 3));
+		Assert.assertTrue(board.hasNode(4, 4));
+		Assert.assertTrue(board.hasNode(7, 0));
+
+		Assert.assertFalse(board.hasNode(1237, 03213));
+	}
+
+	@Test
+	public void testBoardMaxValues() {
+		Node xy22 = createMockedNode(2, 2, "22", "p1");
+		Node xy33 = createMockedNode(3, 3, "33", "p2");
+		Node xy44 = createMockedNode(4, 4, "44", "p3");
+		Node xy70 = createMockedNode(7, 0, "70", "p4");
+
+		Board board = new BasicBoard(Arrays.asList(xy22, xy33, xy44, xy70));
+
+		Assert.assertEquals(7, board.getMaxX());
+		Assert.assertEquals(4, board.getMaxY());
+	}
 }
