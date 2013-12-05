@@ -16,7 +16,7 @@ class ObserverHandler {
 		this.observable = observable;
 	}
 
-	public void addObserver(Object observerKey, Observer observer) {
+	void addObserver(Object observerKey, Observer observer) {
 		if (!observerMap.containsKey(observerKey))
 			observerMap.put(observerKey, new ArrayList<Observer>());
 		observerMap.get(observerKey).add(observer);
@@ -32,5 +32,4 @@ class ObserverHandler {
 	void notifyObservers(Object gameFinishedObserverKey) {
 		notifyObservers(gameFinishedObserverKey, null);
 	}
-
 }
