@@ -10,13 +10,13 @@ import kth.game.othello.player.Player;
 import kth.game.othello.score.BasicScore;
 import kth.game.othello.score.Score;
 
-class BasicOthello implements Othello {
+class BasicOthello extends Observable implements Othello {
 
+	private static final Object MOVE_OBSERVER_KEY = new Object();
+	private static final Object GAME_FINISHED_OBSERVER_KEY = new Object();
 	private static int nextId = 1;
 
-	private final Observable moveObservable = new OthelloObservable();
-	private final Observable gameFinishedObservable = new OthelloObservable();
-
+	private final ObserverHandler observerHandler = new ObserverHandler(this);
 	private final BoardHandler boardHandler;
 	private final PlayerHandler playerHandler;
 	private final MoveHandler moveHandler;
@@ -73,7 +73,7 @@ class BasicOthello implements Othello {
 	public boolean isActive() {
 		boolean isActive = getPlayerInTurn() != null;
 		if (!isActive) // game is over
-			gameFinishedObservable.notifyObservers();
+			observerHandler.notifyObservers(GAME_FINISHED_OBSERVER_KEY);
 		return isActive;
 	}
 
@@ -95,7 +95,7 @@ class BasicOthello implements Othello {
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
 		List<Node> swappedNodes = moveHandler.move(playerId, nodeId);
-		moveObservable.notifyObservers();
+		observerHandler.notifyObservers(MOVE_OBSERVER_KEY, swappedNodes);
 		return swappedNodes;
 	}
 
@@ -120,12 +120,12 @@ class BasicOthello implements Othello {
 
 	@Override
 	public void addGameFinishedObserver(Observer observer) {
-		gameFinishedObservable.addObserver(observer);
+		observerHandler.addObserver(GAME_FINISHED_OBSERVER_KEY, observer);
 	}
 
 	@Override
 	public void addMoveObserver(Observer observer) {
-		moveObservable.addObserver(observer);
+		observerHandler.addObserver(MOVE_OBSERVER_KEY, observer);
 	}
 
 	@Override
@@ -135,13 +135,5 @@ class BasicOthello implements Othello {
 
 	private static String getNextId() {
 		return String.valueOf(nextId++);
-	}
-
-	private static class OthelloObservable extends Observable {
-		@Override
-		public void notifyObservers(Object arg) {
-			setChanged();
-			super.notifyObservers(arg);
-		}
 	}
 }

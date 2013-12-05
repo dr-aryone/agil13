@@ -20,7 +20,6 @@ public class OthelloTest extends MockingBase {
 		othello.addGameFinishedObserver(new Observer() {
 			@Override
 			public void update(Observable o, Object arg) {
-				Assert.assertNull(arg);
 				updateTriggered.set(true);
 			}
 		});
@@ -40,7 +39,6 @@ public class OthelloTest extends MockingBase {
 		othello.addMoveObserver(new Observer() {
 			@Override
 			public void update(Observable o, Object arg) {
-				Assert.assertNull(arg);
 				updateTriggered.set(true);
 			}
 		});
