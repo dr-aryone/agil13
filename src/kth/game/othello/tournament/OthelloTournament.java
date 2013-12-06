@@ -24,10 +24,6 @@ public class OthelloTournament {
 		this.schedule = schedule;
 	}
 
-	/*
-	 * SAKNAS KOD HÄR
-	 */
-
 	public static OthelloTournament tournamentFromPlayers(List<Player> players, ResultDisplay resultDisplay) {
 		// TODO
 		return null;
