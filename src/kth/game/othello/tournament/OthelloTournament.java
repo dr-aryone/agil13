@@ -38,6 +38,6 @@ public class OthelloTournament {
 			String playerName = String.format("Player %d", i);
 			players.add(playerCreator.createComputerPlayer(playerName, moveStrategy));
 		}
-		return tournamentFromPlayers(players);
+		return tournamentFromPlayers(players, resultDisplay);
 	}
 }
