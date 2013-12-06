@@ -24,12 +24,13 @@ public class OthelloTournament {
 		this.schedule = schedule;
 	}
 
-	public static OthelloTournament tournamentFromPlayers(List<Player> players) {
+	public static OthelloTournament tournamentFromPlayers(List<Player> players, ResultDisplay resultDisplay) {
 		// TODO
 		return null;
 	}
 
-	public static OthelloTournament tournamentFromMoveStrategies(List<MoveStrategy> strategies) {
+	public static OthelloTournament tournamentFromMoveStrategies(List<MoveStrategy> strategies,
+			ResultDisplay resultDisplay) {
 		List<Player> players = new ArrayList<>();
 		PlayerCreator playerCreator = new BasicPlayerCreator();
 		for (int i = 0; i < strategies.size(); i++) {
