@@ -17,19 +17,17 @@ public class OthelloTournament {
 		this(resultDisplay, new Schedule());
 	}
 
-	// contains a schedule and a way to display the results
-
 	OthelloTournament(ResultDisplay resultDisplay, Schedule schedule) {
 		this.resultDisplay = resultDisplay;
 		this.schedule = schedule;
 	}
 
-	public static OthelloTournament tournamentFromPlayers(List<Player> players, ResultDisplay resultDisplay) {
+	public static OthelloTournament createTournamentFromPlayers(List<Player> players, ResultDisplay resultDisplay) {
 		// TODO
 		return null;
 	}
 
-	public static OthelloTournament tournamentFromMoveStrategies(List<MoveStrategy> strategies,
+	public static OthelloTournament createTournamentFromMoveStrategies(List<MoveStrategy> strategies,
 			ResultDisplay resultDisplay) {
 		List<Player> players = new ArrayList<>();
 		PlayerCreator playerCreator = new BasicPlayerCreator();
@@ -38,6 +36,6 @@ public class OthelloTournament {
 			String playerName = String.format("Player %d", i);
 			players.add(playerCreator.createComputerPlayer(playerName, moveStrategy));
 		}
-		return tournamentFromPlayers(players, resultDisplay);
+		return createTournamentFromPlayers(players, resultDisplay);
 	}
 }
