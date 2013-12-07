@@ -10,6 +10,7 @@ import kth.game.othello.MockingBase;
 import kth.game.othello.Othello;
 import kth.game.othello.OthelloFactory;
 import kth.game.othello.player.Player;
+import kth.game.othello.tournament.resultdisplay.ResultDisplay;
 
 import org.junit.Test;
 import org.mockito.Mockito;

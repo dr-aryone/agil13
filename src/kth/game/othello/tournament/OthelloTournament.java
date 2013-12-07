@@ -7,6 +7,7 @@ import kth.game.othello.OthelloFactory;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.PlayerCreator;
 import kth.game.othello.player.movestrategy.MoveStrategy;
+import kth.game.othello.tournament.resultdisplay.ResultDisplay;
 
 public class OthelloTournament {
 
