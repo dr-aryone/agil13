@@ -35,7 +35,7 @@ public class OthelloTournamentTest extends MockingBase {
 
 		BoardFactory boardFactory = Mockito.mock(BoardFactory.class);
 
-		OthelloTournament.createTournamentFromPlayers(players, resultDisplay, factory, schedule, boardFactory);
+		OthelloTournamentFactory.createTournamentFromPlayers(players, resultDisplay, factory, schedule, boardFactory);
 
 		int size = 0;
 		while (schedule.hasMoreMatchUps()) {
