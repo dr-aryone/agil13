@@ -4,7 +4,7 @@ import kth.game.othello.Othello;
 import kth.game.othello.player.Player;
 
 /**
- * This entity is responsible for keeping track of a othello instance with a
+ * This entity is responsible for keeping track of an Othello instance with a
  * certain starting player.
  */
 class MatchUp {
