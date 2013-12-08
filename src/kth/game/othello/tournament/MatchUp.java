@@ -3,6 +3,10 @@ package kth.game.othello.tournament;
 import kth.game.othello.Othello;
 import kth.game.othello.player.Player;
 
+/**
+ * This entity is responsible for keeping track of a othello instance with a
+ * certain starting player.
+ */
 class MatchUp {
 
 	private final Player startingPlayer;

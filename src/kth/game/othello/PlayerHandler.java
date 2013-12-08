@@ -8,6 +8,10 @@ import java.util.Random;
 
 import kth.game.othello.player.Player;
 
+/**
+ * This entity is responsible for wrapping all players in the game with nice
+ * functionality.
+ */
 class PlayerHandler {
 	private final Map<String, Player> playerLookupMap = new LinkedHashMap<>();
 	private Player playerInTurn;
