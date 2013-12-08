@@ -36,7 +36,7 @@ class Schedule {
 	 * @return true if there are no more MatchUps in the schedule, false
 	 *         otherwise.
 	 */
-	boolean isOver() {
-		return matchUps.isEmpty();
+	boolean hasMoreMatchUps() {
+		return !matchUps.isEmpty();
 	}
 }

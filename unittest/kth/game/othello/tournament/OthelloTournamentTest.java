@@ -1,14 +1,13 @@
 package kth.game.othello.tournament;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import kth.game.othello.MockingBase;
-import kth.game.othello.Othello;
 import kth.game.othello.OthelloFactory;
+import kth.game.othello.board.factory.BoardFactory;
 import kth.game.othello.player.Player;
 import kth.game.othello.tournament.resultdisplay.ResultDisplay;
 
@@ -34,75 +33,17 @@ public class OthelloTournamentTest extends MockingBase {
 
 		OthelloFactory factory = Mockito.mock(OthelloFactory.class);
 
-		OthelloTournament.createTournamentFromPlayers(players, resultDisplay, factory, schedule);
+		BoardFactory boardFactory = Mockito.mock(BoardFactory.class);
+
+		OthelloTournament.createTournamentFromPlayers(players, resultDisplay, factory, schedule, boardFactory);
 
 		int size = 0;
-		while (!schedule.isOver()) {
+		while (schedule.hasMoreMatchUps()) {
 			schedule.nextMatchUp();
 			size++;
 		}
 
 		assertEquals(6, size);
-	}
-
-	@Test
-	public void testCreateCorrectOthelloInstanceWithTwoComputers() {
-		Player computer = Mockito.mock(Player.class);
-		Mockito.when(computer.getType()).thenReturn(Player.Type.COMPUTER);
-		Player computer2 = Mockito.mock(Player.class);
-		Mockito.when(computer2.getType()).thenReturn(Player.Type.COMPUTER);
-
-		List<Player> players = new ArrayList<Player>();
-		players.add(computer);
-		players.add(computer2);
-
-		OthelloFactory factory = Mockito.mock(OthelloFactory.class);
-		Othello othelloInstance = Mockito.mock(Othello.class);
-		Mockito.when(factory.createComputerGameOnClassicalBoard()).thenReturn(othelloInstance);
-
-		Mockito.when(othelloInstance.getPlayers()).thenReturn(players);
-
-		assertNotNull(OthelloTournament.createCorrectMatchUp(factory, computer, computer2));
-	}
-
-	@Test
-	public void testCreateCorrectOthelloInstanceWithTwoHumans() {
-		Player human = Mockito.mock(Player.class);
-		Mockito.when(human.getType()).thenReturn(Player.Type.HUMAN);
-		Player human2 = Mockito.mock(Player.class);
-		Mockito.when(human2.getType()).thenReturn(Player.Type.HUMAN);
-
-		List<Player> players = new ArrayList<Player>();
-		players.add(human);
-		players.add(human2);
-
-		OthelloFactory factory = Mockito.mock(OthelloFactory.class);
-		Othello othelloInstance = Mockito.mock(Othello.class);
-		Mockito.when(factory.createHumanGameOnOriginalBoard()).thenReturn(othelloInstance);
-
-		Mockito.when(othelloInstance.getPlayers()).thenReturn(players);
-
-		assertNotNull(OthelloTournament.createCorrectMatchUp(factory, human, human2));
-	}
-
-	@Test
-	public void testCreateCorrectOthelloInstanceWithOneHumanAndOneComputer() {
-		Player human = Mockito.mock(Player.class);
-		Mockito.when(human.getType()).thenReturn(Player.Type.HUMAN);
-		Player computer = Mockito.mock(Player.class);
-		Mockito.when(computer.getType()).thenReturn(Player.Type.COMPUTER);
-
-		List<Player> players = new ArrayList<Player>();
-		players.add(human);
-		players.add(computer);
-
-		OthelloFactory factory = Mockito.mock(OthelloFactory.class);
-		Othello othelloInstance = Mockito.mock(Othello.class);
-		Mockito.when(factory.createHumanVersusComputerGameOnOriginalBoard()).thenReturn(othelloInstance);
-
-		Mockito.when(othelloInstance.getPlayers()).thenReturn(players);
-
-		assertNotNull(OthelloTournament.createCorrectMatchUp(factory, human, computer));
 	}
 
 }

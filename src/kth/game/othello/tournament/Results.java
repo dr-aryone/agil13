@@ -21,10 +21,11 @@ public class Results {
 	 * @param othello
 	 *            The instance of othello to register the results from.
 	 */
-	public void registerResults(Othello othello) {
+	public Results registerGame(Othello othello) {
 		for (ScoreItem scoreItem : othello.getScore().getPlayersScore()) {
 			resultsMap.put(scoreItem.getPlayerId(), scoreItem.getScore());
 		}
+		return this;
 	}
 
 	/**

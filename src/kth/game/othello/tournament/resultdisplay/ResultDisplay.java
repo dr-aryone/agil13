@@ -7,7 +7,5 @@ import kth.game.othello.tournament.Results;
 
 public interface ResultDisplay {
 
-	// defines in what way we can display the results of an othello tournament
-
 	void displayResults(List<Player> players, Results results);
 }

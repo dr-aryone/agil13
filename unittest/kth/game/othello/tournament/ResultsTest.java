@@ -35,7 +35,7 @@ public class ResultsTest extends MockingBase {
 		Mockito.when(player.getId()).thenReturn("1");
 
 		Results results = new Results();
-		results.registerResults(othello);
+		results.registerGame(othello);
 
 		assertEquals(new Integer(1), results.getPointsForPlayer(player));
 	}
