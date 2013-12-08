@@ -8,6 +8,10 @@ import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 
+/**
+ * This entity is responsible for wrapping the Board class with more
+ * functionality.
+ */
 class BoardHandler {
 
 	private final Map<String, Node> nodeLookupMap = new HashMap<>();
