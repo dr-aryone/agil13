@@ -37,6 +37,6 @@ public class ResultsTest extends MockingBase {
 		Results results = new Results();
 		results.registerGame(othello);
 
-		assertEquals(new Integer(1), results.getPointsForPlayer(player));
+		assertEquals(new Integer(2), results.getPointsForPlayer(player));
 	}
 }

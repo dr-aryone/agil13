@@ -14,7 +14,7 @@ import kth.game.othello.tournament.resultdisplay.ResultDisplay;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class OthelloTournamentTest extends MockingBase {
+public class OthelloTournamentFactoryTest extends MockingBase {
 
 	@Test
 	public void testCreateTournamentFromPlayersGeneratesCorrectNumberOfMatchUps() {

@@ -25,12 +25,14 @@ public class OthelloTournamentFactory {
 		for (Player player : players) {
 			for (Player opponent : players) {
 				if (!player.equals(opponent)) {
+					List<Player> gamePlayers = Arrays.asList(player, opponent);
 					schedule.addMatchUp(new MatchUp(player, othelloFactory.createGame(
-							boardFactory.getQuadraticBoard(8, Arrays.asList(player, opponent)), players)));
+							boardFactory.getQuadraticBoard(8, gamePlayers), gamePlayers)));
 				}
 			}
 		}
-		return new OthelloTournament(resultDisplay, schedule);
+
+		return new OthelloTournament(players, resultDisplay, schedule);
 	}
 
 	public static OthelloTournament createTournamentFromMoveStrategies(List<MoveStrategy> strategies,
@@ -47,7 +49,7 @@ public class OthelloTournamentFactory {
 		List<Player> players = new ArrayList<>();
 		for (int i = 0; i < strategies.size(); i++) {
 			MoveStrategy moveStrategy = strategies.get(i);
-			String playerName = String.format("Player %d", i);
+			String playerName = String.format("Player %s", moveStrategy.getName());
 			players.add(playerCreator.createComputerPlayer(playerName, moveStrategy));
 		}
 		return createTournamentFromPlayers(players, resultDisplay, othelloFactory, new Schedule(), boardFactory);
