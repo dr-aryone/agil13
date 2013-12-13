@@ -125,7 +125,7 @@ public class Score_impl extends Observable implements Observer, Score {
 	private boolean nodeIsOnBoundary(Node node) {
 		int x = node.getXCoordinate();
 		int y = node.getYCoordinate();
-		if (board.hasNode(x + 1, y) || board.hasNode(x - 1, y) || board.hasNode(x, y + 1) || board.hasNode(x, y - 1))
+		if (board.hasNode(x + 1, y) && board.hasNode(x - 1, y) && board.hasNode(x, y + 1) && board.hasNode(x, y - 1))
 			return false;
 		return true;
 	}
