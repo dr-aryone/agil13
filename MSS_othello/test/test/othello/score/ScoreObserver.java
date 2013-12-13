@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import kth.game.othello.board.Board;
 import kth.game.othello.player.Player;
 
 import org.junit.Assert;
@@ -26,8 +27,9 @@ public class ScoreObserver {
 		ArrayList<Player> players = new ArrayList<Player>();
 		players.add(mockedPlayer1);
 		players.add(mockedPlayer2);
+		Board board = Mockito.mock(Board.class);
 
-		Score_impl score = new Score_impl();
+		Score_impl score = new Score_impl(board);
 		TestObserver observer = new TestObserver();
 		score.addObserver(observer);
 		score.addPlayers(players);
