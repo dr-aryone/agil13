@@ -1,10 +1,13 @@
 package test.othello.score;
 
+import game.logic.StandardRuleStrategy;
+import game.othello.TurnHandler;
 import game.othello.board.StandardNode;
 import game.othello.score.Score_impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -47,6 +50,30 @@ public class ScoreObserver {
 
 		Assert.assertTrue(list.contains(playerId));
 		Assert.assertTrue(list.contains(mockedNode.getOccupantPlayerId()));
+	}
+
+	@Test
+	public void testMinusScoreWhenPlayerHasNoMove() {
+		Player p1 = Mockito.mock(Player.class);
+		Player p2 = Mockito.mock(Player.class);
+
+		Mockito.when(p1.getId()).thenReturn("1");
+		Mockito.when(p2.getId()).thenReturn("2");
+
+		List<Player> players = Arrays.asList(p1, p2);
+
+		Board board = Mockito.mock(Board.class);
+		StandardRuleStrategy rules = Mockito.mock(StandardRuleStrategy.class);
+
+		Mockito.when(rules.hasValidMove("1")).thenReturn(false);
+		Score_impl score = new Score_impl(board);
+		score.addPlayers(players);
+		TurnHandler turnHandler = new TurnHandler(players, rules, score);
+		turnHandler.start("1");
+
+		turnHandler.getPlayerInTurn();
+
+		Assert.assertEquals(-2, score.getPoints("1"));
 	}
 
 	@Test
