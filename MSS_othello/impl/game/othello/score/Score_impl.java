@@ -107,26 +107,25 @@ public class Score_impl extends Observable implements Observer, Score {
 	}
 
 	private void increasePlayerScore(String playerId, Node node) {
-		playerScores.get(playerId).increment();
-		if (nodeGivesDoubleScore(node))
-			playerScores.get(playerId).increment();
+		adjustScore(playerId, scoreOfNode(node));
 	}
 
 	private void decreasePlayerScore(String playerId, Node node) {
-		if (playerId == null)
-			return;
-		playerScores.get(playerId).decrement();
-		if (nodeGivesDoubleScore(node))
-			playerScores.get(playerId).decrement();
+		adjustScore(playerId, -scoreOfNode(node));
 	}
 
-	private boolean nodeGivesDoubleScore(Node node) {
-		int[] dx = { 0, 0, -1, 1 };
-		int[] dy = { 1, -1, 0, 0 };
-		for (int i = 0; i < dx.length; i++) {
-			if (board.hasNode(node.getXCoordinate() + dx[i], node.getYCoordinate() + dy[i]))
-				return false;
-		}
+	private int scoreOfNode(Node node) {
+		if (nodeIsOnBoundary(node))
+			return 2;
+		else
+			return 1;
+	}
+
+	private boolean nodeIsOnBoundary(Node node) {
+		int x = node.getXCoordinate();
+		int y = node.getYCoordinate();
+		if (board.hasNode(x + 1, y) || board.hasNode(x - 1, y) || board.hasNode(x, y + 1) || board.hasNode(x, y - 1))
+			return false;
 		return true;
 	}
 
