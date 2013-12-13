@@ -23,20 +23,22 @@ import kth.game.othello.score.Score;
  */
 public class OthelloTheGame extends Observable implements Othello {
 
-	private Board board;
+	private final Board board;
 	// Game logic
-	private StandardRuleStrategy rules;
-	private TurnHandler turnHandler;
-	private List<Player> players;
-	private Score score;
+	private final StandardRuleStrategy rules;
+	private final TurnHandler turnHandler;
+	private final List<Player> players;
+	private final Score score;
 
 	private final UUID uuid;
 
 	/**
 	 * Create a new Othello Game
 	 * 
-	 * @param board the board to be used in the game
-	 * @param players the players to play the game
+	 * @param board
+	 *            the board to be used in the game
+	 * @param players
+	 *            the players to play the game
 	 */
 	public OthelloTheGame(Board board, List<Player> players, Score score) {
 		this.board = board;
@@ -44,7 +46,7 @@ public class OthelloTheGame extends Observable implements Othello {
 		rules = new StandardRuleStrategy(board);
 		this.score = score;
 		this.uuid = UUID.randomUUID();
-		turnHandler = new TurnHandler(players, rules);
+		turnHandler = new TurnHandler(players, rules, score);
 	}
 
 	@SuppressWarnings("unused")
@@ -63,6 +65,7 @@ public class OthelloTheGame extends Observable implements Othello {
 	 * 
 	 * @see kth.game.othello.Othello#getBoard()
 	 */
+	@Override
 	public Board getBoard() {
 		return this.board;
 	}
@@ -73,6 +76,7 @@ public class OthelloTheGame extends Observable implements Othello {
 	 * @see kth.game.othello.Othello#getNodesToSwap(java.lang.String,
 	 * java.lang.String)
 	 */
+	@Override
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
 		return rules.getNodesToSwap(playerId, nodeId);
 	}
@@ -82,6 +86,7 @@ public class OthelloTheGame extends Observable implements Othello {
 	 * 
 	 * @see kth.game.othello.Othello#getPlayerInTurn()
 	 */
+	@Override
 	public Player getPlayerInTurn() {
 		return turnHandler.getPlayerInTurn();
 	}
@@ -91,6 +96,7 @@ public class OthelloTheGame extends Observable implements Othello {
 	 * 
 	 * @see kth.game.othello.Othello#getPlayers()
 	 */
+	@Override
 	public List<Player> getPlayers() {
 		return players;
 	}
@@ -100,6 +106,7 @@ public class OthelloTheGame extends Observable implements Othello {
 	 * 
 	 * @see kth.game.othello.Othello#hasValidMove(java.lang.String)
 	 */
+	@Override
 	public boolean hasValidMove(String playerId) {
 		return (turnHandler.playerInTurn(playerId) && rules.hasValidMove(playerId));
 	}
@@ -109,6 +116,7 @@ public class OthelloTheGame extends Observable implements Othello {
 	 * 
 	 * @see kth.game.othello.Othello#isActive()
 	 */
+	@Override
 	public boolean isActive() {
 		return turnHandler.getPlayerInTurn() != null;
 	}
@@ -119,6 +127,7 @@ public class OthelloTheGame extends Observable implements Othello {
 	 * @see kth.game.othello.Othello#isMoveValid(java.lang.String,
 	 * java.lang.String)
 	 */
+	@Override
 	public boolean isMoveValid(String playerId, String nodeId) {
 		return (turnHandler.playerInTurn(playerId) && rules.isMoveValid(playerId, nodeId));
 	}
@@ -128,6 +137,7 @@ public class OthelloTheGame extends Observable implements Othello {
 	 * 
 	 * @see kth.game.othello.Othello#move()
 	 */
+	@Override
 	public List<Node> move() {
 		Player player = turnHandler.getPlayerInTurn();
 		if (player.getType() != Player.Type.COMPUTER) {
@@ -142,6 +152,7 @@ public class OthelloTheGame extends Observable implements Othello {
 	 * 
 	 * @see kth.game.othello.Othello#move(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
 		if (!isMoveValid(playerId, nodeId)) {
 			throw new IllegalArgumentException("Move is not valid");
@@ -165,6 +176,7 @@ public class OthelloTheGame extends Observable implements Othello {
 	 * 
 	 * @see kth.game.othello.Othello#start()
 	 */
+	@Override
 	public void start() {
 		turnHandler.start();
 	}
@@ -174,6 +186,7 @@ public class OthelloTheGame extends Observable implements Othello {
 	 * 
 	 * @see kth.game.othello.Othello#start(java.lang.String)
 	 */
+	@Override
 	public void start(String playerId) {
 		turnHandler.start(playerId);
 	}
@@ -183,6 +196,7 @@ public class OthelloTheGame extends Observable implements Othello {
 	 * 
 	 * @see kth.game.othello.Othello#getScore()
 	 */
+	@Override
 	public Score getScore() {
 		return this.score;
 	}
@@ -201,6 +215,7 @@ public class OthelloTheGame extends Observable implements Othello {
 	 * 
 	 * @see kth.game.othello.Othello#addGameFinishedObserver(java.util.Observer)
 	 */
+	@Override
 	public void addGameFinishedObserver(Observer observer) {
 		this.addObserver(observer);
 	}
@@ -210,6 +225,7 @@ public class OthelloTheGame extends Observable implements Othello {
 	 * 
 	 * @see kth.game.othello.Othello#addMoveObserver(java.util.Observer)
 	 */
+	@Override
 	public void addMoveObserver(Observer observer) {
 		this.rules.addObserver(observer);
 	}
@@ -219,6 +235,7 @@ public class OthelloTheGame extends Observable implements Othello {
 	 * 
 	 * @see kth.game.othello.Othello#getId()
 	 */
+	@Override
 	public String getId() {
 		return this.uuid.toString();
 	}

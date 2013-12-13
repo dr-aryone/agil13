@@ -1,12 +1,14 @@
 package game.othello;
 
 import game.logic.StandardRuleStrategy;
+import game.othello.score.Score_impl;
 
 import java.util.List;
 import java.util.Random;
 
 import kth.game.othello.Rules;
 import kth.game.othello.player.Player;
+import kth.game.othello.score.Score;
 
 /**
  * The responsibility of this class is to handle the turn of the players playing
@@ -17,19 +19,24 @@ import kth.game.othello.player.Player;
  * 
  */
 public class TurnHandler {
-	private List<Player> players;
+	private final List<Player> players;
 	private int playerInTurn = 0;
-	private Rules rules;
+	private final Rules rules;
+	private final Score score;
 
 	/**
 	 * Create a new turnHandler that handles the specified players
 	 * 
-	 * @param players the players taking turns
-	 * @param rules the rules of the game
+	 * @param players
+	 *            the players taking turns
+	 * @param rules
+	 *            the rules of the game
+	 * @param score
 	 */
-	public TurnHandler(List<Player> players, StandardRuleStrategy rules) {
+	public TurnHandler(List<Player> players, StandardRuleStrategy rules, Score score) {
 		this.players = players;
 		this.rules = rules;
+		this.score = score;
 	}
 
 	/**
@@ -43,7 +50,8 @@ public class TurnHandler {
 	/**
 	 * Start the turns with the specified player starting
 	 * 
-	 * @param playerId the id of the player starting the turns
+	 * @param playerId
+	 *            the id of the player starting the turns
 	 */
 	public void start(String playerId) {
 		for (int i = 0; i < players.size(); i++) {
@@ -61,8 +69,15 @@ public class TurnHandler {
 	 */
 	public Player getPlayerInTurn() {
 		for (int i = 0; i < players.size(); i++) {
-			if (rules.hasValidMove(players.get(playerInTurn).getId())) {
+			String playerId = players.get(playerInTurn).getId();
+			if (rules.hasValidMove(playerId)) {
 				return players.get(playerInTurn);
+			} else {
+				/*
+				 * Necessary cast since Score doesn't contain any methods for
+				 * mutating scores
+				 */
+				((Score_impl) score).adjustScore(playerId, -2);
 			}
 			this.changePlayer();
 		}
@@ -88,7 +103,8 @@ public class TurnHandler {
 	/**
 	 * Checks if the specified player is next in turn
 	 * 
-	 * @param playerId the id of the player to check
+	 * @param playerId
+	 *            the id of the player to check
 	 * @return true if the player is next in turn, otherwise false
 	 */
 	public boolean playerInTurn(String playerId) {

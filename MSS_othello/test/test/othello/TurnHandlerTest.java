@@ -50,8 +50,8 @@ public class TurnHandlerTest {
 
 		Score mockedScore = Mockito.mock(Score.class);
 
-		Othello o = (Othello) othelloConstructor.newInstance(board, players, rules, mockedScore, new TurnHandler(
-				players, rules));
+		Othello o = othelloConstructor.newInstance(board, players, rules, mockedScore, new TurnHandler(players, rules,
+				mockedScore));
 
 		o.start("1");
 		Assert.assertEquals("1", o.getPlayerInTurn().getId());
