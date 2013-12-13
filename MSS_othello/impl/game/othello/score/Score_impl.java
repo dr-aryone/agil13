@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -23,11 +24,12 @@ import kth.game.othello.score.ScoreItem;
  */
 public class Score_impl extends Observable implements Observer, Score {
 
-	private HashMap<String, MutableScoreItem> playerScores = new HashMap<String, MutableScoreItem>();
+	private final Map<String, MutableScoreItem> playerScores = new HashMap<String, MutableScoreItem>();
 
 	/**
 	 * 
-	 * @param players the players that score will be kept on
+	 * @param players
+	 *            the players that score will be kept on
 	 */
 	public void addPlayers(List<Player> players) {
 		for (Player player : players) {
@@ -40,6 +42,7 @@ public class Score_impl extends Observable implements Observer, Score {
 	 * 
 	 * @see kth.game.othello.score.Score#addObserver(java.util.Observer)
 	 */
+	@Override
 	public void addObserver(Observer observer) {
 		super.addObserver(observer);
 	}
@@ -49,9 +52,10 @@ public class Score_impl extends Observable implements Observer, Score {
 	 * 
 	 * @see kth.game.othello.score.Score#getPlayersScore()
 	 */
+	@Override
 	public List<ScoreItem> getPlayersScore() {
-		ArrayList<ScoreItem> scoreItems = new ArrayList<ScoreItem>();
-		for (MutableScoreItem mutableScoreItem : this.playerScores.values()) {
+		List<ScoreItem> scoreItems = new ArrayList<ScoreItem>();
+		for (MutableScoreItem mutableScoreItem : playerScores.values()) {
 			scoreItems.add(this.scoreItemToImutableObject(mutableScoreItem));
 		}
 		Collections.sort(scoreItems);
@@ -63,6 +67,7 @@ public class Score_impl extends Observable implements Observer, Score {
 	 * 
 	 * @see kth.game.othello.score.Score#getPoints(java.lang.String)
 	 */
+	@Override
 	public int getPoints(String playerId) {
 		return this.playerScores.get(playerId).score;
 	}
@@ -128,9 +133,22 @@ public class Score_impl extends Observable implements Observer, Score {
 	/**
 	 * Increment a score by one
 	 * 
-	 * @param playerId the id of the player whose score will be incremented
+	 * @param playerId
+	 *            the id of the player whose score will be incremented
 	 */
 	public void incrementScoreByOne(String playerId) {
-		this.playerScores.get(playerId).score++;
+		adjustScore(playerId, 1);
+	}
+
+	/**
+	 * Add <code>adjustment</code> to the score associated with the player ID
+	 * 
+	 * @param playerId
+	 *            the id of the player whose score will be adjusted
+	 * @param adjustment
+	 *            the point adjustment (negative allowed)
+	 */
+	public void adjustScore(String playerId, int adjustment) {
+		playerScores.get(playerId).score += adjustment;
 	}
 }
