@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="impl"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="systemtest"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="src" path="Tournament"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Filip/Documents/mockito/mockito-all-1.9.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Filip/Downloads/OthelloView.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
