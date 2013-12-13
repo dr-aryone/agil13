@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 import kth.game.othello.score.Score;
@@ -25,6 +26,11 @@ import kth.game.othello.score.ScoreItem;
 public class Score_impl extends Observable implements Observer, Score {
 
 	private final Map<String, MutableScoreItem> playerScores = new HashMap<String, MutableScoreItem>();
+	private final Board board;
+
+	public Score_impl(Board board) {
+		this.board = board;
+	}
 
 	/**
 	 * 
@@ -89,17 +95,39 @@ public class Score_impl extends Observable implements Observer, Score {
 		Node node = (Node) o;
 		String oldOccupantPlayerId = (String) arg;
 
-		this.playerScores.get(node.getOccupantPlayerId()).increment();
-
-		ArrayList<String> playerIds = new ArrayList<String>();
+		List<String> playerIds = new ArrayList<String>();
+		playerIds.add(oldOccupantPlayerId);
 		playerIds.add(node.getOccupantPlayerId());
 
-		if (oldOccupantPlayerId != null) {
-			playerIds.add(oldOccupantPlayerId);
-			this.playerScores.get(oldOccupantPlayerId).decrement();
-		}
+		increasePlayerScore(node.getOccupantPlayerId(), node);
+		decreasePlayerScore(oldOccupantPlayerId, node);
+
 		super.setChanged();
 		super.notifyObservers(playerIds);
+	}
+
+	private void increasePlayerScore(String playerId, Node node) {
+		playerScores.get(playerId).increment();
+		if (nodeGivesDoubleScore(node))
+			playerScores.get(playerId).increment();
+	}
+
+	private void decreasePlayerScore(String playerId, Node node) {
+		if (playerId == null)
+			return;
+		playerScores.get(playerId).decrement();
+		if (nodeGivesDoubleScore(node))
+			playerScores.get(playerId).decrement();
+	}
+
+	private boolean nodeGivesDoubleScore(Node node) {
+		int[] dx = { 0, 0, -1, 1 };
+		int[] dy = { 1, -1, 0, 0 };
+		for (int i = 0; i < dx.length; i++) {
+			if (board.hasNode(node.getXCoordinate() + dx[i], node.getYCoordinate() + dy[i]))
+				return false;
+		}
+		return true;
 	}
 
 	private ScoreItem scoreItemToImutableObject(MutableScoreItem scoreItem) {
