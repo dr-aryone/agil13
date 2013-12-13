@@ -75,7 +75,7 @@ public class Score_impl extends Observable implements Observer, Score {
 	 */
 	@Override
 	public int getPoints(String playerId) {
-		return this.playerScores.get(playerId).score;
+		return playerScores.get(playerId).score;
 	}
 
 	@Override
@@ -100,7 +100,8 @@ public class Score_impl extends Observable implements Observer, Score {
 		playerIds.add(node.getOccupantPlayerId());
 
 		increasePlayerScore(node.getOccupantPlayerId(), node);
-		decreasePlayerScore(oldOccupantPlayerId, node);
+		if (oldOccupantPlayerId != null)
+			decreasePlayerScore(oldOccupantPlayerId, node);
 
 		super.setChanged();
 		super.notifyObservers(playerIds);
@@ -140,14 +141,6 @@ public class Score_impl extends Observable implements Observer, Score {
 		public MutableScoreItem(String playerId, int score) {
 			this.score = score;
 			this.playerId = playerId;
-		}
-
-		public void increment() {
-			score++;
-		}
-
-		public void decrement() {
-			score--;
 		}
 
 		@Override

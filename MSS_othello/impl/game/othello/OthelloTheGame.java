@@ -198,7 +198,7 @@ public class OthelloTheGame extends Observable implements Othello {
 	 */
 	@Override
 	public Score getScore() {
-		return this.score;
+		return score;
 	}
 
 	@Override
