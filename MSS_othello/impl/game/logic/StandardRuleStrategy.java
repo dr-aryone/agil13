@@ -20,7 +20,7 @@ import kth.game.othello.board.Node;
  */
 public class StandardRuleStrategy extends Observable implements Rules {
 
-	private StandardBoard board;
+	private final StandardBoard board;
 
 	public StandardRuleStrategy(Board board) {
 		this.board = (StandardBoard) board;
@@ -31,6 +31,7 @@ public class StandardRuleStrategy extends Observable implements Rules {
 	 * 
 	 * @see kth.game.othello.Rules#hasValidMove(java.lang.String)
 	 */
+	@Override
 	public boolean hasValidMove(String playerId) {
 		List<Node> nodes = board.getNodes();
 		for (Node node : nodes) {
@@ -47,6 +48,7 @@ public class StandardRuleStrategy extends Observable implements Rules {
 	 * @see kth.game.othello.Rules#isMoveValid(java.lang.String,
 	 * java.lang.String)
 	 */
+	@Override
 	public boolean isMoveValid(String playerId, String nodeId) {
 		if (board.getNodeById(nodeId).isMarked())
 			return false;
@@ -60,8 +62,10 @@ public class StandardRuleStrategy extends Observable implements Rules {
 	/**
 	 * Occupy a node and swap the occupant of found nodes in lines and diagonals
 	 * 
-	 * @param playerId the id of the player making the move
-	 * @param nodeId the id of the node that is occupied by the player
+	 * @param playerId
+	 *            the id of the player making the move
+	 * @param nodeId
+	 *            the id of the node that is occupied by the player
 	 * @return the list of nodes that have changed occupant
 	 */
 	public List<Node> move(String playerId, String nodeId) {
@@ -86,6 +90,7 @@ public class StandardRuleStrategy extends Observable implements Rules {
 	 * @see kth.game.othello.Rules#getNodesToSwap(java.lang.String,
 	 * java.lang.String)
 	 */
+	@Override
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
 		List<Node> nodes = new ArrayList<Node>();
 
@@ -93,10 +98,6 @@ public class StandardRuleStrategy extends Observable implements Rules {
 		nodes.addAll(this.nodesInLine(board, board.getNodeById(nodeId), playerId, -1, 0));
 		nodes.addAll(this.nodesInLine(board, board.getNodeById(nodeId), playerId, 0, 1));
 		nodes.addAll(this.nodesInLine(board, board.getNodeById(nodeId), playerId, 0, -1));
-		nodes.addAll(this.nodesInLine(board, board.getNodeById(nodeId), playerId, 1, 1));
-		nodes.addAll(this.nodesInLine(board, board.getNodeById(nodeId), playerId, -1, -1));
-		nodes.addAll(this.nodesInLine(board, board.getNodeById(nodeId), playerId, 1, -1));
-		nodes.addAll(this.nodesInLine(board, board.getNodeById(nodeId), playerId, -1, 1));
 
 		return nodes;
 	}
@@ -105,11 +106,16 @@ public class StandardRuleStrategy extends Observable implements Rules {
 	 * Traverse a board according to the change in x- and y-direction. Stop when
 	 * a node occupied by the specified player is found
 	 * 
-	 * @param board the board to traverse
-	 * @param node the starting point of the line
-	 * @param playerId the id of the player occupying the end node
-	 * @param change_x the change in x-direction
-	 * @param change_y the change in y-direction
+	 * @param board
+	 *            the board to traverse
+	 * @param node
+	 *            the starting point of the line
+	 * @param playerId
+	 *            the id of the player occupying the end node
+	 * @param change_x
+	 *            the change in x-direction
+	 * @param change_y
+	 *            the change in y-direction
 	 * @return the nodes found between the startnode and the endnode
 	 */
 	private List<Node> nodesInLine(StandardBoard board, StandardNode node, String playerId, int change_x, int change_y) {

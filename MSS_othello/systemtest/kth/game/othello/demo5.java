@@ -1,7 +1,6 @@
 package kth.game.othello;
 
 import game.othello.OthelloCreatorImpl;
-import game.othello.OthelloTheGame;
 import game.othello.board.BoardCreatorImpl;
 import game.othello.board.NodeCreatorImpl;
 import game.othello.player.PlayerCreatorImpl;
@@ -15,11 +14,11 @@ import org.junit.Test;
  * @author Filip Gauffin, filipgau@kth.se
  * @author Jonas Carlsson, jonas.ba.carlsson@gmail.com
  * 
- * 1. Start a human against human game.
+ *         1. Start a human against human game.
  * 
- * 2. Make four moves for each player.
+ *         2. Make four moves for each player.
  * 
- * 3. Show the score.
+ *         3. Show the score.
  * 
  */
 public class demo5 {
@@ -37,33 +36,9 @@ public class demo5 {
 		// make 8 moves here
 		nodeId = othello.getBoard().getNode(3, 5).getId();
 		othello.move(player1.getId(), nodeId);
-		System.out.println((OthelloTheGame) othello);
-
-		nodeId = othello.getBoard().getNode(2, 5).getId();
-		othello.move(player2.getId(), nodeId);
-		System.out.println(othello);
-
-		nodeId = othello.getBoard().getNode(2, 4).getId();
-		othello.move(player1.getId(), nodeId);
 		System.out.println(othello);
 
 		nodeId = othello.getBoard().getNode(2, 3).getId();
-		othello.move(player2.getId(), nodeId);
-		System.out.println(othello);
-
-		nodeId = othello.getBoard().getNode(5, 2).getId();
-		othello.move(player1.getId(), nodeId);
-		System.out.println(othello);
-
-		nodeId = othello.getBoard().getNode(4, 5).getId();
-		othello.move(player2.getId(), nodeId);
-		System.out.println(othello);
-
-		nodeId = othello.getBoard().getNode(1, 4).getId();
-		othello.move(player1.getId(), nodeId);
-		System.out.println(othello);
-
-		nodeId = othello.getBoard().getNode(5, 3).getId();
 		othello.move(player2.getId(), nodeId);
 		System.out.println(othello);
 
